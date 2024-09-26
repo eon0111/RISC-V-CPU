@@ -240,8 +240,7 @@ class Passthrough extends Module {
 		val out = Output(UInt(4.W))
 	})
 
-	io.out := io.in	// Las conexiones entre puertos son con el operador direccional ':=', así como
-					// las asignaciones. Las inicializaciones se hacen con el operador '='
+	io.out := io.in	// Las conexiones entre puertos son con el operador direccional ':='
 }
 ```
 
@@ -279,8 +278,23 @@ println("PASSED")
 Para realizar operaciones con variables de tipos distintos, los casteos deben ser explícitos, es decir que si, por ejemplo, quieres sumar 1 y 1, y una de las variables la inicializas como entero sin signo (```1.U```), el otro tiene que estar inicializado del mismo modo:
 
 ```scala
-val suma := 1.U + 1.U
+val suma := 1.U + 1.U	// All good!
+val suma := 1.U + 1		// Error: "incompatible types"
 ```
+
+Pueden realizarse las operaciones clásicas de suma, resta y producto (```+```, ```-```, ```*```), además de otras operaciones integradas en Chisel como son el multiplexor (```Mux(<sel>, <val1>, <val2>)```) o la concatenación (```Cat(<val1>, <val2>)```). Su uso es como sigue:
+
+```scala
+val s = true.B
+val res_mux = Mux(s, 3.U, 0.U)	// res_mux es 3.U dado que s es cierto
+val res_cat = Cat(2.U, 1.U)		// res_cat es 0b10 << 1 + 0b1 = 0b101
+```
+
+
+
+
+
+
 
 [comment]: <> (// TODO: no entiendo la utilidad de la función 'peek')
 [comment]: <> (// TODO: no entiendo por qué no puedo definir una variable de Chisel como 'var') 
