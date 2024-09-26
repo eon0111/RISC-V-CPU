@@ -2,7 +2,7 @@
 
 ### VARIABLES Y CONSTANTES
 
-```var``` &rarr; variables  
+```var``` &rarr; variables (no usar **NUNCA** para definir variables de Chisel)  
 ```val``` &rarr; constantes
 
 ---
@@ -240,7 +240,8 @@ class Passthrough extends Module {
 		val out = Output(UInt(4.W))
 	})
 
-	io.out := io.in	// Las conexiones entre puertos son con el operador direccional ':='
+	io.out := io.in	// Las conexiones entre puertos son con el operador direccional ':=', así como
+					// las asignaciones. Las inicializaciones se hacen con el operador '='
 }
 ```
 
@@ -271,5 +272,15 @@ test(new <modulo/generadorATestear>()) { c =>	// 'c' de circuito
 println("PASSED")
 ```
 
-[comment]: <> (// TODO: no entiendo la utilidad de la función 'peek') 
+---
 
+### OPERACIONES
+
+Para realizar operaciones con variables de tipos distintos, los casteos deben ser explícitos, es decir que si, por ejemplo, quieres sumar 1 y 1, y una de las variables la inicializas como entero sin signo (```1.U```), el otro tiene que estar inicializado del mismo modo:
+
+```scala
+val suma := 1.U + 1.U
+```
+
+[comment]: <> (// TODO: no entiendo la utilidad de la función 'peek')
+[comment]: <> (// TODO: no entiendo por qué no puedo definir una variable de Chisel como 'var') 
