@@ -290,7 +290,21 @@ val res_mux = Mux(s, 3.U, 0.U)	// res_mux es 3.U dado que s es cierto
 val res_cat = Cat(2.U, 1.U)		// res_cat es 0b10 << 1 + 0b1 = 0b101
 ```
 
+---
 
+### ```when```, ```elsewhen``` y ```otherwise```
+
+Estas palabras clave de Chisel permiten elaborar constructos de lógica condicional. La estructura básica es como sigue:
+
+```scala
+when(condición1) {
+	...
+}.elsewhen(condición2) {
+	...
+}.otherwise {
+	...
+}
+```
 
 
 
