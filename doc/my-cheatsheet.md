@@ -6,7 +6,6 @@
 ```val``` &rarr; constantes
 
 ---
-
 ### CONDICIONALES
 
 ```scala
@@ -40,7 +39,6 @@ val const = if (condición) <valor1> else <valor2>
 ```
 
 ---
-
 ### FUNCIONES
 
 ```scala
@@ -96,7 +94,6 @@ func(1, 2)		// arg1 = 1, arg2 = 2, arg3 = 10
 ```
 
 ---
-
 ### LISTAS
 
 Definimos una lista simple del modo siguiente:
@@ -167,7 +164,6 @@ for (i <- <lista>) { ... }
 ```
 
 ---
-
 ### PAQUETES
 
 ```scala
@@ -189,7 +185,6 @@ import meganombredepaquete ---> import mega.nombre.de.paquete
 - **TIP:** Para indicarle al compilador que quieres importar todos los componentes de un paquete no se usa '*' como en Java, sino que se usa '\_', como en el ejemplo de import de arriba (import <nombre>.\_)
 
 ---
-
 ### CLASES
 
 ```scala
@@ -213,7 +208,6 @@ class <Nombre>(<param>: <tipo>, ...) {
 ```
 
 ---
-
 ### MÓDULOS
 
 Construcción básica:
@@ -255,7 +249,6 @@ println(getVerilog(new <nombreModulo>))
 - **TIP:** Las clases que reciben parámetros y extienden la clase Module de Chisel ya no se llaman módulos, sino generadores, puesto que en función de sus argumentos pueden generarse módulos hardware con características distintas.
 
 ---
-
 ### TESTS
 
 Sintáxis de un test:
@@ -272,7 +265,6 @@ println("PASSED")
 ```
 
 ---
-
 ### OPERACIONES
 
 Para realizar operaciones con variables de tipos distintos, los casteos deben ser explícitos, es decir que si, por ejemplo, quieres sumar 1 y 1, y una de las variables la inicializas como entero sin signo (```1.U```), el otro tiene que estar inicializado del mismo modo:
@@ -291,7 +283,6 @@ val res_cat = Cat(2.U, 1.U)		// res_cat es 0b10 << 1 + 0b1 = 0b101
 ```
 
 ---
-
 ### ```when```, ```elsewhen``` y ```otherwise```
 
 Estas palabras clave de Chisel permiten elaborar constructos de lógica condicional. La estructura básica es como sigue:
@@ -306,9 +297,46 @@ when(condición1) {
 }
 ```
 
+---
+### Lógica secuencial
+
+Podemos crear registros del siguiente modo:
+
+```scala
+Reg(<tipo>)	// <tipo> es alguno de los tipos de Chisel (UInt, SInt, etc.)
+
+Reg(UInt(32.W))	// Un registro de 32 bits
+```
+Por defecto, todos los componentes que requieren una señal de reloj, reciben la misma señal de reloj para evitar tener que indicarla en todos los módulos. De este modo, cuando se invoca un tick del reloj, por ejemplo, desde un test (```c.clock.step(n)```, donde ```n``` es el número de ticks), todos los eltos. con estado reciben ese tick.
+
+Existe un tipo "especial" de registro que no requiere indicar el tipo de dato que albergará. ```RegNext(...)``` puede inferir el tipo de dato en base al tipo de las entradas que recibirá, por ejemplo:
+
+```scala
+class RegNextModule extends Module {
+  val io = IO(new Bundle {
+    val in  = Input(UInt(12.W))
+    val out = Output(UInt(12.W))
+  })
+  
+  io.out := RegNext(io.in + 1.U)
+}
+```
+
+La salida de este módulo será 1 + el valor de la entrada en el siguiente flanco ascendente del reloj.
+
+También pueden crearse registros que estén inicializados a un valor concreto, por ejemplo:
+
+```scala
+// Dos formas de crear un registro inicializado a cero
+val myReg = RegInit(UInt(12.W), 0.U)
+val myReg = RegInit(0.U(12.W))
+```
+
+Internamente los registros cuentan con una señal de reset (en el Verilog) y, cuando se activa esta señal, su valor cambia al valor de reset indicado en su instanciación.
 
 
 
 
 [comment]: <> (// TODO: no entiendo la utilidad de la función 'peek')
-[comment]: <> (// TODO: no entiendo por qué no puedo definir una variable de Chisel como 'var') 
+[comment]: <> (// TODO: no entiendo por qué no puedo definir una variable de Chisel como 'var')
+[comment]: <> (// TODO: no me queda clara la diferencia entre los operadores '=' y ':=')
