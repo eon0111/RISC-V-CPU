@@ -26,6 +26,8 @@ class InstructionFetch extends Module {
     io.instruction := io.instruction_read_data
     // lab3(InstructionFetch) begin
 
+    pc  := pc + 4.U
+
     // lab3(InstructionFetch) end
 
   }.otherwise {

@@ -1,0 +1,4 @@
+[debug] [root-test] Classpath dependencies List()
+[debug] [root-test] Dependencies from configurations List(root)
+[debug] Bloop wrote the configuration of project 'root-test' to '/home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/.bloop/root-test.json'
+[success] Generated .bloop/root-test.json
