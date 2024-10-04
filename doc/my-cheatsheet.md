@@ -337,6 +337,6 @@ Internamente los registros cuentan con una señal de reset (en el Verilog) y, cu
 
 
 
-[comment]: <> (// TODO: no entiendo la utilidad de la función 'peek')
+[comment]: <> (// TODO: no entiendo la utilidad de la función 'peek' -> peek para printear, expect para hacer assert)
 [comment]: <> (// TODO: no entiendo por qué no puedo definir una variable de Chisel como 'var')
 [comment]: <> (// TODO: no me queda clara la diferencia entre los operadores '=' y ':=')

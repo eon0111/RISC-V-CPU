@@ -12,13 +12,13 @@ object ProgramCounter {
 
 class InstructionFetch extends Module {
   val io = IO(new Bundle {
-    val jump_flag_id          = Input(Bool())
-    val jump_address_id       = Input(UInt(Parameters.AddrWidth))
+    val jump_flag_id          = Input(Bool()) // Indica si se ha producido un salto (es el cable que controla la entrada del PC -> la dirección de un branch o el PC+4)
+    val jump_address_id       = Input(UInt(Parameters.AddrWidth)) // La dirección de un salto en caso de indicarse con el flag
     val instruction_read_data = Input(UInt(Parameters.DataWidth))
     val instruction_valid     = Input(Bool())
 
-    val instruction_address = Output(UInt(Parameters.AddrWidth))
-    val instruction         = Output(UInt(Parameters.InstructionWidth))
+    val instruction_address = Output(UInt(Parameters.AddrWidth))  // La dirección de la siguiente instrucción a ejecutar
+    val instruction         = Output(UInt(Parameters.InstructionWidth)) // La siguiente instrucción a ejecutar
   })
   val pc = RegInit(ProgramCounter.EntryAddress)
 
@@ -26,7 +26,7 @@ class InstructionFetch extends Module {
     io.instruction := io.instruction_read_data
     // lab3(InstructionFetch) begin
 
-    pc  := pc + 4.U
+    pc  := Mux(io.jump_flag_id, io.jump_address_id, pc + 4.U)
 
     // lab3(InstructionFetch) end
 
