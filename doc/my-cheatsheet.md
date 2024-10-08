@@ -5,6 +5,9 @@
 ```var``` &rarr; variables (no usar **NUNCA** para definir variables de Chisel)  
 ```val``` &rarr; constantes
 
+- **TIP:** No puede usarse ```var``` para definir variables de Chisel porque en diseño hardware no existen las variables como tal, sino que todo queda inicializado desde un comienzo. Con ```var``` se especifica la existencia de un cable que, según la lógica con que esté implementado el módulo al que pertenezca, tomará un valor u otro.  
+El uso que se hace de las variables en Scala o cualquier otro lenguaje de programación, se implementa en hardware mediante el uso de registros.
+
 ---
 ### CONDICIONALES
 
@@ -264,6 +267,8 @@ test(new <modulo/generadorATestear>()) { c =>	// 'c' de circuito
 println("PASSED")
 ```
 
+- **TIP:** con la función ```peek``` puede observarse el valor de un cable concreto (puede ser útil para depurar con printf's)
+
 ---
 ### OPERACIONES
 
@@ -337,6 +342,23 @@ Internamente los registros cuentan con una señal de reset (en el Verilog) y, cu
 
 
 
-[comment]: <> (// TODO: no entiendo la utilidad de la función 'peek' -> peek para printear, expect para hacer assert)
-[comment]: <> (// TODO: no entiendo por qué no puedo definir una variable de Chisel como 'var')
-[comment]: <> (// TODO: no me queda clara la diferencia entre los operadores '=' y ':=')
+---
+---
+---
+
+# RISC-V
+
+El ISA RISC-V es en realidad un agregado de ISA's, cada uno de los cuales está orientado a la realización de operaciones en entornos con características variadas (diferentes espacios de direccionamiento (32, 64 ó 128 bits), hardware con capacidades limitadas, etc.). No obstante lo anterior, RISC-V es un ISA bien organizado que cuenta con un subconjunto de operaciones base, al cual pueden agregarse una serie de extensiones para dotar de mayor funcionalidad a la arquitectura.
+
+Las extensiones base definidas por la fundación RISC-V son las siguientes:
+- **M**: multiplicación y división de enteros
+- **A**: instrucciones atómicas
+- **F**: operaciones de punto flotante en precisión simple
+- **D**: operaciones de punto flotante en precisión doble
+- **C**: instrucciones comunes adaptadas para trabajar en 16 bits
+
+## Memoria
+
+El tamaño total del espacio de direccionamiento se calcula como 2<sup>XLEN</sup>, siendo ```XLEN``` la longitud de las direcciones empleadas. Este espacio de direccionamiento es circular, lo cual quiere decir que el byte en la posición 0 y el byte en la posición 2<sup>XLEN-1</sup> son contiguos, es decir, que toda dirección de memoria con la que opera el hardware se trata en módulo 2<sup>XLEN</sup>, ignorando los overflows.
+
+TODO: pag. 7 en adelante
