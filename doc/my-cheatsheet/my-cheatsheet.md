@@ -361,4 +361,10 @@ Las extensiones base definidas por la fundación RISC-V son las siguientes:
 
 El tamaño total del espacio de direccionamiento se calcula como 2<sup>XLEN</sup>, siendo ```XLEN``` la longitud de las direcciones empleadas. Este espacio de direccionamiento es circular, lo cual quiere decir que el byte en la posición 0 y el byte en la posición 2<sup>XLEN-1</sup> son contiguos, es decir, que toda dirección de memoria con la que opera el hardware se trata en módulo 2<sup>XLEN</sup>, ignorando los overflows.
 
-TODO: pag. 7 en adelante
+## RV32I
+
+Se dispone de 32 registros de 32 bits, donde el registro ```x0``` sólo contiene ceros. Además, se cuenta con un registro adicional que es el *program counter* (```pc```). No hay un registro dedicado para el *stack pointer* ni para la dirección de retorno de las subrutinas (```LR```), sino que cualquiera de los 31 registros de propósito general puede emplearse con estos fines. No obstante, por convención, suelen emplearse como ```LR``` y ```PC``` respectivamente los registros ```x1``` y ```x2```.
+
+En el ISA base se describen 5 formatos de instrucciones, que son los siguientes:
+- ```R```, ```I```, ```S``` y ```U```.
+
