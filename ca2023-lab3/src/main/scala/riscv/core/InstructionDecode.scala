@@ -17,7 +17,7 @@ object InstructionTypes {
   val B  = "b1100011".U
 }
 
-object Instructions {
+object Instructions {       
   val lui   = "b0110111".U
   val nop   = "b0000001".U
   val jal   = "b1101111".U
@@ -151,7 +151,7 @@ class InstructionDecode extends Module {
     opcode,
     Cat(Fill(20, io.instruction(31)), io.instruction(31, 20)),
     IndexedSeq(
-      InstructionTypes.I -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 20)),
+      InstructionTypes.I -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 20)),  // NOTE: con 'Fill' extiende el signo del inmediato a 32 bits, y concatena el resultado de la extensión (que es el signo repetido tantas veces como sea necesario) al valor del inmediato
       InstructionTypes.L -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 20)),
       Instructions.jalr  -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 20)),
       InstructionTypes.S -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 25), io.instruction(11, 7)),
@@ -162,7 +162,8 @@ class InstructionDecode extends Module {
         io.instruction(11, 8),
         0.U(1.W)
       ),
-      Instructions.lui   -> Cat(io.instruction(31, 12), 0.U(12.W)),
+      Instructions.lui   -> Cat(io.instruction(31, 12), 0.U(12.W)), // NOTE: doc@p19 -> 'lui' mueve un inmediato de 20 bits (con signo) a un registro.
+                                                                    // TODO: en un principio no habría diferencia entre hacer 'lui rd, imm' y 'addi rd, x0, imm', no?
       Instructions.auipc -> Cat(io.instruction(31, 12), 0.U(12.W)),
       // jal's imm represents a multiple of 2 bytes.
       Instructions.jal -> Cat(
@@ -195,6 +196,8 @@ class InstructionDecode extends Module {
   )
 
   // lab3(InstructionDecode) begin
+
+  
 
   // lab3(InstructionDecode) end
 

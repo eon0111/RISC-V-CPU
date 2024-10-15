@@ -287,6 +287,33 @@ val res_mux = Mux(s, 3.U, 0.U)	// res_mux es 3.U dado que s es cierto
 val res_cat = Cat(2.U, 1.U)		// res_cat es 0b10 << 1 + 0b1 = 0b101
 ```
 
+También existe el constructo de Chisel ```MuxLookup```, que recibe como parámetros una señal de control, un valor por defecto para la salida, y un array de asignaciones entre los valores de la señal de control y los valores de la señal de salida. Su uso es como sigue:
+
+```scala
+// MuxLookup(control, default, Array/IndexedSeq(ctrl1 -> out1, ctrl2 -> out2, ...))
+
+class MuxLookupExample extends Module {
+  val io = IO(new Bundle {
+    val in_0 = Input(UInt(1.W))
+    val in_1 = Input(UInt(1.W))
+    val select = Input(Bool())
+    val out = Output(UInt(1.W))
+  })
+
+  val inputs = Array(
+    false.B -> io.in_0,
+    true.B -> io.in_1
+  )
+
+  io.out := MuxLookup(io.select, io.in_0, inputs)
+
+  // o también
+
+  io.out := MuxLookup(io.select, io.in_0, Array(false.B -> io.in_0,
+                                                true.B  -> io.in_1))
+}
+```
+
 ---
 ### ```when```, ```elsewhen``` y ```otherwise```
 
@@ -365,6 +392,12 @@ El tamaño total del espacio de direccionamiento se calcula como 2<sup>XLEN</sup
 
 Se dispone de 32 registros de 32 bits, donde el registro ```x0``` sólo contiene ceros. Además, se cuenta con un registro adicional que es el *program counter* (```pc```). No hay un registro dedicado para el *stack pointer* ni para la dirección de retorno de las subrutinas (```LR```), sino que cualquiera de los 31 registros de propósito general puede emplearse con estos fines. No obstante, por convención, suelen emplearse como ```LR``` y ```PC``` respectivamente los registros ```x1``` y ```x2```.
 
-En el ISA base se describen 5 formatos de instrucciones, que son los siguientes:
-- ```R```, ```I```, ```S``` y ```U```.
+En el ISA base se describen 5 formatos de instrucciones, que son los siguientes: ```R```, ```I```, ```S``` y ```U```.
 
+- ```R```: operaciones con enteros en las que únicamente se trabaja con registros como operandos
+- ```I```: operaciones con enteros donde uno de los operandos es un registro y el otro es un inmediato con signo
+
+
+
+
+- ```J```: es el formato que emplea la instrucción ```jal``` ("Jump And Link"), que es el salto incondicional
