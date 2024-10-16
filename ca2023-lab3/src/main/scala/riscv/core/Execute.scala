@@ -7,6 +7,7 @@ import chisel3._
 import chisel3.util.Cat
 import chisel3.util.MuxLookup
 import riscv.Parameters
+import chisel3.util.Fill
 
 class Execute extends Module {
   val io = IO(new Bundle {
@@ -30,13 +31,34 @@ class Execute extends Module {
   val uimm   = io.instruction(19, 15)
 
   val alu      = Module(new ALU)
-  val alu_ctrl = Module(new ALUControl)
+  val alu_ctrl = Module(new ALUControl) // NOTE: ALUControl es un módulo encargado de extraer la operación a realizar en base al opcode y los campos func3 y func7
 
   alu_ctrl.io.opcode := opcode
   alu_ctrl.io.funct3 := funct3
   alu_ctrl.io.funct7 := funct7
 
   // lab3(Execute) begin
+
+
+  // NOTE: configuración del tipo de operación en la ALU
+  alu.io.func := alu_ctrl.io.alu_funct
+
+  // NOTE: configuración de los operandos
+  alu.io.op1 := MuxLookup(
+    opcode,
+    0.U(Parameters.DataWidth),
+    IndexedSeq(
+      Instructions.jal -> io.instruction_address
+    )
+  )
+
+  alu.io.op2 := MuxLookup(
+    opcode,
+    0.U(Parameters.DataWidth),
+    IndexedSeq(
+      Instructions.jal -> Fill(22, io.instruction(30, 21))  // NOTE: extensión del signo del offset
+    )
+  )
 
   // lab3(Execute) end
 

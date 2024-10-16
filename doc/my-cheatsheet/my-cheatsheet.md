@@ -392,12 +392,11 @@ El tamaño total del espacio de direccionamiento se calcula como 2<sup>XLEN</sup
 
 Se dispone de 32 registros de 32 bits, donde el registro ```x0``` sólo contiene ceros. Además, se cuenta con un registro adicional que es el *program counter* (```pc```). No hay un registro dedicado para el *stack pointer* ni para la dirección de retorno de las subrutinas (```LR```), sino que cualquiera de los 31 registros de propósito general puede emplearse con estos fines. No obstante, por convención, suelen emplearse como ```LR``` y ```PC``` respectivamente los registros ```x1``` y ```x2```.
 
-En el ISA base se describen 5 formatos de instrucciones, que son los siguientes: ```R```, ```I```, ```S``` y ```U```.
+En el **ISA base** se describen 5 formatos de instrucciones, que son los siguientes: ```R```, ```I```, ```S```, ```U```, ```B``` y ```J```.
 
 - ```R```: operaciones con enteros en las que únicamente se trabaja con registros como operandos
-- ```I```: operaciones con enteros donde uno de los operandos es un registro y el otro es un inmediato con signo
-
-
-
-
+- ```I```: operaciones con enteros donde uno de los operandos es un registro y el otro es un inmediato con signo (los loads siguen este formato)
+- ```S```: operaciones de escritura de datos en memoria
+- ```U```: carga de inmediatos de hasta 20 bits en los registros del core (instrucción ```lui```). Si no existiera este formato, solo podrían cargarse inmediatos de hasta 12 bits como dicta el formato ```I```
+- ```B```: saltos condicionales
 - ```J```: es el formato que emplea la instrucción ```jal``` ("Jump And Link"), que es el salto incondicional

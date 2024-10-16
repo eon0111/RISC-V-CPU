@@ -197,7 +197,25 @@ class InstructionDecode extends Module {
 
   // lab3(InstructionDecode) begin
 
-  
+  // Configuracion de las señales que controlan el acceso a memoria
+  io.memory_read_enable := Mux(
+    opcode === InstructionTypes.L,
+    true.B,
+    false.B
+  )
+
+  io.memory_write_enable := Mux(
+    opcode === InstructionTypes.S,
+    true.B,
+    false.B
+  )
+
+  // Configuración de la señal de control que habilita la escritura en el banco de registros
+  io.wb_reg_write_source := Mux(
+    opcode === InstructionTypes.L,
+    true.B,
+    false.B
+  )
 
   // lab3(InstructionDecode) end
 

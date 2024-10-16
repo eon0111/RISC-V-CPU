@@ -714,3 +714,881 @@ ADVERTENCIA: Unmatched cancel notification for request id 1326
 2024.10.15 13:51:48 INFO  shutting down Metals
 2024.10.15 13:51:48 INFO  Shut down connection with build server.
 2024.10.15 13:51:48 INFO  Exiting server
+2024.10.16 17:42:37 INFO  Started: Metals version 1.3.5 in folders '/home/eon/Documentos/TFM/RISC-V-CPU' for client Visual Studio Code 1.94.2.
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [scribe.slf4j.ScribeServiceProvider@69cbd7b7]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@3fa397a8]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [scribe.slf4j.ScribeServiceProvider@69cbd7b7]
+2024.10.16 17:42:38 WARN  Flyway upgrade recommended: H2 2.3.230 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.10.16 17:42:39 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala. Using presentation compiler with project's scala-library version: 3.3.3
+2024.10.16 17:42:39 INFO  Attempting to connect to the build server...
+2024.10.16 17:42:46 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/bsp.trace.json or /home/eon/.cache/metals/bsp.trace.json
+2024.10.16 17:42:51 INFO  time: Connected to build server in 11s
+2024.10.16 17:42:51 INFO  Connected to Build server: Bloop v1.6.0
+2024.10.16 17:42:51 INFO  time: Imported build in 0.31s
+2024.10.16 17:42:51 INFO  running doctor check
+2024.10.16 17:42:51 INFO  java targets: root-test, root
+2024.10.16 17:42:51 WARN  2.13.10 is no longer supported in the current Metals versions, using the last known supported version 1.3.3
+2024.10.16 17:42:55 WARN  Flyway upgrade recommended: H2 2.3.230 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.10.16 17:42:57 INFO  time: indexed workspace in 6.09s
+oct 16, 2024 5:49:49 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 28
+2024.10.16 17:49:51 INFO  compiling root (1 scala source)
+2024.10.16 17:49:57 INFO  time: compiled root in 5.47s
+2024.10.16 17:49:57 INFO  compiling root (1 scala source)
+2024.10.16 17:49:59 INFO  time: compiled root in 2.21s
+2024.10.16 17:50:56 INFO  compiling root (1 scala source)
+2024.10.16 17:50:57 INFO  time: compiled root in 1.42s
+oct 16, 2024 5:51:03 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 205
+2024.10.16 17:51:05 INFO  compiling root (1 scala source)
+2024.10.16 17:51:07 INFO  time: compiled root in 1.91s
+2024.10.16 17:51:07 INFO  compiling root (1 scala source)
+2024.10.16 17:51:08 INFO  time: compiled root in 1.11s
+2024.10.16 17:51:12 INFO  compiling root (1 scala source)
+2024.10.16 17:51:12 INFO  time: compiled root in 0.84s
+2024.10.16 17:51:15 INFO  compiling root (1 scala source)
+2024.10.16 17:51:15 INFO  time: compiled root in 0.26s
+2024.10.16 17:51:19 INFO  compiling root (1 scala source)
+2024.10.16 17:51:20 INFO  time: compiled root in 1.15s
+2024.10.16 17:51:20 INFO  compiling root (1 scala source)
+2024.10.16 17:51:20 INFO  time: compiled root in 0.17s
+oct 16, 2024 7:19:32 P. M. scala.meta.internal.pc.CompilerAccess handleError
+GRAVE: A severe compiler error occurred, full details of the error can be found in the error report /home/eon/Documentos/TFM/RISC-V-CPU/.metals/.reports/metals-full/2024-10-16/r_compiler-error_(root)_19-19-32-262.md
+2024.10.16 19:19:32 WARN  Could not find semantic tokens for: file:///home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:19:33 INFO  compiling root (1 scala source)
+2024.10.16 19:19:33 INFO  time: compiled root in 0.55s
+2024.10.16 19:19:51 INFO  compiling root (1 scala source)
+2024.10.16 19:19:52 INFO  time: compiled root in 1.3s
+2024.10.16 19:19:57 INFO  compiling root (1 scala source)
+2024.10.16 19:19:58 INFO  time: compiled root in 1.57s
+2024.10.16 19:19:58 INFO  compiling root (1 scala source)
+2024.10.16 19:19:58 INFO  time: compiled root in 0.31s
+2024.10.16 19:20:38 INFO  compiling root (1 scala source)
+2024.10.16 19:20:40 INFO  time: compiled root in 1.08s
+2024.10.16 19:20:41 INFO  compiling root (1 scala source)
+2024.10.16 19:20:41 INFO  time: compiled root in 0.71s
+2024.10.16 19:20:43 INFO  compiling root (1 scala source)
+2024.10.16 19:20:43 INFO  time: compiled root in 0.82s
+2024.10.16 19:20:45 INFO  compiling root (1 scala source)
+2024.10.16 19:20:45 INFO  time: compiled root in 0.64s
+2024.10.16 19:20:49 INFO  compiling root (1 scala source)
+oct 16, 2024 7:20:49 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 616
+oct 16, 2024 7:20:49 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 614
+oct 16, 2024 7:20:49 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 618
+oct 16, 2024 7:20:50 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 612
+oct 16, 2024 7:20:50 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 621
+2024.10.16 19:20:51 INFO  time: compiled root in 1.88s
+2024.10.16 19:20:51 INFO  compiling root (1 scala source)
+2024.10.16 19:20:51 INFO  time: compiled root in 0.65s
+2024.10.16 19:20:53 INFO  compiling root (1 scala source)
+2024.10.16 19:20:53 INFO  time: compiled root in 0.79s
+2024.10.16 19:20:57 INFO  compiling root (1 scala source)
+2024.10.16 19:20:57 INFO  time: compiled root in 0.65s
+2024.10.16 19:21:12 INFO  compiling root (1 scala source)
+2024.10.16 19:21:12 INFO  time: compiled root in 0.73s
+2024.10.16 19:21:14 INFO  compiling root (1 scala source)
+oct 16, 2024 7:21:21 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 746
+2024.10.16 19:21:23 INFO  time: compiled root in 8.88s
+2024.10.16 19:21:23 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:21:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:21:24 INFO  compiling root (1 scala source)
+2024.10.16 19:21:29 INFO  time: compiled root in 4.52s
+2024.10.16 19:21:34 INFO  compiling root (1 scala source)
+2024.10.16 19:21:34 INFO  time: compiled root in 0.2s
+2024.10.16 19:21:38 INFO  compiling root (1 scala source)
+oct 16, 2024 7:21:41 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 837
+oct 16, 2024 7:21:42 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 858
+oct 16, 2024 7:21:43 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 867
+2024.10.16 19:21:45 INFO  time: compiled root in 6.93s
+2024.10.16 19:21:47 INFO  compiling root (1 scala source)
+2024.10.16 19:21:47 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:21:51 INFO  time: compiled root in 3.71s
+2024.10.16 19:22:20 INFO  compiling root (1 scala source)
+oct 16, 2024 7:22:22 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 997
+oct 16, 2024 7:22:22 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 998
+2024.10.16 19:22:23 INFO  time: compiled root in 3.92s
+2024.10.16 19:22:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:22:23 INFO  compiling root (1 scala source)
+2024.10.16 19:22:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+oct 16, 2024 7:22:24 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1026
+2024.10.16 19:22:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:22:25 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:22:27 INFO  time: compiled root in 3.24s
+2024.10.16 19:22:31 INFO  compiling root (1 scala source)
+2024.10.16 19:22:33 INFO  time: compiled root in 2.9s
+2024.10.16 19:22:36 INFO  compiling root (1 scala source)
+2024.10.16 19:22:39 INFO  time: compiled root in 2.85s
+2024.10.16 19:22:40 INFO  compiling root (1 scala source)
+2024.10.16 19:22:43 INFO  time: compiled root in 2.7s
+2024.10.16 19:23:38 INFO  compiling root (1 scala source)
+2024.10.16 19:23:41 INFO  time: compiled root in 2.77s
+oct 16, 2024 7:23:41 P. M. scala.meta.internal.pc.CompilerAccess retryWithCleanCompiler
+INFORMACIÓN: compiler crashed due to an error in the Scala compiler, retrying with new compiler instance.
+2024.10.16 19:23:41 INFO  compiling root (1 scala source)
+2024.10.16 19:23:42 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:23:42 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:23:43 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:23:44 INFO  time: compiled root in 2.46s
+2024.10.16 19:23:56 INFO  compiling root (1 scala source)
+2024.10.16 19:23:58 INFO  time: compiled root in 2.68s
+2024.10.16 19:23:59 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:24:00 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:24:02 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:24:05 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala
+2024.10.16 19:24:05 INFO  compiling root (1 scala source)
+2024.10.16 19:24:09 INFO  time: compiled root in 3.61s
+oct 16, 2024 7:24:23 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1708
+oct 16, 2024 7:24:23 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1705
+2024.10.16 19:24:26 INFO  compiling root (1 scala source)
+2024.10.16 19:24:26 INFO  time: compiled root in 0.48s
+oct 16, 2024 7:24:29 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1747
+2024.10.16 19:24:34 INFO  compiling root (1 scala source)
+2024.10.16 19:24:34 INFO  time: compiled root in 0.57s
+oct 16, 2024 7:24:34 P. M. scala.meta.internal.pc.CompilerAccess retryWithCleanCompiler
+INFORMACIÓN: compiler crashed due to an error in the Scala compiler, retrying with new compiler instance.
+2024.10.16 19:24:35 INFO  compiling root (1 scala source)
+2024.10.16 19:24:35 INFO  time: compiled root in 0.24s
+2024.10.16 19:24:39 INFO  compiling root (1 scala source)
+2024.10.16 19:24:39 INFO  time: compiled root in 0.2s
+2024.10.16 19:24:43 INFO  compiling root (1 scala source)
+2024.10.16 19:24:46 INFO  time: compiled root in 2.41s
+2024.10.16 19:25:02 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/dap-server.trace.json or /home/eon/.cache/metals/dap-server.trace.json
+2024.10.16 19:25:02 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/dap-client.trace.json or /home/eon/.cache/metals/dap-client.trace.json
+2024.10.16 19:25:03 INFO  Starting debug proxy for [riscv.singlecycle.InstructionDecoderTest()]
+2024.10.16 19:25:03 INFO  Initialized Scala 3 decoder in 5 milliseconds
+2024.10.16 19:25:03 INFO  Trying to attach to remote debuggee VM localhost:39685 .
+2024.10.16 19:25:03 INFO  Attaching to debuggee VM succeeded.
+2024.10.16 19:25:15 INFO  Canceling debug proxy for [riscv.singlecycle.InstructionDecoderTest()]
+2024.10.16 19:25:15 INFO  Closing debug server tcp://0.0.0.0:35269
+2024.10.16 19:25:29 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/dap-server.trace.json or /home/eon/.cache/metals/dap-server.trace.json
+2024.10.16 19:25:29 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/dap-client.trace.json or /home/eon/.cache/metals/dap-client.trace.json
+2024.10.16 19:25:29 INFO  Starting debug proxy for [riscv.singlecycle.ExecuteTest()]
+2024.10.16 19:25:29 INFO  Initialized Scala 3 decoder in 0 milliseconds
+2024.10.16 19:25:29 INFO  Trying to attach to remote debuggee VM localhost:55685 .
+2024.10.16 19:25:29 INFO  Attaching to debuggee VM succeeded.
+2024.10.16 19:25:35 INFO  Canceling debug proxy for [riscv.singlecycle.ExecuteTest()]
+2024.10.16 19:25:35 INFO  Closing debug server tcp://0.0.0.0:32859
+2024.10.16 19:25:46 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/dap-server.trace.json or /home/eon/.cache/metals/dap-server.trace.json
+2024.10.16 19:25:46 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/dap-client.trace.json or /home/eon/.cache/metals/dap-client.trace.json
+2024.10.16 19:25:46 INFO  Starting debug proxy for [riscv.singlecycle.InstructionFetchTest()]
+2024.10.16 19:25:46 INFO  Initialized Scala 3 decoder in 0 milliseconds
+2024.10.16 19:25:46 INFO  Trying to attach to remote debuggee VM localhost:32961 .
+2024.10.16 19:25:46 INFO  Attaching to debuggee VM succeeded.
+2024.10.16 19:25:58 INFO  Canceling debug proxy for [riscv.singlecycle.InstructionFetchTest()]
+2024.10.16 19:25:58 INFO  Closing debug server tcp://0.0.0.0:37215
+2024.10.16 19:26:16 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/dap-server.trace.json or /home/eon/.cache/metals/dap-server.trace.json
+2024.10.16 19:26:16 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/dap-client.trace.json or /home/eon/.cache/metals/dap-client.trace.json
+2024.10.16 19:26:16 INFO  Starting debug proxy for [riscv.singlecycle.ExecuteTest()]
+2024.10.16 19:26:16 INFO  Initialized Scala 3 decoder in 0 milliseconds
+2024.10.16 19:26:16 INFO  Trying to attach to remote debuggee VM localhost:39065 .
+2024.10.16 19:26:16 INFO  Attaching to debuggee VM succeeded.
+2024.10.16 19:26:22 INFO  Canceling debug proxy for [riscv.singlecycle.ExecuteTest()]
+2024.10.16 19:26:22 INFO  Closing debug server tcp://0.0.0.0:36435
+oct 16, 2024 7:27:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2140
+2024.10.16 20:21:22 INFO  compiling root (1 scala source)
+oct 16, 2024 8:21:23 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2570
+2024.10.16 20:21:24 INFO  time: compiled root in 2.14s
+2024.10.16 20:22:01 INFO  compiling root (1 scala source)
+2024.10.16 20:22:03 INFO  time: compiled root in 2.17s
+2024.10.16 20:22:03 INFO  compiling root (1 scala source)
+2024.10.16 20:22:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:22:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:22:05 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:22:05 INFO  time: compiled root in 2s
+2024.10.16 20:22:14 INFO  compiling root (1 scala source)
+2024.10.16 20:22:16 INFO  time: compiled root in 1.8s
+2024.10.16 20:22:22 INFO  compiling root (1 scala source)
+2024.10.16 20:22:25 INFO  time: compiled root in 2.9s
+2024.10.16 20:22:29 INFO  compiling root (1 scala source)
+2024.10.16 20:22:30 INFO  time: compiled root in 1.74s
+2024.10.16 20:23:21 INFO  compiling root (1 scala source)
+2024.10.16 20:23:23 INFO  time: compiled root in 1.91s
+2024.10.16 20:23:46 INFO  compiling root (1 scala source)
+2024.10.16 20:23:46 INFO  time: compiled root in 0.55s
+2024.10.16 20:23:47 INFO  compiling root (1 scala source)
+2024.10.16 20:23:47 INFO  time: compiled root in 0.33s
+2024.10.16 20:23:49 INFO  compiling root (1 scala source)
+2024.10.16 20:23:49 INFO  time: compiled root in 0.36s
+oct 16, 2024 8:23:54 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3193
+oct 16, 2024 8:24:02 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3220
+oct 16, 2024 8:24:02 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3221
+2024.10.16 20:24:03 INFO  compiling root (1 scala source)
+2024.10.16 20:24:03 INFO  time: compiled root in 0.34s
+2024.10.16 20:24:05 INFO  compiling root (1 scala source)
+2024.10.16 20:24:05 INFO  time: compiled root in 0.34s
+2024.10.16 20:24:28 INFO  compiling root (1 scala source)
+2024.10.16 20:24:28 INFO  time: compiled root in 0.32s
+2024.10.16 20:24:31 INFO  compiling root (1 scala source)
+2024.10.16 20:24:31 INFO  time: compiled root in 0.34s
+2024.10.16 20:24:35 INFO  compiling root (1 scala source)
+2024.10.16 20:24:35 INFO  time: compiled root in 0.39s
+2024.10.16 20:24:36 INFO  compiling root (1 scala source)
+2024.10.16 20:24:36 INFO  time: compiled root in 0.42s
+2024.10.16 20:24:38 INFO  compiling root (1 scala source)
+2024.10.16 20:24:38 INFO  time: compiled root in 0.33s
+2024.10.16 20:24:40 INFO  compiling root (1 scala source)
+2024.10.16 20:24:40 INFO  time: compiled root in 0.33s
+2024.10.16 20:24:44 INFO  compiling root (1 scala source)
+2024.10.16 20:24:44 INFO  time: compiled root in 0.4s
+oct 16, 2024 8:24:47 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3481
+2024.10.16 20:24:49 INFO  compiling root (1 scala source)
+2024.10.16 20:24:49 INFO  time: compiled root in 0.36s
+2024.10.16 20:24:51 INFO  compiling root (1 scala source)
+2024.10.16 20:24:52 INFO  time: compiled root in 1.71s
+oct 16, 2024 8:24:55 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3544
+2024.10.16 20:24:57 INFO  compiling root (1 scala source)
+2024.10.16 20:24:59 INFO  time: compiled root in 1.83s
+2024.10.16 20:25:08 INFO  compiling root (1 scala source)
+2024.10.16 20:25:09 INFO  time: compiled root in 1.6s
+2024.10.16 20:25:11 INFO  compiling root (1 scala source)
+2024.10.16 20:25:12 INFO  time: compiled root in 1.66s
+2024.10.16 20:25:17 INFO  compiling root (1 scala source)
+2024.10.16 20:25:19 INFO  time: compiled root in 1.64s
+2024.10.16 20:25:19 INFO  compiling root (1 scala source)
+2024.10.16 20:25:19 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:25:20 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:25:20 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:25:21 INFO  time: compiled root in 1.89s
+2024.10.16 20:25:21 INFO  compiling root (1 scala source)
+2024.10.16 20:25:23 INFO  time: compiled root in 1.61s
+2024.10.16 20:25:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:25:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:25:26 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:25:27 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:25:27 INFO  compiling root (1 scala source)
+2024.10.16 20:25:28 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:25:29 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:25:30 INFO  time: compiled root in 2.53s
+2024.10.16 20:25:32 INFO  compiling root (1 scala source)
+2024.10.16 20:25:34 INFO  time: compiled root in 1.57s
+2024.10.16 20:25:44 INFO  compiling root (1 scala source)
+oct 16, 2024 8:25:45 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3929
+2024.10.16 20:25:46 INFO  time: compiled root in 1.88s
+oct 16, 2024 8:25:46 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3942
+2024.10.16 20:25:48 INFO  compiling root (1 scala source)
+2024.10.16 20:25:49 INFO  time: compiled root in 1.63s
+2024.10.16 20:25:51 INFO  compiling root (1 scala source)
+2024.10.16 20:25:52 INFO  time: compiled root in 1.75s
+2024.10.16 20:25:56 INFO  compiling root (1 scala source)
+2024.10.16 20:25:57 INFO  time: compiled root in 1.48s
+2024.10.16 20:26:26 INFO  compiling root (1 scala source)
+2024.10.16 20:26:26 INFO  time: compiled root in 0.34s
+2024.10.16 20:26:29 INFO  compiling root (1 scala source)
+2024.10.16 20:26:29 INFO  time: compiled root in 0.32s
+2024.10.16 20:27:00 INFO  compiling root (1 scala source)
+2024.10.16 20:27:00 INFO  time: compiled root in 0.3s
+2024.10.16 20:27:03 INFO  compiling root (1 scala source)
+2024.10.16 20:27:03 INFO  time: compiled root in 0.32s
+2024.10.16 20:27:12 INFO  compiling root (1 scala source)
+2024.10.16 20:27:12 INFO  time: compiled root in 0.3s
+2024.10.16 20:27:27 INFO  compiling root (1 scala source)
+2024.10.16 20:27:27 INFO  time: compiled root in 0.37s
+oct 16, 2024 8:27:28 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 4303
+2024.10.16 20:27:29 INFO  compiling root (1 scala source)
+2024.10.16 20:27:29 INFO  time: compiled root in 0.38s
+2024.10.16 20:27:38 INFO  compiling root (1 scala source)
+2024.10.16 20:27:38 INFO  time: compiled root in 0.34s
+2024.10.16 20:27:40 INFO  compiling root (1 scala source)
+2024.10.16 20:27:40 INFO  time: compiled root in 0.36s
+oct 16, 2024 8:27:44 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 4386
+2024.10.16 20:27:45 INFO  compiling root (1 scala source)
+2024.10.16 20:27:45 INFO  time: compiled root in 0.31s
+2024.10.16 20:27:47 INFO  compiling root (1 scala source)
+2024.10.16 20:27:47 INFO  time: compiled root in 0.38s
+2024.10.16 20:27:52 INFO  compiling root (1 scala source)
+2024.10.16 20:27:52 INFO  time: compiled root in 0.4s
+2024.10.16 20:27:53 INFO  compiling root (1 scala source)
+2024.10.16 20:27:53 INFO  time: compiled root in 0.2s
+2024.10.16 20:27:57 INFO  compiling root (1 scala source)
+2024.10.16 20:27:57 INFO  time: compiled root in 0.39s
+2024.10.16 20:27:58 INFO  compiling root (1 scala source)
+2024.10.16 20:27:58 INFO  time: compiled root in 0.34s
+2024.10.16 20:28:02 INFO  compiling root (1 scala source)
+2024.10.16 20:28:02 INFO  time: compiled root in 0.21s
+2024.10.16 20:28:05 INFO  compiling root (1 scala source)
+2024.10.16 20:28:05 INFO  time: compiled root in 0.37s
+2024.10.16 20:28:19 INFO  compiling root (1 scala source)
+2024.10.16 20:28:19 INFO  time: compiled root in 0.4s
+oct 16, 2024 8:28:20 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 4628
+2024.10.16 20:28:24 INFO  compiling root (1 scala source)
+2024.10.16 20:28:24 INFO  time: compiled root in 0.33s
+2024.10.16 20:28:25 INFO  compiling root (1 scala source)
+2024.10.16 20:28:25 INFO  time: compiled root in 0.15s
+2024.10.16 20:28:27 INFO  compiling root (1 scala source)
+2024.10.16 20:28:27 INFO  time: compiled root in 0.32s
+2024.10.16 20:28:29 INFO  compiling root (1 scala source)
+2024.10.16 20:28:29 INFO  time: compiled root in 0.32s
+2024.10.16 20:28:35 INFO  compiling root (1 scala source)
+2024.10.16 20:28:35 INFO  time: compiled root in 0.32s
+2024.10.16 20:28:43 INFO  compiling root (1 scala source)
+2024.10.16 20:28:43 INFO  time: compiled root in 0.3s
+2024.10.16 20:28:47 INFO  compiling root (1 scala source)
+2024.10.16 20:28:47 INFO  time: compiled root in 0.21s
+2024.10.16 20:28:50 INFO  compiling root (1 scala source)
+2024.10.16 20:28:50 INFO  time: compiled root in 0.38s
+2024.10.16 20:28:58 INFO  compiling root (1 scala source)
+2024.10.16 20:28:58 INFO  time: compiled root in 0.37s
+2024.10.16 20:29:01 INFO  compiling root (1 scala source)
+2024.10.16 20:29:01 INFO  time: compiled root in 0.32s
+2024.10.16 20:29:05 INFO  compiling root (1 scala source)
+2024.10.16 20:29:07 INFO  time: compiled root in 1.58s
+2024.10.16 20:29:10 INFO  compiling root (1 scala source)
+2024.10.16 20:29:10 INFO  time: compiled root in 0.46s
+2024.10.16 20:29:12 INFO  compiling root (1 scala source)
+2024.10.16 20:29:12 INFO  time: compiled root in 0.35s
+2024.10.16 20:29:14 INFO  compiling root (1 scala source)
+2024.10.16 20:29:15 INFO  time: compiled root in 1.63s
+2024.10.16 20:29:27 INFO  compiling root (1 scala source)
+oct 16, 2024 8:29:28 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 4987
+2024.10.16 20:29:29 INFO  time: compiled root in 2.38s
+2024.10.16 20:29:32 INFO  compiling root (1 scala source)
+2024.10.16 20:29:32 INFO  time: compiled root in 0.2s
+2024.10.16 20:29:33 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:35 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:36 INFO  compiling root (1 scala source)
+2024.10.16 20:29:36 INFO  time: compiled root in 0.32s
+2024.10.16 20:29:36 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:41 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:41 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:42 INFO  compiling root (1 scala source)
+2024.10.16 20:29:42 INFO  time: compiled root in 0.31s
+2024.10.16 20:29:43 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:44 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:44 INFO  compiling root (1 scala source)
+2024.10.16 20:29:44 INFO  time: compiled root in 0.29s
+2024.10.16 20:29:45 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:48 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:49 INFO  compiling root (1 scala source)
+2024.10.16 20:29:49 INFO  time: compiled root in 0.33s
+2024.10.16 20:29:49 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:51 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:51 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:52 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:53 INFO  compiling root (1 scala source)
+2024.10.16 20:29:53 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:53 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:53 INFO  time: compiled root in 0.48s
+2024.10.16 20:29:54 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:53 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:55 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:55 INFO  compiling root (1 scala source)
+2024.10.16 20:29:55 INFO  time: compiled root in 0.3s
+2024.10.16 20:29:56 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:59 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:29:59 INFO  compiling root (1 scala source)
+2024.10.16 20:29:59 INFO  time: compiled root in 0.31s
+2024.10.16 20:30:00 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:30:01 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:30:02 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:30:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:30:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:30:04 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:30:05 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:30:06 INFO  compiling root (1 scala source)
+2024.10.16 20:30:06 INFO  time: compiled root in 0.3s
+2024.10.16 20:30:06 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:16 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:17 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:18 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:19 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:19 INFO  compiling root (1 scala source)
+2024.10.16 20:31:19 INFO  time: compiled root in 0.36s
+2024.10.16 20:31:20 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:21 INFO  compiling root (1 scala source)
+2024.10.16 20:31:21 INFO  time: compiled root in 0.2s
+2024.10.16 20:31:21 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:26 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:27 INFO  compiling root (1 scala source)
+2024.10.16 20:31:27 INFO  time: compiled root in 0.26s
+2024.10.16 20:31:27 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:29 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:30 INFO  compiling root (1 scala source)
+2024.10.16 20:31:30 INFO  time: compiled root in 0.29s
+2024.10.16 20:31:30 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:33 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:34 INFO  compiling root (1 scala source)
+2024.10.16 20:31:34 INFO  time: compiled root in 0.35s
+2024.10.16 20:31:34 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:36 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:37 INFO  compiling root (1 scala source)
+2024.10.16 20:31:37 INFO  time: compiled root in 0.32s
+2024.10.16 20:31:37 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:38 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:39 INFO  compiling root (1 scala source)
+2024.10.16 20:31:39 INFO  time: compiled root in 0.3s
+2024.10.16 20:31:40 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:41 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:41 INFO  compiling root (1 scala source)
+2024.10.16 20:31:41 INFO  time: compiled root in 0.39s
+2024.10.16 20:31:42 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:47 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:47 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:48 INFO  compiling root (1 scala source)
+2024.10.16 20:31:48 INFO  time: compiled root in 0.2s
+2024.10.16 20:31:48 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:49 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:50 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+oct 16, 2024 8:31:50 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 5440
+2024.10.16 20:31:50 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:51 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:56 INFO  compiling root (1 scala source)
+2024.10.16 20:31:56 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:31:56 INFO  time: compiled root in 0.41s
+2024.10.16 20:31:57 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:32:01 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:35:25 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:02 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:06 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:06 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:06 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:06 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:08 INFO  compiling root (1 scala source)
+2024.10.16 20:36:08 INFO  time: compiled root in 0.3s
+2024.10.16 20:36:08 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:40 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:41 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:42 INFO  compiling root (1 scala source)
+2024.10.16 20:36:42 INFO  time: compiled root in 0.35s
+2024.10.16 20:36:42 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:36:46 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:40:59 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:41:09 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:41:11 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:41:12 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:41:13 INFO  compiling root (1 scala source)
+2024.10.16 20:41:13 INFO  time: compiled root in 0.34s
+2024.10.16 20:41:13 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:41:14 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:41:15 INFO  compiling root (1 scala source)
+2024.10.16 20:41:16 INFO  time: compiled root in 1.51s
+oct 16, 2024 8:41:19 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 5685
+2024.10.16 20:41:20 INFO  compiling root (1 scala source)
+2024.10.16 20:41:22 INFO  time: compiled root in 1.54s
+2024.10.16 20:41:25 INFO  compiling root (1 scala source)
+2024.10.16 20:41:26 INFO  time: compiled root in 1.53s
+2024.10.16 20:41:37 INFO  compiling root (1 scala source)
+2024.10.16 20:41:37 INFO  time: compiled root in 0.29s
+2024.10.16 20:41:44 INFO  compiling root (1 scala source)
+2024.10.16 20:41:44 INFO  time: compiled root in 0.31s
+2024.10.16 20:41:45 INFO  compiling root (1 scala source)
+2024.10.16 20:41:45 INFO  time: compiled root in 0.32s
+2024.10.16 20:41:51 INFO  compiling root (1 scala source)
+2024.10.16 20:41:51 INFO  time: compiled root in 0.31s
+2024.10.16 20:41:52 INFO  compiling root (1 scala source)
+2024.10.16 20:41:52 INFO  time: compiled root in 0.26s
+2024.10.16 20:41:57 INFO  compiling root (1 scala source)
+2024.10.16 20:41:57 INFO  time: compiled root in 0.32s
+2024.10.16 20:41:58 INFO  compiling root (1 scala source)
+2024.10.16 20:41:58 INFO  time: compiled root in 0.26s
+2024.10.16 20:42:00 INFO  compiling root (1 scala source)
+2024.10.16 20:42:00 INFO  time: compiled root in 0.32s
+2024.10.16 20:43:12 INFO  compiling root (1 scala source)
+2024.10.16 20:43:12 INFO  time: compiled root in 0.36s
+2024.10.16 20:43:13 INFO  compiling root (1 scala source)
+2024.10.16 20:43:13 INFO  time: compiled root in 0.37s
+2024.10.16 20:43:44 ERROR /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+scala.meta.internal.tokenizers.package$UnexpectedInputEndException
+	at scala.meta.internal.tokenizers.LegacyScanner.$anonfun$nextToken$1(LegacyScanner.scala:172)
+	at scala.Function0.apply$mcV$sp(Function0.scala:42)
+	at scala.meta.internal.tokenizers.LegacyScanner.scala$meta$internal$tokenizers$LegacyScanner$$nextToken(LegacyScanner.scala:178)
+	at scala.meta.internal.tokenizers.LegacyScanner.nextToken(LegacyScanner.scala:172)
+	at scala.meta.internal.mtags.ScalaToplevelMtags$XtensionScanner.mtagsNextToken(ScalaToplevelMtags.scala:72)
+	at scala.meta.internal.mtags.ScalaToplevelMtags.loop(ScalaToplevelMtags.scala:500)
+	at scala.meta.internal.mtags.ScalaToplevelMtags.indexRoot(ScalaToplevelMtags.scala:84)
+	at scala.meta.internal.metals.SemanticdbDefinition$.foreachWithReturnMtags(SemanticdbDefinition.scala:81)
+	at scala.meta.internal.metals.Indexer.indexSourceFile(Indexer.scala:595)
+	at scala.meta.internal.metals.Indexer.$anonfun$reindexWorkspaceSources$3(Indexer.scala:693)
+	at scala.meta.internal.metals.Indexer.$anonfun$reindexWorkspaceSources$3$adapted(Indexer.scala:690)
+	at scala.collection.IterableOnceOps.foreach(IterableOnce.scala:619)
+	at scala.collection.IterableOnceOps.foreach$(IterableOnce.scala:617)
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1303)
+	at scala.meta.internal.metals.Indexer.reindexWorkspaceSources(Indexer.scala:690)
+	at scala.meta.internal.metals.MetalsLspService.$anonfun$onChange$2(MetalsLspService.scala:952)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:687)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:467)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:833)
+
+2024.10.16 20:43:44 INFO  compiling root (1 scala source)
+2024.10.16 20:43:44 INFO  time: compiled root in 0.2s
+2024.10.16 20:43:48 INFO  compiling root (1 scala source)
+2024.10.16 20:43:48 INFO  time: compiled root in 0.2s
+2024.10.16 20:44:24 INFO  compiling root (1 scala source)
+2024.10.16 20:44:24 INFO  time: compiled root in 0.34s
+2024.10.16 20:44:28 INFO  compiling root (1 scala source)
+2024.10.16 20:44:28 INFO  time: compiled root in 0.3s
+2024.10.16 20:45:55 INFO  compiling root (1 scala source)
+2024.10.16 20:45:55 INFO  time: compiled root in 0.34s
+2024.10.16 20:45:59 INFO  compiling root (1 scala source)
+2024.10.16 20:45:59 INFO  time: compiled root in 0.4s
+2024.10.16 20:46:01 INFO  compiling root (1 scala source)
+2024.10.16 20:46:01 INFO  time: compiled root in 0.28s
+2024.10.16 20:46:28 INFO  compiling root (1 scala source)
+2024.10.16 20:46:28 INFO  time: compiled root in 0.25s
+2024.10.16 20:46:32 INFO  compiling root (1 scala source)
+2024.10.16 20:46:32 INFO  time: compiled root in 0.32s
+2024.10.16 20:46:34 INFO  compiling root (1 scala source)
+2024.10.16 20:46:34 INFO  time: compiled root in 0.31s
+2024.10.16 20:46:38 INFO  compiling root (1 scala source)
+2024.10.16 20:46:38 INFO  time: compiled root in 0.58s
+2024.10.16 20:46:43 INFO  compiling root (1 scala source)
+2024.10.16 20:46:43 INFO  time: compiled root in 0.3s
+2024.10.16 20:46:51 INFO  compiling root (1 scala source)
+2024.10.16 20:46:51 INFO  time: compiled root in 0.19s
+2024.10.16 20:47:00 INFO  compiling root (1 scala source)
+2024.10.16 20:47:00 INFO  time: compiled root in 0.18s
+2024.10.16 20:47:02 INFO  compiling root (1 scala source)
+2024.10.16 20:47:02 INFO  time: compiled root in 0.33s
+2024.10.16 20:47:21 INFO  compiling root (1 scala source)
+2024.10.16 20:47:21 INFO  time: compiled root in 0.32s
+2024.10.16 20:47:26 INFO  compiling root (1 scala source)
+2024.10.16 20:47:26 INFO  time: compiled root in 0.37s
+2024.10.16 20:47:28 INFO  compiling root (1 scala source)
+2024.10.16 20:47:29 INFO  time: compiled root in 1.56s
+2024.10.16 20:47:30 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:54:44 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:14 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:18 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:19 INFO  compiling root (1 scala source)
+2024.10.16 20:56:19 INFO  time: compiled root in 0.44s
+2024.10.16 20:56:20 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:21 INFO  compiling root (1 scala source)
+2024.10.16 20:56:21 INFO  time: compiled root in 0.34s
+2024.10.16 20:56:21 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:22 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:22 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:23 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:25 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:25 INFO  compiling root (1 scala source)
+2024.10.16 20:56:26 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:25 INFO  time: compiled root in 0.42s
+2024.10.16 20:56:26 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:26 INFO  compiling root (1 scala source)
+2024.10.16 20:56:26 INFO  time: compiled root in 0.34s
+2024.10.16 20:56:27 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:28 INFO  compiling root (1 scala source)
+2024.10.16 20:56:28 INFO  time: compiled root in 0.37s
+2024.10.16 20:56:29 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:30 INFO  compiling root (1 scala source)
+2024.10.16 20:56:30 INFO  time: compiled root in 0.34s
+2024.10.16 20:56:30 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:51 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:52 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:53 INFO  compiling root (1 scala source)
+2024.10.16 20:56:53 INFO  time: compiled root in 0.4s
+2024.10.16 20:56:54 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:56 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:58 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:58 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:59 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:56:59 INFO  compiling root (1 scala source)
+2024.10.16 20:56:59 INFO  time: compiled root in 0.32s
+2024.10.16 20:57:00 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:10 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:16 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:16 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:17 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:17 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:22 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:30 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:30 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:31 INFO  compiling root (1 scala source)
+2024.10.16 20:57:31 INFO  time: compiled root in 0.36s
+2024.10.16 20:57:32 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:37 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:37 INFO  compiling root (1 scala source)
+2024.10.16 20:57:37 INFO  time: compiled root in 0.42s
+2024.10.16 20:57:38 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:39 INFO  compiling root (1 scala source)
+2024.10.16 20:57:39 INFO  time: compiled root in 0.35s
+2024.10.16 20:57:39 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:40 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:41 INFO  compiling root (1 scala source)
+2024.10.16 20:57:41 INFO  time: compiled root in 0.37s
+2024.10.16 20:57:41 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:42 INFO  compiling root (1 scala source)
+2024.10.16 20:57:42 INFO  time: compiled root in 0.34s
+2024.10.16 20:57:43 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:43 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:44 INFO  compiling root (1 scala source)
+2024.10.16 20:57:44 INFO  time: compiled root in 0.19s
+2024.10.16 20:57:45 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:45 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:45 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:46 INFO  compiling root (1 scala source)
+2024.10.16 20:57:46 INFO  time: compiled root in 0.35s
+2024.10.16 20:57:47 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:48 INFO  compiling root (1 scala source)
+2024.10.16 20:57:48 INFO  time: compiled root in 0.36s
+2024.10.16 20:57:48 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:49 INFO  compiling root (1 scala source)
+2024.10.16 20:57:49 INFO  time: compiled root in 0.34s
+2024.10.16 20:57:50 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:53 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:57:54 INFO  compiling root (1 scala source)
+2024.10.16 20:57:54 INFO  time: compiled root in 0.38s
+2024.10.16 20:57:55 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:58:48 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:58:50 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:58:51 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:58:52 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+oct 16, 2024 8:58:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 7169
+oct 16, 2024 8:58:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 7171
+oct 16, 2024 8:58:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 7170
+oct 16, 2024 8:58:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 7176
+2024.10.16 20:58:52 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:58:52 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:58:53 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:58:53 INFO  compiling root (1 scala source)
+2024.10.16 20:58:53 INFO  time: compiled root in 0.34s
+2024.10.16 20:58:54 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:58:55 INFO  compiling root (1 scala source)
+2024.10.16 20:58:55 INFO  time: compiled root in 0.34s
+2024.10.16 20:58:55 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:04 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:05 INFO  compiling root (1 scala source)
+2024.10.16 20:59:05 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:05 INFO  time: compiled root in 0.38s
+2024.10.16 20:59:05 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:06 INFO  compiling root (1 scala source)
+2024.10.16 20:59:06 INFO  time: compiled root in 0.47s
+2024.10.16 20:59:06 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:09 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:09 INFO  compiling root (1 scala source)
+2024.10.16 20:59:09 INFO  time: compiled root in 0.33s
+2024.10.16 20:59:10 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:57 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:59 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 20:59:59 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:00 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:00 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:01 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:02 INFO  compiling root (1 scala source)
+2024.10.16 21:00:02 INFO  time: compiled root in 0.32s
+2024.10.16 21:00:02 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:14 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:15 INFO  compiling root (1 scala source)
+2024.10.16 21:00:15 INFO  time: compiled root in 0.34s
+2024.10.16 21:00:15 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:25 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:25 INFO  compiling root (1 scala source)
+2024.10.16 21:00:26 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:25 INFO  time: compiled root in 0.34s
+2024.10.16 21:00:26 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:27 INFO  compiling root (1 scala source)
+2024.10.16 21:00:27 INFO  time: compiled root in 0.23s
+2024.10.16 21:00:28 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:29 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:30 INFO  compiling root (1 scala source)
+2024.10.16 21:00:30 INFO  time: compiled root in 0.33s
+2024.10.16 21:00:30 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:31 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:31 INFO  compiling root (1 scala source)
+2024.10.16 21:00:31 INFO  time: compiled root in 0.4s
+2024.10.16 21:00:32 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:32 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:33 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:34 INFO  compiling root (1 scala source)
+2024.10.16 21:00:34 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:34 INFO  time: compiled root in 0.39s
+2024.10.16 21:00:34 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:35 INFO  compiling root (1 scala source)
+2024.10.16 21:00:35 INFO  time: compiled root in 0.28s
+2024.10.16 21:00:35 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:43 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:00:44 INFO  compiling root (1 scala source)
+2024.10.16 21:00:44 INFO  time: compiled root in 0.19s
+2024.10.16 21:00:44 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:01:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:01:52 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:02:42 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:02:58 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:02:59 INFO  compiling root (1 scala source)
+2024.10.16 21:02:59 INFO  time: compiled root in 0.32s
+2024.10.16 21:02:59 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:03:32 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:04:17 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:04:41 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:04:42 INFO  compiling root (1 scala source)
+2024.10.16 21:04:42 INFO  time: compiled root in 0.37s
+2024.10.16 21:04:43 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:04:44 INFO  compiling root (1 scala source)
+2024.10.16 21:04:44 INFO  time: compiled root in 0.41s
+2024.10.16 21:04:44 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:04:59 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:00 INFO  compiling root (1 scala source)
+2024.10.16 21:05:00 INFO  time: compiled root in 0.2s
+2024.10.16 21:05:00 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:04 INFO  compiling root (1 scala source)
+2024.10.16 21:05:04 INFO  time: compiled root in 0.38s
+2024.10.16 21:05:04 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:39 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+oct 16, 2024 9:05:40 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 7875
+2024.10.16 21:05:40 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:41 INFO  compiling root (1 scala source)
+2024.10.16 21:05:41 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:41 INFO  time: compiled root in 0.36s
+2024.10.16 21:05:41 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:42 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:43 INFO  compiling root (1 scala source)
+2024.10.16 21:05:43 INFO  time: compiled root in 0.32s
+2024.10.16 21:05:43 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:50 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:50 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:51 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:51 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:05:52 INFO  compiling root (1 scala source)
+2024.10.16 21:05:52 INFO  time: compiled root in 0.31s
+2024.10.16 21:05:52 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:02 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:14 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:14 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:15 INFO  compiling root (1 scala source)
+2024.10.16 21:06:15 INFO  time: compiled root in 0.37s
+2024.10.16 21:06:15 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:16 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:17 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:18 INFO  compiling root (1 scala source)
+2024.10.16 21:06:18 INFO  time: compiled root in 0.19s
+2024.10.16 21:06:19 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:20 INFO  compiling root (1 scala source)
+2024.10.16 21:06:20 INFO  time: compiled root in 0.38s
+2024.10.16 21:06:20 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:22 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:23 INFO  compiling root (1 scala source)
+2024.10.16 21:06:23 INFO  time: compiled root in 0.37s
+2024.10.16 21:06:24 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:29 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:30 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:30 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:31 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:33 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+oct 16, 2024 9:06:33 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 8117
+2024.10.16 21:06:33 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:33 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:34 INFO  compiling root (1 scala source)
+2024.10.16 21:06:34 INFO  time: compiled root in 0.32s
+2024.10.16 21:06:35 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:51 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:52 INFO  compiling root (1 scala source)
+2024.10.16 21:06:52 INFO  time: compiled root in 0.2s
+2024.10.16 21:06:52 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:55 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:06:56 INFO  compiling root (1 scala source)
+2024.10.16 21:06:56 INFO  time: compiled root in 0.3s
+2024.10.16 21:06:57 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:07:05 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:07:05 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:07:06 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:07:07 INFO  compiling root (1 scala source)
+2024.10.16 21:07:07 INFO  time: compiled root in 0.3s
+2024.10.16 21:07:07 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:07:32 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:07:33 INFO  compiling root (1 scala source)
+2024.10.16 21:07:34 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:07:35 INFO  time: compiled root in 1.88s
+2024.10.16 21:07:37 INFO  compiling root (1 scala source)
+2024.10.16 21:07:37 INFO  time: compiled root in 0.28s
+2024.10.16 21:07:44 INFO  compiling root (1 scala source)
+2024.10.16 21:07:44 INFO  time: compiled root in 0.3s
+2024.10.16 21:07:45 INFO  compiling root (1 scala source)
+2024.10.16 21:07:45 INFO  time: compiled root in 0.4s
+2024.10.16 21:07:49 INFO  compiling root (1 scala source)
+2024.10.16 21:07:49 INFO  time: compiled root in 0.2s
+oct 16, 2024 9:07:50 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 8376
+2024.10.16 21:07:57 INFO  compiling root (1 scala source)
+2024.10.16 21:07:57 INFO  time: compiled root in 0.37s
+2024.10.16 21:08:01 INFO  compiling root (1 scala source)
+2024.10.16 21:08:04 INFO  time: compiled root in 2.61s
+2024.10.16 21:08:08 ERROR /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+scala.meta.internal.tokenizers.package$UnexpectedInputEndException
+	at scala.meta.internal.tokenizers.LegacyScanner.$anonfun$nextToken$1(LegacyScanner.scala:172)
+	at scala.Function0.apply$mcV$sp(Function0.scala:42)
+	at scala.meta.internal.tokenizers.LegacyScanner.scala$meta$internal$tokenizers$LegacyScanner$$nextToken(LegacyScanner.scala:178)
+	at scala.meta.internal.tokenizers.LegacyScanner.nextToken(LegacyScanner.scala:172)
+	at scala.meta.internal.mtags.ScalaToplevelMtags$XtensionScanner.mtagsNextToken(ScalaToplevelMtags.scala:72)
+	at scala.meta.internal.mtags.ScalaToplevelMtags.loop(ScalaToplevelMtags.scala:500)
+	at scala.meta.internal.mtags.ScalaToplevelMtags.indexRoot(ScalaToplevelMtags.scala:84)
+	at scala.meta.internal.metals.SemanticdbDefinition$.foreachWithReturnMtags(SemanticdbDefinition.scala:81)
+	at scala.meta.internal.metals.Indexer.indexSourceFile(Indexer.scala:595)
+	at scala.meta.internal.metals.Indexer.$anonfun$reindexWorkspaceSources$3(Indexer.scala:693)
+	at scala.meta.internal.metals.Indexer.$anonfun$reindexWorkspaceSources$3$adapted(Indexer.scala:690)
+	at scala.collection.IterableOnceOps.foreach(IterableOnce.scala:619)
+	at scala.collection.IterableOnceOps.foreach$(IterableOnce.scala:617)
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1303)
+	at scala.meta.internal.metals.Indexer.reindexWorkspaceSources(Indexer.scala:690)
+	at scala.meta.internal.metals.MetalsLspService.$anonfun$onChange$2(MetalsLspService.scala:952)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:687)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:467)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:833)
+
+2024.10.16 21:08:08 INFO  compiling root (1 scala source)
+2024.10.16 21:08:08 INFO  time: compiled root in 0.19s
+2024.10.16 21:08:12 INFO  compiling root (1 scala source)
+2024.10.16 21:08:13 INFO  time: compiled root in 1.5s
+2024.10.16 21:08:17 INFO  compiling root (1 scala source)
+2024.10.16 21:08:19 INFO  time: compiled root in 1.67s
+2024.10.16 21:08:28 INFO  compiling root (1 scala source)
+2024.10.16 21:08:28 INFO  time: compiled root in 0.21s
+2024.10.16 21:08:29 INFO  compiling root (1 scala source)
+2024.10.16 21:08:29 INFO  time: compiled root in 0.47s
+2024.10.16 21:08:32 INFO  compiling root (1 scala source)
+2024.10.16 21:08:32 INFO  time: compiled root in 0.32s
+2024.10.16 21:08:46 INFO  compiling root (1 scala source)
+oct 16, 2024 9:08:47 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 8600
+2024.10.16 21:08:47 INFO  time: compiled root in 1.87s
+2024.10.16 21:08:47 INFO  compiling root (1 scala source)
+2024.10.16 21:08:48 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.16 21:08:49 INFO  time: compiled root in 1.48s
+2024.10.16 21:09:02 INFO  compiling root (1 scala source)
+2024.10.16 21:09:03 INFO  time: compiled root in 1.6s
