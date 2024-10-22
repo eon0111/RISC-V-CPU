@@ -1592,3 +1592,624 @@ ADVERTENCIA: Unmatched cancel notification for request id 8600
 2024.10.16 21:08:49 INFO  time: compiled root in 1.48s
 2024.10.16 21:09:02 INFO  compiling root (1 scala source)
 2024.10.16 21:09:03 INFO  time: compiled root in 1.6s
+2024.10.16 21:18:54 INFO  Shutting down server
+2024.10.16 21:18:54 INFO  shutting down Metals
+2024.10.16 21:18:54 INFO  Shut down connection with build server.
+2024.10.16 21:18:54 INFO  Exiting server
+2024.10.17 16:45:20 INFO  Started: Metals version 1.3.5 in folders '/home/eon/Documentos/TFM/RISC-V-CPU' for client Visual Studio Code 1.94.2.
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [scribe.slf4j.ScribeServiceProvider@58585f2e]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@26956010]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [scribe.slf4j.ScribeServiceProvider@58585f2e]
+2024.10.17 16:45:21 WARN  Flyway upgrade recommended: H2 2.3.230 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.10.17 16:45:21 INFO  Attempting to connect to the build server...
+2024.10.17 16:45:23 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala. Using presentation compiler with project's scala-library version: 3.3.3
+2024.10.17 16:45:27 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/bsp.trace.json or /home/eon/.cache/metals/bsp.trace.json
+2024.10.17 16:45:30 INFO  time: Connected to build server in 8.29s
+2024.10.17 16:45:30 INFO  Connected to Build server: Bloop v1.6.0
+2024.10.17 16:45:30 INFO  time: Imported build in 0.27s
+2024.10.17 16:45:30 INFO  running doctor check
+2024.10.17 16:45:30 INFO  java targets: root-test, root
+2024.10.17 16:45:30 WARN  2.13.10 is no longer supported in the current Metals versions, using the last known supported version 1.3.3
+2024.10.17 16:45:33 WARN  Flyway upgrade recommended: H2 2.3.230 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.10.17 16:45:35 INFO  time: indexed workspace in 4.65s
+2024.10.17 17:32:24 INFO  Shutting down server
+2024.10.17 17:32:24 INFO  shutting down Metals
+2024.10.17 17:32:24 INFO  Shut down connection with build server.
+2024.10.17 17:32:24 INFO  Exiting server
+2024.10.17 18:18:01 INFO  Started: Metals version 1.3.5 in folders '/home/eon/Documentos/TFM/RISC-V-CPU' for client Visual Studio Code 1.94.2.
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [scribe.slf4j.ScribeServiceProvider@58585f2e]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@26956010]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [scribe.slf4j.ScribeServiceProvider@58585f2e]
+2024.10.17 18:18:02 WARN  Flyway upgrade recommended: H2 2.3.230 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.10.17 18:18:02 INFO  Attempting to connect to the build server...
+2024.10.17 18:18:02 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/bsp.trace.json or /home/eon/.cache/metals/bsp.trace.json
+2024.10.17 18:18:02 INFO  time: Connected to build server in 0.6s
+2024.10.17 18:18:03 INFO  Connected to Build server: Bloop v1.6.0
+2024.10.17 18:18:03 INFO  time: Imported build in 0.34s
+2024.10.17 18:18:03 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/CPU.scala. Using presentation compiler with project's scala-library version: 2.13.14
+2024.10.17 18:18:03 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/CPU.scala. Using presentation compiler with project's scala-library version: 2.13.14
+2024.10.17 18:18:03 INFO  running doctor check
+2024.10.17 18:18:03 INFO  java targets: root-test, root
+2024.10.17 18:18:03 WARN  2.13.10 is no longer supported in the current Metals versions, using the last known supported version 1.3.3
+oct 17, 2024 6:18:04 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3
+oct 17, 2024 6:18:04 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 5
+oct 17, 2024 6:18:04 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 9
+oct 17, 2024 6:18:04 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 14
+oct 17, 2024 6:18:04 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1
+oct 17, 2024 6:18:06 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2
+2024.10.17 18:18:11 INFO  Shutting down server
+2024.10.17 18:18:11 INFO  shutting down Metals
+2024.10.17 18:18:11 INFO  Shut down connection with build server.
+2024.10.17 18:18:11 INFO  Exiting server
+2024.10.21 20:10:46 INFO  Started: Metals version 1.3.5 in folders '/home/eon/Documentos/TFM/RISC-V-CPU' for client Visual Studio Code 1.94.2.
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [scribe.slf4j.ScribeServiceProvider@4f5ab606]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@3f687473]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [scribe.slf4j.ScribeServiceProvider@4f5ab606]
+2024.10.21 20:10:46 WARN  Flyway upgrade recommended: H2 2.3.230 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.10.21 20:10:47 INFO  Attempting to connect to the build server...
+2024.10.21 20:10:48 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/peripheral/Memory.scala. Using presentation compiler with project's scala-library version: 3.3.3
+oct 21, 2024 8:10:48 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3
+oct 21, 2024 8:10:49 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1
+2024.10.21 20:10:49 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/CPUBundle.scala. Using presentation compiler with project's scala-library version: 3.3.3
+oct 21, 2024 8:10:49 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 11
+2024.10.21 20:10:49 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/CPUBundle.scala. Using presentation compiler with project's scala-library version: 3.3.3
+oct 21, 2024 8:10:51 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 15
+oct 21, 2024 8:10:51 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 14
+2024.10.21 20:10:51 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/MemoryAccess.scala. Using presentation compiler with project's scala-library version: 3.3.3
+2024.10.21 20:10:51 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/MemoryAccess.scala. Using presentation compiler with project's scala-library version: 3.3.3
+oct 21, 2024 8:10:51 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 26
+oct 21, 2024 8:10:51 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 25
+oct 21, 2024 8:10:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 33
+oct 21, 2024 8:10:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 32
+2024.10.21 20:10:51 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/peripheral/Memory.scala. Using presentation compiler with project's scala-library version: 3.3.3
+2024.10.21 20:10:52 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala. Using presentation compiler with project's scala-library version: 3.3.3
+oct 21, 2024 8:10:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 41
+oct 21, 2024 8:10:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 39
+2024.10.21 20:10:52 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/test/scala/riscv/singlecycle/CPUTest.scala. Using presentation compiler with project's scala-library version: 3.3.3
+oct 21, 2024 8:10:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 49
+oct 21, 2024 8:10:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 47
+2024.10.21 20:10:52 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/test/scala/riscv/singlecycle/CPUTest.scala. Using presentation compiler with project's scala-library version: 3.3.3
+oct 21, 2024 8:10:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 54
+2024.10.21 20:10:53 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/bsp.trace.json or /home/eon/.cache/metals/bsp.trace.json
+2024.10.21 20:10:53 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala. Using presentation compiler with project's scala-library version: 3.3.3
+oct 21, 2024 8:10:53 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 61
+2024.10.21 20:10:54 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala. Using presentation compiler with project's scala-library version: 3.3.3
+2024.10.21 20:10:54 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala. Using presentation compiler with project's scala-library version: 3.3.3
+2024.10.21 20:10:56 INFO  time: Connected to build server in 8.79s
+2024.10.21 20:10:56 INFO  Connected to Build server: Bloop v1.6.0
+2024.10.21 20:10:56 INFO  time: Imported build in 0.15s
+2024.10.21 20:10:56 INFO  running doctor check
+2024.10.21 20:10:56 INFO  java targets: root-test, root
+2024.10.21 20:10:56 WARN  2.13.10 is no longer supported in the current Metals versions, using the last known supported version 1.3.3
+2024.10.21 20:11:01 WARN  Flyway upgrade recommended: H2 2.3.230 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.10.21 20:11:01 INFO  time: indexed workspace in 4.98s
+2024.10.21 20:12:03 INFO  compiling root (1 scala source)
+oct 21, 2024 8:12:04 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 185
+oct 21, 2024 8:12:05 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 192
+oct 21, 2024 8:12:05 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 197
+oct 21, 2024 8:12:07 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 210
+oct 21, 2024 8:12:10 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 247
+2024.10.21 20:12:12 INFO  time: compiled root in 8.95s
+2024.10.21 20:12:15 INFO  compiling root (1 scala source)
+2024.10.21 20:12:18 INFO  time: compiled root in 2.29s
+2024.10.21 20:12:26 INFO  compiling root (1 scala source)
+2024.10.21 20:12:28 INFO  time: compiled root in 2.19s
+2024.10.21 20:12:35 INFO  compiling root (1 scala source)
+2024.10.21 20:12:38 INFO  time: compiled root in 2.33s
+2024.10.21 20:12:49 INFO  compiling root (1 scala source)
+2024.10.21 20:12:50 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.21 20:12:51 INFO  time: compiled root in 1.83s
+2024.10.21 20:12:56 INFO  compiling root (1 scala source)
+2024.10.21 20:12:57 INFO  time: compiled root in 1.72s
+2024.10.21 20:12:59 INFO  compiling root (1 scala source)
+2024.10.21 20:13:00 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.21 20:13:00 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.21 20:13:01 INFO  time: compiled root in 1.57s
+2024.10.21 20:13:01 INFO  compiling root (1 scala source)
+2024.10.21 20:13:02 INFO  time: compiled root in 1.42s
+2024.10.21 20:13:02 INFO  compiling root (1 scala source)
+2024.10.21 20:13:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.21 20:13:04 INFO  time: compiled root in 1.25s
+2024.10.21 20:13:06 INFO  compiling root (1 scala source)
+2024.10.21 20:13:07 INFO  time: compiled root in 1.16s
+2024.10.21 20:13:14 INFO  compiling root (1 scala source)
+2024.10.21 20:13:15 INFO  time: compiled root in 1.09s
+2024.10.21 20:13:21 INFO  compiling root (1 scala source)
+2024.10.21 20:13:22 INFO  time: compiled root in 1.14s
+2024.10.21 20:14:57 INFO  compiling root (1 scala source)
+2024.10.21 20:14:57 INFO  time: compiled root in 0.35s
+2024.10.21 20:15:02 INFO  compiling root (1 scala source)
+2024.10.21 20:15:02 INFO  time: compiled root in 0.11s
+2024.10.21 20:15:05 WARN  Using indexes to guess the definition of Instructions
+2024.10.21 20:15:05 INFO  compiling root (1 scala source)
+2024.10.21 20:15:05 INFO  time: compiled root in 0.24s
+2024.10.21 20:15:06 WARN  Using indexes to guess the definition of Instructions
+2024.10.21 20:15:47 INFO  compiling root (1 scala source)
+2024.10.21 20:15:47 INFO  time: compiled root in 0.26s
+2024.10.21 20:15:49 INFO  compiling root (1 scala source)
+2024.10.21 20:15:49 INFO  time: compiled root in 86ms
+2024.10.21 20:15:51 INFO  compiling root (1 scala source)
+2024.10.21 20:15:51 INFO  time: compiled root in 90ms
+2024.10.21 20:15:55 INFO  compiling root (1 scala source)
+2024.10.21 20:15:55 INFO  time: compiled root in 0.21s
+2024.10.21 20:15:58 INFO  compiling root (1 scala source)
+2024.10.21 20:15:59 INFO  time: compiled root in 1.24s
+2024.10.21 20:16:02 INFO  compiling root (1 scala source)
+2024.10.21 20:16:03 INFO  time: compiled root in 1.18s
+2024.10.21 20:16:03 INFO  compiling root (1 scala source)
+2024.10.21 20:16:05 INFO  time: compiled root in 1.09s
+2024.10.21 20:16:07 INFO  compiling root (1 scala source)
+2024.10.21 20:16:07 INFO  time: compiled root in 0.99s
+2024.10.21 20:16:10 INFO  compiling root (1 scala source)
+2024.10.21 20:16:10 INFO  time: compiled root in 1s
+oct 21, 2024 8:16:33 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1286
+2024.10.21 20:16:35 INFO  compiling root (1 scala source)
+2024.10.21 20:16:35 INFO  time: compiled root in 0.16s
+2024.10.21 20:16:38 INFO  compiling root (1 scala source)
+2024.10.21 20:16:38 INFO  time: compiled root in 0.26s
+2024.10.21 20:16:40 INFO  compiling root (1 scala source)
+2024.10.21 20:16:40 INFO  time: compiled root in 0.17s
+2024.10.21 20:16:46 INFO  compiling root (1 scala source)
+2024.10.21 20:16:46 INFO  time: compiled root in 0.28s
+2024.10.21 20:16:47 INFO  compiling root (1 scala source)
+2024.10.21 20:16:47 INFO  time: compiled root in 81ms
+2024.10.21 20:17:14 INFO  compiling root (1 scala source)
+2024.10.21 20:17:14 INFO  time: compiled root in 92ms
+2024.10.21 20:17:17 INFO  compiling root (1 scala source)
+2024.10.21 20:17:17 INFO  time: compiled root in 0.19s
+2024.10.21 20:17:22 INFO  compiling root (1 scala source)
+2024.10.21 20:17:22 INFO  time: compiled root in 0.16s
+2024.10.21 20:17:26 INFO  compiling root (1 scala source)
+2024.10.21 20:17:26 INFO  time: compiled root in 0.24s
+2024.10.21 20:17:46 INFO  compiling root (1 scala source)
+2024.10.21 20:17:46 INFO  time: compiled root in 0.11s
+2024.10.21 20:17:53 INFO  compiling root (1 scala source)
+2024.10.21 20:17:54 INFO  time: compiled root in 1.02s
+oct 21, 2024 8:18:13 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1672
+2024.10.21 20:18:18 INFO  compiling root (1 scala source)
+2024.10.21 20:18:18 INFO  time: compiled root in 0.96s
+2024.10.21 20:18:23 INFO  compiling root (1 scala source)
+2024.10.21 20:18:24 INFO  time: compiled root in 1.21s
+oct 21, 2024 8:18:25 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1794
+2024.10.21 20:18:26 INFO  compiling root (1 scala source)
+2024.10.21 20:18:26 INFO  time: compiled root in 0.9s
+2024.10.21 20:18:48 INFO  compiling root (1 scala source)
+2024.10.21 20:18:48 INFO  time: compiled root in 1s
+2024.10.21 20:18:50 INFO  compiling root (1 scala source)
+2024.10.21 20:18:50 INFO  time: compiled root in 0.89s
+2024.10.21 20:18:52 INFO  compiling root (1 scala source)
+2024.10.21 20:18:53 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.21 20:18:53 INFO  time: compiled root in 1.03s
+2024.10.21 20:18:55 INFO  compiling root (1 scala source)
+2024.10.21 20:18:55 INFO  time: compiled root in 0.11s
+oct 21, 2024 8:18:57 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1908
+2024.10.21 20:18:59 INFO  compiling root (1 scala source)
+2024.10.21 20:18:59 INFO  time: compiled root in 0.11s
+2024.10.21 20:19:02 INFO  compiling root (1 scala source)
+2024.10.21 20:19:02 INFO  time: compiled root in 0.92s
+2024.10.21 20:19:09 INFO  compiling root (1 scala source)
+2024.10.21 20:19:09 INFO  time: compiled root in 0.9s
+2024.10.21 20:19:18 INFO  compiling root (1 scala source)
+2024.10.21 20:19:19 INFO  time: compiled root in 1.02s
+2024.10.21 20:19:20 INFO  compiling root (1 scala source)
+2024.10.21 20:19:20 INFO  time: compiled root in 0.96s
+2024.10.21 20:19:25 INFO  compiling root (1 scala source)
+oct 21, 2024 8:19:25 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2153
+2024.10.21 20:19:26 INFO  time: compiled root in 1.11s
+2024.10.21 20:19:26 INFO  compiling root (1 scala source)
+2024.10.21 20:19:27 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.21 20:19:27 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.21 20:19:28 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.21 20:19:28 INFO  time: compiled root in 1.3s
+2024.10.21 20:19:28 INFO  compiling root (1 scala source)
+2024.10.21 20:19:29 INFO  time: compiled root in 0.92s
+2024.10.21 20:19:41 INFO  compiling root (1 scala source)
+2024.10.21 20:19:41 INFO  time: compiled root in 0.22s
+2024.10.21 20:19:56 INFO  compiling root (1 scala source)
+2024.10.21 20:19:56 INFO  time: compiled root in 0.89s
+2024.10.21 20:20:01 INFO  compiling root (1 scala source)
+2024.10.21 20:20:01 INFO  time: compiled root in 0.93s
+2024.10.21 20:38:23 INFO  compiling root (1 scala source)
+2024.10.21 20:38:23 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.21 20:38:23 INFO  time: compiled root in 1s
+2024.10.21 21:03:13 WARN  Target root /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/.bloop/root/bloop-bsp-clients-classes/classes-Metals-JJ0SGz0MTYSaoCkjbznrGQ== does not exist
+2024.10.21 21:03:31 WARN  Target root /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/.bloop/root/bloop-bsp-clients-classes/classes-Metals-JJ0SGz0MTYSaoCkjbznrGQ== does not exist
+2024.10.21 21:03:36 WARN  Target root /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/.bloop/root/bloop-bsp-clients-classes/classes-Metals-JJ0SGz0MTYSaoCkjbznrGQ== does not exist
+2024.10.21 21:03:36 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/bsp.trace.json or /home/eon/.cache/metals/bsp.trace.json
+2024.10.21 21:03:36 INFO  Connected to Build server: Bloop v1.6.0
+2024.10.21 21:03:36 INFO  running doctor check
+2024.10.21 21:03:36 INFO  java targets: root-test, root
+2024.10.21 21:03:38 INFO  time: indexed workspace in 1.58s
+2024.10.21 21:03:38 INFO  compiling root (1 scala source)
+2024.10.21 21:03:39 INFO  time: compiled root in 1.19s
+2024.10.21 21:51:12 INFO  compiling root (1 scala source)
+2024.10.21 21:51:12 INFO  time: compiled root in 0.31s
+2024.10.21 21:51:18 INFO  compiling root (1 scala source)
+2024.10.21 21:51:19 INFO  time: compiled root in 1.05s
+2024.10.21 21:51:23 INFO  compiling root (1 scala source)
+2024.10.21 21:51:23 INFO  time: compiled root in 1s
+oct 21, 2024 9:51:24 P. M. scala.meta.internal.pc.CompilerAccess retryWithCleanCompiler
+INFORMACIÓN: compiler crashed due to an error in the Scala compiler, retrying with new compiler instance.
+2024.10.21 21:51:24 INFO  compiling root (1 scala source)
+2024.10.21 21:51:24 INFO  time: compiled root in 0.91s
+2024.10.21 21:51:28 INFO  Shutting down server
+2024.10.21 21:51:28 INFO  shutting down Metals
+2024.10.21 21:51:28 INFO  Shut down connection with build server.
+oct 21, 2024 9:51:28 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint notify
+INFORMACIÓN: Failed to send notification message.
+org.eclipse.lsp4j.jsonrpc.JsonRpcException: java.nio.channels.AsynchronousCloseException
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageConsumer.consume(StreamMessageConsumer.java:72)
+	at scala.meta.internal.metals.RequestMonitorImpl$$anon$1.consume(ServerLivenessMonitor.scala:41)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.notify(RemoteEndpoint.java:135)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.sendCancelNotification(RemoteEndpoint.java:191)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint$1.cancel(RemoteEndpoint.java:160)
+	at scala.meta.internal.metals.utils.FutureWithTimeout$$anon$1.$anonfun$cancel$1(FutureWithTimeout.scala:37)
+	at scala.runtime.java8.JFunction0$mcZ$sp.apply(JFunction0$mcZ$sp.scala:17)
+	at scala.util.Try$.apply(Try.scala:217)
+	at scala.meta.internal.metals.utils.FutureWithTimeout$$anon$1.cancel(FutureWithTimeout.scala:37)
+	at scala.meta.internal.metals.Cancelable$.$anonfun$cancelAll$1(Cancelable.scala:29)
+	at scala.collection.immutable.List.foreach(List.scala:334)
+	at scala.meta.internal.metals.Cancelable$.cancelAll(Cancelable.scala:28)
+	at scala.meta.internal.metals.MutableCancelable.cancel(MutableCancelable.scala:25)
+	at scala.meta.internal.metals.utils.RequestRegistry.cancel(RequestRegistry.scala:94)
+	at scala.meta.internal.metals.BuildServerConnection.cancel(BuildServerConnection.scala:450)
+	at scala.meta.internal.metals.BuildServerConnection.$anonfun$shutdown$1(BuildServerConnection.scala:182)
+	at scala.meta.internal.metals.BuildServerConnection.$anonfun$shutdown$1$adapted(BuildServerConnection.scala:174)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:467)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.nio.channels.AsynchronousCloseException
+	at java.base/java.nio.channels.spi.AbstractInterruptibleChannel.end(AbstractInterruptibleChannel.java:202)
+	at java.base/sun.nio.ch.SinkChannelImpl.endWrite(SinkChannelImpl.java:263)
+	at java.base/sun.nio.ch.SinkChannelImpl.write(SinkChannelImpl.java:285)
+	at java.base/java.nio.channels.Channels.writeFullyImpl(Channels.java:74)
+	at java.base/java.nio.channels.Channels.writeFully(Channels.java:93)
+	at java.base/java.nio.channels.Channels$1.write(Channels.java:171)
+	at java.base/java.io.OutputStream.write(OutputStream.java:127)
+	at java.base/java.nio.channels.Channels$1.write(Channels.java:151)
+	at scala.meta.internal.metals.ClosableOutputStream.write(ClosableOutputStream.scala:26)
+	at java.base/java.io.FilterOutputStream.write(FilterOutputStream.java:137)
+	at java.base/java.io.FilterOutputStream.write(FilterOutputStream.java:108)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageConsumer.consume(StreamMessageConsumer.java:67)
+	... 20 more
+
+2024.10.21 21:51:28 INFO  Cancelling compilation on Bloop server
+2024.10.21 21:51:28 INFO  Exiting server
+2024.10.22 17:36:31 INFO  Started: Metals version 1.3.5 in folders '/home/eon/Documentos/TFM/RISC-V-CPU' for client Visual Studio Code 1.94.2.
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [scribe.slf4j.ScribeServiceProvider@88f47b0]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@d8f95e8]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [scribe.slf4j.ScribeServiceProvider@88f47b0]
+2024.10.22 17:36:34 WARN  Flyway upgrade recommended: H2 2.3.230 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.10.22 17:36:34 INFO  Attempting to connect to the build server...
+2024.10.22 17:36:35 INFO  no build target found for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala. Using presentation compiler with project's scala-library version: 3.3.3
+2024.10.22 17:36:37 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/bsp.trace.json or /home/eon/.cache/metals/bsp.trace.json
+2024.10.22 17:36:39 INFO  time: Connected to build server in 5.61s
+2024.10.22 17:36:39 INFO  Connected to Build server: Bloop v1.6.0
+2024.10.22 17:36:40 INFO  time: Imported build in 0.18s
+2024.10.22 17:36:40 INFO  running doctor check
+2024.10.22 17:36:40 INFO  java targets: root-test, root
+2024.10.22 17:36:40 WARN  2.13.10 is no longer supported in the current Metals versions, using the last known supported version 1.3.3
+2024.10.22 17:36:43 WARN  Flyway upgrade recommended: H2 2.3.230 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.10.22 17:36:43 INFO  time: indexed workspace in 3.73s
+2024.10.22 17:59:28 INFO  compiling root (1 scala source)
+2024.10.22 17:59:34 INFO  time: compiled root in 6.22s
+oct 22, 2024 5:59:41 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 139
+oct 22, 2024 5:59:44 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 167
+2024.10.22 17:59:45 INFO  compiling root (1 scala source)
+oct 22, 2024 5:59:46 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 180
+oct 22, 2024 5:59:47 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 187
+oct 22, 2024 5:59:47 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 192
+2024.10.22 17:59:48 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 17:59:48 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 17:59:49 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 17:59:49 INFO  time: compiled root in 3.86s
+2024.10.22 17:59:53 INFO  compiling root (1 scala source)
+2024.10.22 17:59:56 INFO  time: compiled root in 2.29s
+oct 22, 2024 5:59:58 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 287
+2024.10.22 18:00:03 INFO  compiling root (1 scala source)
+2024.10.22 18:00:05 INFO  time: compiled root in 2.23s
+2024.10.22 18:00:19 INFO  compiling root (1 scala source)
+oct 22, 2024 6:00:19 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 388
+oct 22, 2024 6:00:20 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 391
+oct 22, 2024 6:00:20 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 395
+oct 22, 2024 6:00:22 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 419
+oct 22, 2024 6:00:22 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 418
+2024.10.22 18:00:23 INFO  time: compiled root in 3.88s
+2024.10.22 18:00:26 INFO  compiling root (1 scala source)
+2024.10.22 18:00:26 INFO  time: compiled root in 0.56s
+2024.10.22 18:00:27 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:01:36 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:02:58 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:02:59 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:03:00 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:03:01 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:03:01 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:03:02 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:03:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:03:03 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:03:04 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:03:04 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 18:03:05 INFO  compiling root (1 scala source)
+2024.10.22 18:03:07 INFO  time: compiled root in 1.26s
+2024.10.22 18:03:33 INFO  compiling root (1 scala source)
+2024.10.22 18:03:34 INFO  time: compiled root in 1.49s
+2024.10.22 18:03:39 INFO  compiling root (1 scala source)
+2024.10.22 18:03:40 INFO  time: compiled root in 1.11s
+2024.10.22 18:03:56 INFO  compiling root (1 scala source)
+2024.10.22 18:03:56 INFO  time: compiled root in 0.28s
+2024.10.22 18:03:57 INFO  compiling root (1 scala source)
+2024.10.22 18:03:57 INFO  time: compiled root in 0.29s
+2024.10.22 18:04:28 INFO  compiling root (1 scala source)
+2024.10.22 18:04:28 INFO  time: compiled root in 0.24s
+2024.10.22 18:04:35 INFO  compiling root (1 scala source)
+2024.10.22 18:04:35 INFO  time: compiled root in 0.23s
+2024.10.22 18:04:38 INFO  compiling root (1 scala source)
+2024.10.22 18:04:38 INFO  time: compiled root in 0.23s
+2024.10.22 19:18:47 WARN  Target root /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/.bloop/root/bloop-bsp-clients-classes/classes-Metals-HQfRe5iGR0yWJpdFyfgvPg== does not exist
+2024.10.22 19:18:54 WARN  Target root /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/.bloop/root/bloop-bsp-clients-classes/classes-Metals-HQfRe5iGR0yWJpdFyfgvPg== does not exist
+2024.10.22 19:18:54 WARN  Target root /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/.bloop/root/bloop-bsp-clients-classes/classes-Metals-HQfRe5iGR0yWJpdFyfgvPg== does not exist
+2024.10.22 19:18:54 WARN  Target root /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/.bloop/root/bloop-bsp-clients-classes/classes-Metals-HQfRe5iGR0yWJpdFyfgvPg== does not exist
+2024.10.22 19:18:56 WARN  Target root /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/.bloop/root/bloop-bsp-clients-classes/classes-Metals-HQfRe5iGR0yWJpdFyfgvPg== does not exist
+2024.10.22 19:18:57 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /home/eon/Documentos/TFM/RISC-V-CPU/.metals/bsp.trace.json or /home/eon/.cache/metals/bsp.trace.json
+2024.10.22 19:18:57 INFO  Connected to Build server: Bloop v1.6.0
+2024.10.22 19:18:57 INFO  running doctor check
+2024.10.22 19:18:57 INFO  java targets: root-test, root
+2024.10.22 19:18:58 INFO  time: indexed workspace in 1.7s
+2024.10.22 19:18:58 INFO  compiling root (1 scala source)
+2024.10.22 19:18:58 INFO  time: compiled root in 0.41s
+oct 22, 2024 7:19:08 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1174
+oct 22, 2024 7:19:08 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1179
+oct 22, 2024 7:19:22 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1279
+2024.10.22 19:19:32 INFO  compiling root (1 scala source)
+2024.10.22 19:19:32 INFO  time: compiled root in 0.3s
+2024.10.22 19:19:35 INFO  compiling root (1 scala source)
+2024.10.22 19:19:37 INFO  time: compiled root in 2.24s
+2024.10.22 19:19:39 INFO  compiling root (1 scala source)
+2024.10.22 19:19:40 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+oct 22, 2024 7:19:40 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1375
+oct 22, 2024 7:19:41 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1371
+oct 22, 2024 7:19:41 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1374
+2024.10.22 19:19:40 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+oct 22, 2024 7:19:42 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1390
+2024.10.22 19:19:42 INFO  time: compiled root in 2.91s
+2024.10.22 19:19:47 INFO  compiling root (1 scala source)
+2024.10.22 19:19:47 INFO  time: compiled root in 0.38s
+2024.10.22 19:19:49 INFO  compiling root (1 scala source)
+2024.10.22 19:19:50 INFO  time: compiled root in 1.1s
+2024.10.22 19:19:53 INFO  compiling root (1 scala source)
+2024.10.22 19:19:55 INFO  time: compiled root in 1.42s
+2024.10.22 19:20:10 INFO  compiling root (1 scala source)
+2024.10.22 19:20:11 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:20:12 INFO  time: compiled root in 1.5s
+2024.10.22 19:20:15 INFO  compiling root (1 scala source)
+2024.10.22 19:20:16 INFO  time: compiled root in 1.09s
+oct 22, 2024 7:20:31 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1712
+oct 22, 2024 7:20:31 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1717
+oct 22, 2024 7:20:31 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1722
+2024.10.22 19:20:31 INFO  compiling root (1 scala source)
+oct 22, 2024 7:20:31 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1723
+oct 22, 2024 7:20:31 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1727
+oct 22, 2024 7:20:32 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1730
+oct 22, 2024 7:20:32 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1731
+oct 22, 2024 7:20:32 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1737
+oct 22, 2024 7:20:32 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1738
+2024.10.22 19:20:34 INFO  time: compiled root in 2.38s
+2024.10.22 19:20:34 INFO  compiling root (1 scala source)
+2024.10.22 19:20:34 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:20:34 INFO  time: compiled root in 0.39s
+2024.10.22 19:20:34 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:20:35 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:20:36 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:20:36 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:20:37 INFO  compiling root (1 scala source)
+2024.10.22 19:20:37 INFO  time: compiled root in 0.2s
+2024.10.22 19:20:38 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:23:25 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:23:37 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:23:38 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:23:38 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:23:39 INFO  compiling root (1 scala source)
+2024.10.22 19:23:39 INFO  time: compiled root in 96ms
+2024.10.22 19:23:40 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:23:41 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:23:41 INFO  compiling root (1 scala source)
+2024.10.22 19:23:42 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:23:43 INFO  time: compiled root in 1.23s
+2024.10.22 19:23:43 INFO  compiling root (1 scala source)
+2024.10.22 19:23:44 INFO  time: compiled root in 1.22s
+oct 22, 2024 7:23:44 P. M. scala.meta.internal.pc.CompilerAccess retryWithCleanCompiler
+INFORMACIÓN: compiler crashed due to an error in the Scala compiler, retrying with new compiler instance.
+2024.10.22 19:23:52 INFO  compiling root (1 scala source)
+2024.10.22 19:23:54 INFO  time: compiled root in 1.07s
+2024.10.22 19:24:05 INFO  compiling root (1 scala source)
+2024.10.22 19:24:05 INFO  time: compiled root in 0.24s
+2024.10.22 19:25:21 INFO  compiling root (1 scala source)
+2024.10.22 19:25:21 INFO  time: compiled root in 0.21s
+2024.10.22 19:25:48 INFO  compiling root (1 scala source)
+2024.10.22 19:25:48 INFO  time: compiled root in 0.23s
+2024.10.22 19:26:05 INFO  compiling root (1 scala source)
+2024.10.22 19:26:05 INFO  time: compiled root in 0.33s
+2024.10.22 19:26:07 INFO  compiling root (1 scala source)
+2024.10.22 19:26:07 INFO  time: compiled root in 0.27s
+oct 22, 2024 7:26:09 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2402
+2024.10.22 19:26:11 INFO  compiling root (1 scala source)
+2024.10.22 19:26:12 INFO  time: compiled root in 1.02s
+2024.10.22 19:26:15 INFO  compiling root (1 scala source)
+2024.10.22 19:26:17 INFO  time: compiled root in 1.38s
+2024.10.22 19:26:36 INFO  compiling root (1 scala source)
+oct 22, 2024 7:26:37 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2721
+2024.10.22 19:26:37 INFO  time: compiled root in 1.24s
+oct 22, 2024 7:26:37 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2722
+2024.10.22 19:26:40 INFO  compiling root (1 scala source)
+2024.10.22 19:26:40 INFO  time: compiled root in 0.99s
+2024.10.22 19:26:47 INFO  compiling root (1 scala source)
+2024.10.22 19:26:48 INFO  time: compiled root in 1.09s
+2024.10.22 19:26:53 INFO  compiling root (1 scala source)
+2024.10.22 19:26:54 INFO  time: compiled root in 1.18s
+2024.10.22 19:26:54 INFO  compiling root (1 scala source)
+2024.10.22 19:26:56 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:26:56 INFO  time: compiled root in 1s
+2024.10.22 19:26:56 INFO  compiling root (1 scala source)
+2024.10.22 19:26:58 INFO  time: compiled root in 0.95s
+2024.10.22 19:27:00 INFO  compiling root (1 scala source)
+2024.10.22 19:27:01 INFO  time: compiled root in 1.05s
+oct 22, 2024 7:27:06 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2889
+oct 22, 2024 7:27:06 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2890
+2024.10.22 19:27:08 INFO  compiling root (1 scala source)
+2024.10.22 19:27:09 INFO  time: compiled root in 1.03s
+oct 22, 2024 7:27:09 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2923
+oct 22, 2024 7:27:10 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2925
+oct 22, 2024 7:27:10 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2926
+oct 22, 2024 7:27:10 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 2928
+2024.10.22 19:27:12 INFO  compiling root (1 scala source)
+2024.10.22 19:27:13 INFO  time: compiled root in 1.28s
+2024.10.22 19:27:28 INFO  compiling root (1 scala source)
+2024.10.22 19:27:28 INFO  time: compiled root in 0.18s
+2024.10.22 19:28:22 INFO  compiling root (1 scala source)
+2024.10.22 19:28:22 INFO  time: compiled root in 0.91s
+oct 22, 2024 7:28:26 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3233
+oct 22, 2024 7:28:26 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3234
+oct 22, 2024 7:28:26 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3239
+oct 22, 2024 7:28:26 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 3240
+2024.10.22 19:28:29 INFO  compiling root (1 scala source)
+2024.10.22 19:28:30 INFO  time: compiled root in 1.03s
+2024.10.22 19:28:31 WARN  Could not load snapshot text for /home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/src/main/scala/riscv/core/Execute.scala
+2024.10.22 19:28:30 INFO  compiling root (1 scala source)
+2024.10.22 19:28:32 INFO  time: compiled root in 1.02s
+2024.10.22 19:28:42 INFO  compiling root (1 scala source)
+2024.10.22 19:28:43 INFO  time: compiled root in 1.02s
+2024.10.22 19:28:56 INFO  compiling root (1 scala source)
+2024.10.22 19:28:56 INFO  time: compiled root in 0.98s
+oct 22, 2024 7:29:05 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint notify
+ADVERTENCIA: Failed to send notification message.
+org.eclipse.lsp4j.jsonrpc.JsonRpcException: java.io.IOException: Tubería rota
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageConsumer.consume(StreamMessageConsumer.java:72)
+	at scala.meta.internal.metals.RequestMonitorImpl$$anon$1.consume(ServerLivenessMonitor.scala:41)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.notify(RemoteEndpoint.java:135)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.sendCancelNotification(RemoteEndpoint.java:191)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint$1.cancel(RemoteEndpoint.java:160)
+	at scala.meta.internal.metals.utils.FutureWithTimeout$$anon$1.$anonfun$cancel$1(FutureWithTimeout.scala:37)
+	at scala.runtime.java8.JFunction0$mcZ$sp.apply(JFunction0$mcZ$sp.scala:17)
+	at scala.util.Try$.apply(Try.scala:217)
+	at scala.meta.internal.metals.utils.FutureWithTimeout$$anon$1.cancel(FutureWithTimeout.scala:37)
+	at scala.meta.internal.metals.utils.FutureWithTimeout$.$anonfun$apply$4(FutureWithTimeout.scala:54)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:470)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.io.IOException: Tubería rota
+	at java.base/sun.nio.ch.FileDispatcherImpl.write0(Native Method)
+	at java.base/sun.nio.ch.FileDispatcherImpl.write(FileDispatcherImpl.java:62)
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:132)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:97)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:53)
+	at java.base/sun.nio.ch.SinkChannelImpl.write(SinkChannelImpl.java:277)
+	at java.base/java.nio.channels.Channels.writeFullyImpl(Channels.java:74)
+	at java.base/java.nio.channels.Channels.writeFully(Channels.java:93)
+	at java.base/java.nio.channels.Channels$1.write(Channels.java:171)
+	at java.base/java.io.OutputStream.write(OutputStream.java:127)
+	at java.base/java.nio.channels.Channels$1.write(Channels.java:151)
+	at scala.meta.internal.metals.ClosableOutputStream.write(ClosableOutputStream.scala:26)
+	at java.base/java.io.FilterOutputStream.write(FilterOutputStream.java:137)
+	at java.base/java.io.FilterOutputStream.write(FilterOutputStream.java:108)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageConsumer.consume(StreamMessageConsumer.java:67)
+	... 13 more
+
+2024.10.22 19:29:05 INFO  Cancelling compilation on Bloop server
+java.util.concurrent.TimeoutException: Future timed out after [10 minutes]
+	at scala.concurrent.impl.Promise$DefaultPromise.tryAwait0(Promise.scala:248)
+	at scala.concurrent.impl.Promise$DefaultPromise.result(Promise.scala:261)
+	at scala.concurrent.Await$.$anonfun$result$1(package.scala:201)
+	at scala.concurrent.BlockContext$DefaultBlockContext$.blockOn(BlockContext.scala:62)
+	at scala.concurrent.Await$.result(package.scala:124)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionScalaFuture.$anonfun$withTimeout$1(MetalsEnrichments.scala:287)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:687)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:467)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:833)
+
+2024.10.22 19:29:17 INFO  Shutting down server
+2024.10.22 19:29:17 INFO  shutting down Metals
+2024.10.22 19:29:17 INFO  Shut down connection with build server.
+2024.10.22 19:29:17 INFO  Exiting server
