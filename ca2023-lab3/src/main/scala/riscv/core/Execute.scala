@@ -39,32 +39,21 @@ class Execute extends Module {
 
   // lab3(Execute) begin
 
-
   // NOTE: configuración del tipo de operación en la ALU
   alu.io.func := alu_ctrl.io.alu_funct
 
-  // NOTE: configuración de los operandos
-  alu.io.op1 := MuxLookup(
-    opcode,
-    0.U(Parameters.DataWidth),
-    IndexedSeq(
-      InstructionTypes.I  -> io.reg1_data,            // NOTE: si la instrucción es del tipo 'I' (operaciones con inmediatos), el primer operando es el dato alojado en el registro 'rs1'. Esto aplica también al subtipo 'l' (loads), puesto que el registro 'rs1' alberga la dirección base a la que se accederá
-      InstructionTypes.S  -> io.reg1_data,            // NOTE: si la instrucción es del tipo 'S' (stores), el primer operando es la dirección base alojada en el registro 'rs1'
-      InstructionTypes.B  -> io.instruction_address,  // NOTE: el primer operando en un branch es la dirección base del salto
-      Instructions.jal    -> io.instruction_address,  // NOTE: si la instrucción es un salto incondicional, el primer operando de la ALU será la dirección de la instrucción de salto
-      // Instructions.lui    -> 
-    )
+  // NOTE: selección del primer operando en base a la salida del Mux del decode en el que se toma la decisión de tomar la dirección de la instrucción o el valor del primer registro de datos
+  alu.io.op1 := Mux(
+    io.aluop1_source.asBool,
+    io.instruction_address,
+    io.reg1_data
   )
 
-  alu.io.op2 := MuxLookup(
-    opcode,
-    0.U(Parameters.DataWidth),
-    IndexedSeq(
-      InstructionTypes.I  -> io.immediate,                                        // NOTE: el segundo operando en las instrucciones del tipo 'I' es el inmediato a usar en la operación
-      InstructionTypes.S  -> Cat(io.instruction(31, 35), io.instruction(11, 7)),  // NOTE: se concatenan las dos mitades del inmediato para formar el offset a partir de la dirección base alojada en 'rs1'
-      InstructionTypes.B  -> Fill(26, io.instruction(30, 25)),                    // NOTE: el segundo operando de un branch es el offset a partir de la dirección base del salto (la dirección de la instrucción branch)
-      Instructions.jal    -> Fill(22, io.instruction(30, 21))                     // NOTE: si la instrucción es un salto incondicional, el segundo operando será el offset (con signo, extendido a 32 bits) a partir de la dirección base
-    )
+  // NOTE: selección del segundo operando de la ALU, también, a partir del valor de salida del Mux del decode en el que se toma la decisión de operar con el inmediato o el segundo registro de datos
+  alu.io.op2 := Mux(
+    io.aluop2_source.asBool,
+    io.immediate,
+    io.reg2_data
   )
 
   // lab3(Execute) end

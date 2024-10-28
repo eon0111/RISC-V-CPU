@@ -154,7 +154,7 @@ class InstructionDecode extends Module {
       InstructionTypes.I -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 20)),  // NOTE: con 'Fill' extiende el signo del inmediato a 32 bits, y concatena el resultado de la extensión (que es el signo repetido tantas veces como sea necesario) al valor del inmediato
       InstructionTypes.L -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 20)),
       Instructions.jalr  -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 20)),
-      InstructionTypes.S -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 25), io.instruction(11, 7)),
+      InstructionTypes.S -> Cat(Fill(21, io.instruction(31)), io.instruction(30, 25), io.instruction(11, 7)), // NOTE: en las instrucciones del tipo 'S' el inmediato se encuentra segregado en dos mitades. Se extiende el signo de la mitad que ocupa los bits más significativos, y se concatena con la segunda mitad para formar un inmediato de 32 bits
       InstructionTypes.B -> Cat(
         Fill(20, io.instruction(31)),
         io.instruction(7),
