@@ -1,2 +1,4 @@
 .metals
 ca2023-lab3/.bloop
+ca2023-lab3/test_run_dir/
+ca2023-lab3/verilog/
