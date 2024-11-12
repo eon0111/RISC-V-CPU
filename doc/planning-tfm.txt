@@ -1,0 +1,6 @@
+0. Esquema CPU
+1. Programillas chorra con tests (compilación cruzada)
+2. Pipelining
+3. Meter en FPGA
+4. Interfaz serie (y add-ons)
+5. Addons arquitecturales

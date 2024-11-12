@@ -369,9 +369,25 @@ Internamente los registros cuentan con una señal de reset (en el Verilog) y, cu
 
 
 
+
 ---
 ---
 ---
+
+
+
+
+# 
+
+
+
+
+---
+---
+---
+
+
+
 
 # RISC-V
 
