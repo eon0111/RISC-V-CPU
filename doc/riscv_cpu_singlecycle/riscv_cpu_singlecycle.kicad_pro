@@ -239,7 +239,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "RISC-V-CPU.kicad_pro",
+    "filename": "riscv_cpu_singlecycle.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -384,7 +384,7 @@
   },
   "sheets": [
     [
-      "2ba00b11-cabe-4a49-b90b-2ae7d885f76b",
+      "86561bd0-6430-4069-833d-373023ae68cb",
       "Raíz"
     ]
   ],

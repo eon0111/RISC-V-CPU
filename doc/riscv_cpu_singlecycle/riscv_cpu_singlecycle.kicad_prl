@@ -74,7 +74,7 @@
     "ssh_key": ""
   },
   "meta": {
-    "filename": "RISC-V-CPU.kicad_prl",
+    "filename": "riscv_cpu_singlecycle.kicad_prl",
     "version": 3
   },
   "project": {
