@@ -6,3 +6,5 @@ ca2023-lab3/test_run_dir/*
 ca2023-lab3/verilog/*
 ca2023-lab3/project/*
 ca2023-lab3/target/*
+ca2023-lab3/.bsp/*
+ca2023-lab3/src/test/scala/riscv/singlecycle/target/*

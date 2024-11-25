@@ -53,6 +53,16 @@ class Memory(capacity: Int) extends Module {
     val debug_read_data    = Output(UInt(Parameters.DataWidth))
   })
 
+  /* NOTE: las memorias que proporciona Chisel son direccionables a palabra, no a byte. Esta
+   * decisión puede deberse a la necesidad de dotar a la librería con la capacidad de generar
+   * memorias de cualquier tipología y tipo de direccionamiento, en función del tipo de dato con que
+   * se inicialize la memoria en el constructor, y en función de la máscara que se emplee en los
+   * accesos a estas memorias. Por ejemplo, una memoria inicializada del siguiente modo:
+   * SyncReadMem(4096, Vec(4, 32)), daría como resultado una memoria con 4096 entradas donde, cada
+   * entrada, albergaría 4 palabras de 32 bits cada una.
+   * Puede intuirse que este mecanismo de generación de memorias y acceso a las mimas permite, entre
+   * otros, construir caches, indicando el tag en el parámetro de dirección de los métodos de
+   * lectura/escritura. */
   val mem = SyncReadMem(capacity, Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
   when(io.bundle.write_enable) {
     val write_data_vec = Wire(Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
@@ -66,7 +76,7 @@ class Memory(capacity: Int) extends Module {
   io.instruction      := mem.read((io.instruction_address >> 2.U).asUInt, true.B).asUInt
 }
 
-class EZMemory(capacity: Int, memContents: String) extends Module {
+class MemoryFromFile(capacity: Int, memFile: String) extends Module {
   val io = IO(new Bundle {
     val bundle = new RAMBundle
 
@@ -77,15 +87,32 @@ class EZMemory(capacity: Int, memContents: String) extends Module {
     val debug_read_data    = Output(UInt(Parameters.DataWidth))
   })
 
-  val mem = SyncReadMem(capacity, Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
-  loadMemoryFromFileInline(mem, memContents)
+  val mem = SyncReadMem(capacity, UInt(Parameters.ByteWidth))
+
+  // NOTE: https://github.com/chipsalliance/chisel/blob/main/src/main/scala/chisel3/util/experimental/LoadMemoryTransform.scala
+  // NOTE: https://www.chisel-lang.org/docs/appendix/experimental-features#loading-memories-for-simulation-or-fpga-initialization
+  loadMemoryFromFileInline(mem, memFile)
+
+  // TODO: igual la inicialización puedo hacerla yo a manita con un bucle mono aquí, y me dejo de
+  // funciones experimentales mal documentadas que no admiten memorias inicializadas por medio de
+  // tipos de datos no básicos
 
   when(io.bundle.write_enable) {
-    val write_data_vec = Wire(Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
+	// NOTE: write_data_vec es la palabra a escribir en memoria, descrita como un vector de 4 bytes
+    val write_data_vec = Wire(UInt(Parameters.ByteWidth))
+
+	// NOTE: Se forma la palabra leyendo el dato de entrada (io.bundle.write_data) byte a byte (accede
+	// a secciones del dato con los paréntesis -> i=0::(7,0); i=1::(15,8);...)
     for (i <- 0 until Parameters.WordSize) {
       write_data_vec(i) := io.bundle.write_data((i + 1) * Parameters.ByteBits - 1, i * Parameters.ByteBits)
     }
-    mem.write((io.bundle.address >> 2.U).asUInt, write_data_vec, io.bundle.write_strobe)
+
+	// NOTE: el método 'write' toma como parámetros la dirección y el dato a escribir, y un tercer
+	// parámetro opcional que es una máscara (Masks@https://www.chisel-lang.org/docs/explanations/memories)
+	// La máscara que se emplea en el contexto de este código consiste en un vector de 4 bits (4 booleanos),
+	// que indican el byte o los bytes de la palabra que deberán escribirse en memoria, de modo que
+	// puedan realizarse escrituras de tamaño inferior al tamaño de la palabra.
+    mem.write(io.bundle.address, write_data_vec)
   }
   io.bundle.read_data := mem.read((io.bundle.address >> 2.U).asUInt, true.B).asUInt
   io.debug_read_data  := mem.read((io.debug_read_address >> 2.U).asUInt, true.B).asUInt

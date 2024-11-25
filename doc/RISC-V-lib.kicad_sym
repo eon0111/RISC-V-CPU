@@ -10,10 +10,12 @@
 		(in_bom yes)
 		(on_board yes)
 		(property "Reference" "DE"
-			(at 8.89 -0.254 0)
+			(at -1.27 -87.884 0)
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.254)
+					(bold yes)
 				)
 			)
 		)

@@ -26,13 +26,32 @@ class TestTopModule(exeFilename: String) extends Module {
     val mem_debug_read_data     = Output(UInt(Parameters.DataWidth))
   })
 
-  /* NOTE:
-   * En el proceso de carga de binarios están involucrados 4 módulos, que son:
-   * - Memory: la memoria principal de la CPU. La memoria está unificada, es decir, que no hay memoria de instrucciones por un lado y memoria de datos por otro, sino que tanto datos como instrucciones se emplazan sobre la misma memoria física
-   * - ROMLoader: en el módulo ROMLoader se define el comportamiento hardware del cargador que, básicamente, es controlar que no se excede la capacidad de la memoria durante la carga del binario, e ir generando las direcciones físicas sobre las que se irán emplazando las instrucciones leídas del fichero binario. En la línea 30 del fichero de implementación de este módulo, con '(address << 2.U)' se van formando múltiplos de 4 a partir del 0, y se suma ese desplazamiento al entry point ('Parameters.EntryAddress') para formar la dirección efectiva en que será emplazada la siguiente instrucción en memoria, que será leída por medio del puerto 'rom_data', que se conecta al puerto de salida ('data') de la ROM de instrucciones ('InstructionROM'). Por ese puerto se van sacando las instrucciones que se leen del fichero binario que se indica en la instanciación del módulo 'InstructionROM'
-   * - InstructionROM: en el módulo InstructionROM se define la función 'readAsmBinary' que, como su nombre indica, lee un fichero binario instrucción a instrucción, y las va sacando por su puerto 'data'. El puerto de entrada 'adress' se conecta al puerto de salida 'rom_address' de ROMLoader, por donde sale el offset con el que se localiza la siguiente instrucción a sacar por 'data'. Este offset se calcula en la línea 32 de 'ROMLoader.scala', y es valor del registro 'address' (0, 1, 2, ... capacity-1)
+  /* NOTE: En el proceso de carga de binarios están involucrados 4 módulos, que son:
+   *
+   * - Memory: la memoria principal de la CPU. La memoria está unificada, es decir, que no hay
+   *   memoria de instrucciones por un lado y memoria de datos por otro, sino que tanto datos como
+   *   instrucciones se emplazan sobre la misma memoria física. El valor de capacidad que se pasa
+   *   como parámetro es el número de entradas de la memoria, por lo que la capacidad será
+   *   8192 * 32 = 262144 bits = 32 KiB
+   * 
+   * - ROMLoader: en el módulo ROMLoader se define el comportamiento hardware del cargador que,
+   *   básicamente, es controlar que no se excede la capacidad de la memoria durante la carga del
+   *   binario, e ir generando las direcciones físicas sobre las que se irán emplazando las
+   *   instrucciones leídas del fichero binario. En la línea 30 del fichero de implementación de
+   *   este módulo, con '(address << 2.U)' se van formando múltiplos de 4 a partir del 0, y se suma
+   *   ese desplazamiento al entry point ('Parameters.EntryAddress') para formar la dirección
+   *   efectiva en que será emplazada la siguiente instrucción en memoria, que será leída por medio
+   *   del puerto 'rom_data', que se conecta al puerto de salida ('data') de la ROM de instrucciones
+   *   ('InstructionROM'). Por ese puerto se van sacando las instrucciones que se leen del fichero
+   *   binario que se indica en la instanciación del módulo 'InstructionROM'
+   * 
+   * - InstructionROM: en el módulo InstructionROM se define la función 'readAsmBinary' que, como su
+   *   nombre indica, lee un fichero binario instrucción a instrucción, y las va sacando por su puerto
+   *   'data'. El puerto de entrada 'adress' se conecta al puerto de salida 'rom_address' de ROMLoader,
+   *   por donde sale el offset con el que se localiza la siguiente instrucción a sacar por 'data'.
+   *   Este offset se calcula en la línea 32 de 'ROMLoader.scala', y es valor del registro 'address'
+   *   (0, 1, 2, ... capacity-1)
    */
-
   val mem             = Module(new Memory(8192))
   val instruction_rom = Module(new InstructionROM(exeFilename))
   val rom_loader      = Module(new ROMLoader(instruction_rom.capacity))
