@@ -11,7 +11,7 @@ class ROMLoader(capacity: Int) extends Module {
     val bundle = Flipped(new RAMBundle)
 
     val rom_address = Output(UInt(Parameters.AddrWidth))
-    val rom_data    = Input(UInt(Parameters.InstructionWidth))
+    val rom_data    = Input(UInt(Parameters.InstructionWidth))	// NOTE: la siguiente instrucción a cargar en memoria, según se lee en el módulo InstructionROM a partir del fichero
 
     val load_address  = Input(UInt(Parameters.AddrWidth))
     val load_finished = Output(Bool())

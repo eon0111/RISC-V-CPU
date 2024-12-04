@@ -28,9 +28,18 @@ class InstructionROM(instructionFilename: String) extends Module {
     override def toFirrtl =
       MemorySynthInit
   })
+
+  // NOTE: https://github.com/chipsalliance/chisel/blob/main/src/main/scala/chisel3/util/experimental/LoadMemoryTransform.scala
+  // NOTE: https://www.chisel-lang.org/docs/appendix/experimental-features#loading-memories-for-simulation-or-fpga-initialization
   loadMemoryFromFileInline(mem, instructionsInitFile.toString.replaceAll("\\\\", "/"))
   io.data := mem.read(io.address)
 
+
+  // NOTE: esta función tan solo se emplea para generar, a partir de un fichero de código binario,
+  // un fichero de texto plano donde puedan verse las instrucciones albergadas en ese fichero-
+  // Asimismo, en base a la lectura del fichero binario determina el tamaño ('capacity') de la
+  // con que deberá configurarse la ROM de instrucciones donde se volcarán las instrucciones que
+  // conforman el programa, el cual será trasladado más adelante a la memoria principal del core.
   def readAsmBinary(filename: String) = {
     val inputStream = if (Files.exists(Paths.get(filename))) {
       Files.newInputStream(Paths.get(filename))
