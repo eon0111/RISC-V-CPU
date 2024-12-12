@@ -12,3 +12,4 @@ ca2023-lab3/csrc/*.asmbin
 ca2023-lab3/csrc/*.o
 project/*
 target/*
+ca2023-lab3/csrc/*.asmbin.txt
