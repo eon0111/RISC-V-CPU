@@ -37,7 +37,7 @@ class InstructionROM(instructionFilename: String) extends Module {
 
   // NOTE: esta función tan solo se emplea para generar, a partir de un fichero de código binario,
   // un fichero de texto plano donde puedan verse las instrucciones albergadas en ese fichero-
-  // Asimismo, en base a la lectura del fichero binario determina el tamaño ('capacity') de la
+  // Asimismo, en base a la lectura del fichero binario determina el tamaño ('capacity')
   // con que deberá configurarse la ROM de instrucciones donde se volcarán las instrucciones que
   // conforman el programa, el cual será trasladado más adelante a la memoria principal del core.
   def readAsmBinary(filename: String) = {

@@ -45,9 +45,10 @@ class TestTopModule(exeFilename: String) extends Module {
    *   ('InstructionROM'). Por ese puerto se van sacando las instrucciones que se leen del fichero
    *   binario que se indica en la instanciación del módulo 'InstructionROM'
    * 
-   * - InstructionROM: en el módulo InstructionROM se define la función 'readAsmBinary' que, como su
-   *   nombre indica, lee un fichero binario instrucción a instrucción, y las va sacando por su puerto
-   *   'data'. El puerto de entrada 'adress' se conecta al puerto de salida 'rom_address' de ROMLoader,
+   * - InstructionROM: en el módulo InstructionROM se define la función 'readAsmBinary' que lee un
+   *   fichero de código binario y elabora un fichero de texto plano con las instrucciones de que se
+   *   compone el binario.
+   *   El puerto de entrada 'adress' se conecta al puerto de salida 'rom_address' de ROMLoader,
    *   por donde sale el offset con el que se localiza la siguiente instrucción a sacar por 'data'.
    *   Este offset se calcula en la línea 32 de 'ROMLoader.scala', y es valor del registro 'address'
    *   (0, 1, 2, ... capacity-1)

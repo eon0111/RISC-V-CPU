@@ -42,7 +42,7 @@ class BlockRAM(capacity: Int) extends Module {
   io.debug_read_data := mem.read((io.debug_read_address >> 2.U).asUInt, true.B).asUInt
 }
 
-class Memory(capacity: Int, memFile: String) extends Module {
+class Memory(capacity: Int) extends Module {
   val io = IO(new Bundle {
     val bundle = new RAMBundle
 
@@ -65,8 +65,6 @@ class Memory(capacity: Int, memFile: String) extends Module {
    * lectura/escritura. */
   val mem = SyncReadMem(capacity, Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
 
-  loadMemoryFromFileInline(mem, memFile)
-
   when(io.bundle.write_enable) {
 	// NOTE: write_data_vec es la palabra a escribir en memoria, descrita como un vector de 4 bytes
     val write_data_vec = Wire(Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
@@ -82,6 +80,34 @@ class Memory(capacity: Int, memFile: String) extends Module {
 	// La máscara que se emplea en el contexto de este código consiste en un vector de 4 bits (4 booleanos),
 	// que indican el byte o los bytes de la palabra que deberán escribirse en memoria, de modo que
 	// puedan realizarse escrituras de tamaño inferior al tamaño de la palabra.
+    mem.write((io.bundle.address >> 2.U).asUInt, write_data_vec, io.bundle.write_strobe)
+  }
+  io.bundle.read_data := mem.read((io.bundle.address >> 2.U).asUInt, true.B).asUInt
+  io.debug_read_data  := mem.read((io.debug_read_address >> 2.U).asUInt, true.B).asUInt
+  io.instruction      := mem.read((io.instruction_address >> 2.U).asUInt, true.B).asUInt
+}
+
+class MemoryFromFile(capacity: Int, memFile: String) extends Module {
+  val io = IO(new Bundle {
+    val bundle = new RAMBundle
+
+    val instruction         = Output(UInt(Parameters.DataWidth))
+    val instruction_address = Input(UInt(Parameters.AddrWidth))
+
+    val debug_read_address = Input(UInt(Parameters.AddrWidth))
+    val debug_read_data    = Output(UInt(Parameters.DataWidth))
+  })
+
+  val mem = SyncReadMem(capacity, Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
+  loadMemoryFromFileInline(mem, memFile)
+
+  when(io.bundle.write_enable) {
+    val write_data_vec = Wire(Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
+
+    for (i <- 0 until Parameters.WordSize) {
+      write_data_vec(i) := io.bundle.write_data((i + 1) * Parameters.ByteBits - 1, i * Parameters.ByteBits)
+    }
+
     mem.write((io.bundle.address >> 2.U).asUInt, write_data_vec, io.bundle.write_strobe)
   }
   io.bundle.read_data := mem.read((io.bundle.address >> 2.U).asUInt, true.B).asUInt

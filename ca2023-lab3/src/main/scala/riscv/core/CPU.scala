@@ -7,16 +7,24 @@ import chisel3._
 import chisel3.util.Cat
 import riscv.CPUBundle
 import riscv.Parameters
+import riscv.core.segmentationRegisters.FD
+import riscv.core.segmentationRegisters.DE
+import riscv.core.segmentationRegisters.MW
+import riscv.core.segmentationRegisters.EM
 
 class CPU extends Module {
-  val io = IO(new CPUBundle)
 
+  val io         = IO(new CPUBundle)
   val regs       = Module(new RegisterFile)
   val inst_fetch = Module(new InstructionFetch)
   val id         = Module(new InstructionDecode)
   val ex         = Module(new Execute)
   val mem        = Module(new MemoryAccess)
   val wb         = Module(new WriteBack)
+  val srFD       = Module(new FD)
+  val srDE       = Module(new DE)
+  val srEM       = Module(new EM)
+  val srMW       = Module(new MW)
 
   io.deviceSelect := mem.io.memory_bundle
     .address(Parameters.AddrBits - 1, Parameters.AddrBits - Parameters.SlaveDeviceCountBits)
