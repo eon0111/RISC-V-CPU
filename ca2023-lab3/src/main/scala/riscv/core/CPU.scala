@@ -21,6 +21,8 @@ class CPU extends Module {
   val ex         = Module(new Execute)
   val mem        = Module(new MemoryAccess)
   val wb         = Module(new WriteBack)
+
+  // Segmentation registers
   val srFD       = Module(new FD)
   val srDE       = Module(new DE)
   val srEM       = Module(new EM)

@@ -3188,6 +3188,25 @@
 		)
 		(uuid "fe989342-ac52-4db9-b995-e845e7f42cb8")
 	)
+	(text_box "Vamos a introducir el FD y el DE y dejar el resto de etapas en el mismo ciclo. Si hacemos eso, el dato que sale del writeback tiene que llegar al mismo que sus señales de control, así que por ahora no entra al registro FD"
+		(exclude_from_sim no)
+		(at 123.19 123.19 0)
+		(size 39.37 16.51)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "817bb188-b399-45aa-9ec5-11ace5d17b6a")
+	)
 	(label "instruction_address"
 		(at 176.53 48.26 0)
 		(fields_autoplaced yes)

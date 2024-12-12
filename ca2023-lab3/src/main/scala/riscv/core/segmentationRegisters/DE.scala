@@ -21,7 +21,8 @@ class DE extends Module {
     val d_wb_reg_write_source = Input(UInt(2.W))
 
     val e_fetch_instr_addr    = Output(UInt(Parameters.InstructionWidth))
-    val e_fetch_instr         = Output(UInt(Parameters.InstructionWidth))
+    val e_fetch_instr         = Output(UInt(Parameters.InstructionWidth)) // FIXME: esto es una marranada. Pasar tan solo los campos de la instr. que necesite el Execute
+                                                                          // TODO: revisar más cosas como esta
     val e_regs_read_data_1    = Output(UInt(Parameters.DataWidth))
     val e_regs_read_data_2    = Output(UInt(Parameters.DataWidth))
     val e_ex_immediate        = Output(UInt(Parameters.DataWidth))
