@@ -23,7 +23,7 @@ if [[ -f $memFile ]]; then
 	rm $memFile
 fi
 
-# 1. Obtener código objeto
+# 2. Obtener código objeto
 riscv64-unknown-elf-gcc -O0 -Wall -march=rv32i -mabi=ilp32 -S $1 -o tmp.S
 riscv64-unknown-elf-as -R -march=rv32i -mabi=ilp32 -o tmp.o tmp.S
 
@@ -33,7 +33,7 @@ instrRaw=$(echo "$desensamblado" | tail -n $(($(($nLineasDesensamblado)) - 7)) |
 rm tmp.o
 rm tmp.S
 
-# 2. Generar memfile
+# 3. Generar memfile
 i=0
 for instr in $(echo "$instrRaw"); do
 	if [[ ! $instr =~ ^'<' ]]; then

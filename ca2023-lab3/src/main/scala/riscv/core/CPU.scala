@@ -24,9 +24,9 @@ class CPU extends Module {
 
   // Segmentation registers
   val srFD       = Module(new FD)
-  val srDE       = Module(new DE)
-  val srEM       = Module(new EM)
-  val srMW       = Module(new MW)
+  // val srDE       = Module(new DE)
+  // val srEM       = Module(new EM)
+  // val srMW       = Module(new MW)
 
   io.deviceSelect := mem.io.memory_bundle
     .address(Parameters.AddrBits - 1, Parameters.AddrBits - Parameters.SlaveDeviceCountBits)
@@ -35,28 +35,35 @@ class CPU extends Module {
   inst_fetch.io.jump_flag_id          := ex.io.if_jump_flag
   inst_fetch.io.instruction_valid     := io.instruction_valid
   inst_fetch.io.instruction_read_data := io.instruction
-  io.instruction_address              := inst_fetch.io.instruction_address
+  
+  // NOTE: se pasa la dirección de la siguiente instrucción, generada en en el fetch, al puerto
+  // instruction_address de la E/S del módulo CPU. De este modo se posibilita la lectura de la
+  // instrucción alojada en memoria.
+  io.instruction_address := inst_fetch.io.instruction_address
 
+  // NOTE: Conexionado de las etapas de fetch y decodificación a su registro de segmentación
+  srFD.io.f_instruction         := inst_fetch.io.instruction
+  srFD.io.f_instruction_address := inst_fetch.io.instruction_address
+  id.io.instruction             := srFD.io.d_instruction
+  
   regs.io.write_enable  := id.io.reg_write_enable
   regs.io.write_address := id.io.reg_write_address
   regs.io.write_data    := wb.io.regs_write_data
   regs.io.read_address1 := id.io.regs_reg1_read_address
   regs.io.read_address2 := id.io.regs_reg2_read_address
-
+  
   regs.io.debug_read_address := io.debug_read_address
   io.debug_read_data         := regs.io.debug_read_data
-
-  id.io.instruction := inst_fetch.io.instruction
-
+  
   // lab3(cpu) begin
 
-  ex.io.instruction := inst_fetch.io.instruction
-  ex.io.instruction_address := inst_fetch.io.instruction_address
-  ex.io.reg1_data := regs.io.read_data1
-  ex.io.reg2_data := regs.io.read_data2
-  ex.io.immediate := id.io.ex_immediate
-  ex.io.aluop1_source := id.io.ex_aluop1_source
-  ex.io.aluop2_source := id.io.ex_aluop2_source
+  ex.io.instruction         := inst_fetch.io.instruction
+  ex.io.instruction_address := srFD.io.d_instruction_address // FIXME: comprobar si este forwarding es correcto hacerlo o no
+  ex.io.reg1_data           := regs.io.read_data1
+  ex.io.reg2_data           := regs.io.read_data2
+  ex.io.immediate           := id.io.ex_immediate
+  ex.io.aluop1_source       := id.io.ex_aluop1_source
+  ex.io.aluop2_source       := id.io.ex_aluop2_source
 
   // lab3(cpu) end
 
@@ -75,8 +82,9 @@ class CPU extends Module {
   io.memory_bundle.write_strobe  := mem.io.memory_bundle.write_strobe
   mem.io.memory_bundle.read_data := io.memory_bundle.read_data
 
-  wb.io.instruction_address := inst_fetch.io.instruction_address
+  wb.io.instruction_address := srFD.io.d_instruction_address
   wb.io.alu_result          := ex.io.mem_alu_result
   wb.io.memory_read_data    := mem.io.wb_memory_read_data
   wb.io.regs_write_source   := id.io.wb_reg_write_source
+
 }

@@ -23,7 +23,7 @@ class EM extends Module {
     val m_funct3              = Output(UInt(3.W))
   })
 
-  val fetch_instr_addr    = Output(UInt(Parameters.InstructionWidth)) := io.e_fetch_instr_addr
+  val fetch_instr_addr    = RegInit(0.U(Parameters.InstructionWidth)) := io.e_fetch_instr_addr
   val alu_result          = RegInit(0.U(Parameters.DataWidth))        := io.e_alu_result
   val regs_read_data_2    = RegInit(0.U(Parameters.DataWidth))        := io.e_regs_read_data_2
   val memory_read_enable  = RegInit(0.B)                              := io.e_memory_read_enable

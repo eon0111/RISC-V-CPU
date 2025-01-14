@@ -17,6 +17,8 @@ import riscv.core.ProgramCounter
 import riscv.Parameters
 import riscv.TestAnnotations
 import chisel3.util.experimental.loadMemoryFromFileInline
+import org.scalatest.tagobjects
+import firrtl.FirrtlProtos.Firrtl.Statement
 
 class TestTopModule(exeFilename: String) extends Module {
   val io = IO(new Bundle {
@@ -62,14 +64,14 @@ class TestTopModule(exeFilename: String) extends Module {
   instruction_rom.io.address := rom_loader.io.rom_address
 
   // TODO: no comprendo la forma en que se está generando el tick del reloj
-  val CPU_clkdiv = RegInit(UInt(2.W), 0.U)
-  val CPU_tick   = Wire(Bool())
-  val CPU_next   = Wire(UInt(2.W))
-  CPU_next   := Mux(CPU_clkdiv === 3.U, 0.U, CPU_clkdiv + 1.U)
-  CPU_tick   := CPU_clkdiv === 0.U
-  CPU_clkdiv := CPU_next
+  // val CPU_clkdiv = RegInit(UInt(2.W), 0.U)
+  // val CPU_tick   = Wire(Bool())
+  // val CPU_next   = Wire(UInt(2.W))
+  // CPU_next   := Mux(CPU_clkdiv === 3.U, 0.U, CPU_clkdiv + 1.U)
+  // CPU_tick   := CPU_clkdiv === 0.U
+  // CPU_clkdiv := CPU_next
 
-  withClock(CPU_tick.asClock) {
+  // withClock(CPU_tick.asClock) {
     val cpu = Module(new CPU)
     cpu.io.debug_read_address  := 0.U
     cpu.io.instruction_valid   := rom_loader.io.load_finished // NOTE: Hasta que el cargador no termina de leer el binario no se activa el flag que hace que la unidad de fetch comience a realizar las actualizaciones del PC, el cual se inicializa con la dirección establecida en Parameters.EntryAddress (0x1000)
@@ -86,10 +88,27 @@ class TestTopModule(exeFilename: String) extends Module {
 
     cpu.io.debug_read_address := io.regs_debug_read_address
     io.regs_debug_read_data   := cpu.io.debug_read_data
-  }
+  // }
 
   mem.io.debug_read_address := io.mem_debug_read_address
   io.mem_debug_read_data    := mem.io.debug_read_data
+}
+
+class FDSegRegTest extends AnyFlatSpec with ChiselScalatestTester {
+  behavior.of("Single Cycle CPU")
+  it should "recursively calculate Fibonacci(10)" in {
+    test(new TestTopModule("fibonacci.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
+      for (i <- 1 to 50) {
+        c.clock.step(1000)
+        c.io.mem_debug_read_address.poke((i * 4).U) // Avoid timeout
+      }
+
+      c.io.mem_debug_read_address.poke(4.U)
+      c.clock.step()
+      Console.println(c.io.mem_debug_read_data.peek())
+      // c.io.mem_debug_read_data.expect(55.U)
+    }
+  }
 }
 
 class FibonacciTest extends AnyFlatSpec with ChiselScalatestTester {

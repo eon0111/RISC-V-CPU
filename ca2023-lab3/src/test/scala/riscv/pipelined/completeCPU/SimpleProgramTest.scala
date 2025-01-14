@@ -16,8 +16,8 @@ class CPUWrapper(memFile: String) extends Module {
   val io = IO(new Bundle {
     val sram_debug_read_address  = Input(UInt(Parameters.AddrWidth))
     val regs_debug_read_address  = Input(UInt(Parameters.PhysicalRegisterAddrWidth))
-    val sram_debug_read_data  = Output(UInt(Parameters.DataWidth))
-    val regs_debug_read_data  = Output(UInt(Parameters.DataWidth))
+    val sram_debug_read_data     = Output(UInt(Parameters.DataWidth))
+    val regs_debug_read_data     = Output(UInt(Parameters.DataWidth))
   })
 
   val SRAM = Module(new MemoryFromFile(8192, memFile))

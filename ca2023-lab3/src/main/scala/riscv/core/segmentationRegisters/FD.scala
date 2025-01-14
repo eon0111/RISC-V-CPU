@@ -16,7 +16,13 @@ class FD extends Module {
     val d_instruction_address = Output(UInt(Parameters.InstructionWidth))
   })
 
-  val instruction         = RegInit(0.U(Parameters.InstructionWidth)) := io.f_instruction
-  val instruction_address = RegInit(0.U(Parameters.InstructionWidth)) := io.f_instruction_address
+  val instruction         = RegInit(0.U(Parameters.InstructionWidth))
+  val instruction_address = RegInit(0.U(Parameters.InstructionWidth))
+
+  instruction         := io.f_instruction
+  instruction_address := io.f_instruction_address
+
+  io.d_instruction         := instruction
+  io.d_instruction_address := instruction_address
 
 }
