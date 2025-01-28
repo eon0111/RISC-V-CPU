@@ -19,6 +19,7 @@ import riscv.TestAnnotations
 import chisel3.util.experimental.loadMemoryFromFileInline
 import org.scalatest.tagobjects
 import firrtl.FirrtlProtos.Firrtl.Statement
+import riscv.core.segmentationRegisters.FD
 
 class TestTopModule(exeFilename: String) extends Module {
   val io = IO(new Bundle {
@@ -26,6 +27,9 @@ class TestTopModule(exeFilename: String) extends Module {
     val regs_debug_read_address = Input(UInt(Parameters.PhysicalRegisterAddrWidth))
     val regs_debug_read_data    = Output(UInt(Parameters.DataWidth))
     val mem_debug_read_data     = Output(UInt(Parameters.DataWidth))
+
+    val srFD_d_instruction_address = Output(UInt(Parameters.AddrWidth))
+    val srFD_d_instruction         = Output(UInt(Parameters.InstructionWidth))
   })
 
   /* NOTE: En el proceso de carga de binarios están involucrados 4 módulos, que son:
@@ -58,7 +62,7 @@ class TestTopModule(exeFilename: String) extends Module {
   val mem             = Module(new Memory(8192))
   val instruction_rom = Module(new InstructionROM(exeFilename))
   val rom_loader      = Module(new ROMLoader(instruction_rom.capacity))
-
+  
   rom_loader.io.rom_data     := instruction_rom.io.data
   rom_loader.io.load_address := Parameters.EntryAddress
   instruction_rom.io.address := rom_loader.io.rom_address
@@ -88,27 +92,15 @@ class TestTopModule(exeFilename: String) extends Module {
 
     cpu.io.debug_read_address := io.regs_debug_read_address
     io.regs_debug_read_data   := cpu.io.debug_read_data
+
+    // Connect segmentation registers debug signals
+    io.srFD_d_instruction_address := cpu.io.srFD_d_instruction_address
+    io.srFD_d_instruction         := cpu.io.srFD_d_instruction
   // }
 
   mem.io.debug_read_address := io.mem_debug_read_address
   io.mem_debug_read_data    := mem.io.debug_read_data
-}
 
-class FDSegRegTest extends AnyFlatSpec with ChiselScalatestTester {
-  behavior.of("Single Cycle CPU")
-  it should "recursively calculate Fibonacci(10)" in {
-    test(new TestTopModule("fibonacci.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
-      for (i <- 1 to 50) {
-        c.clock.step(1000)
-        c.io.mem_debug_read_address.poke((i * 4).U) // Avoid timeout
-      }
-
-      c.io.mem_debug_read_address.poke(4.U)
-      c.clock.step()
-      Console.println(c.io.mem_debug_read_data.peek())
-      // c.io.mem_debug_read_data.expect(55.U)
-    }
-  }
 }
 
 class FibonacciTest extends AnyFlatSpec with ChiselScalatestTester {
@@ -158,6 +150,25 @@ class ByteAccessTest extends AnyFlatSpec with ChiselScalatestTester {
       c.io.regs_debug_read_data.expect(0xef.U)
       c.io.regs_debug_read_address.poke(1.U) // ra
       c.io.regs_debug_read_data.expect(0x15ef.U)
+    }
+  }
+}
+
+class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
+  behavior.of("Single Cycle CPU")
+  it should "run a simple program with a segmentation register placed in between fetch and decode phases" in {
+    test(new TestTopModule("sb.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
+      c.clock.step()
+      // c.io.mem_debug_read_address.poke(0x100C.U)
+      // var prev_inst = c.io.mem_debug_read_data.peek()
+      // println("[*] Instruction: " + prev_inst)
+      c.clock.step()
+      c.clock.step()
+      c.clock.step()
+      c.clock.step()
+      c.clock.step()
+      c.io.srFD_d_instruction_address.expect(0x1004.U)
+      // c.io.srFD_d_instruction.expect(prev_inst)
     }
   }
 }

@@ -28,6 +28,10 @@ class CPU extends Module {
   // val srEM       = Module(new EM)
   // val srMW       = Module(new MW)
 
+  // Connect segmentation registers to CPU IO debug signals
+  io.srFD_d_instruction_address := srFD.io.d_instruction_address
+  io.srFD_d_instruction         := srFD.io.d_instruction
+
   io.deviceSelect := mem.io.memory_bundle
     .address(Parameters.AddrBits - 1, Parameters.AddrBits - Parameters.SlaveDeviceCountBits)
 
@@ -57,7 +61,7 @@ class CPU extends Module {
   
   // lab3(cpu) begin
 
-  ex.io.instruction         := inst_fetch.io.instruction
+  ex.io.instruction         := srFD.io.d_instruction
   ex.io.instruction_address := srFD.io.d_instruction_address // FIXME: comprobar si este forwarding es correcto hacerlo o no
   ex.io.reg1_data           := regs.io.read_data1
   ex.io.reg2_data           := regs.io.read_data2
