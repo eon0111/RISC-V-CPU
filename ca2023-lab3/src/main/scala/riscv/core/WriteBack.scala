@@ -23,7 +23,7 @@ class WriteBack extends Module {
     io.alu_result,
     IndexedSeq(
       RegWriteSource.Memory                 -> io.memory_read_data,
-      RegWriteSource.NextInstructionAddress -> (io.instruction_address + 4.U)
+      RegWriteSource.NextInstructionAddress -> (io.instruction_address + 4.U) // FIXME: esto es un poco chapucero, porque se calcula el PC+4 dos veces (fetch y wb). Lo suyo sería tener un puerto de salida en InstructionFetch por donde se saque el PC + 4, y poner uno de entrada en WriteBack por donde se pase ese valor
     )
   )
   

@@ -49,5 +49,5 @@ object WriteVcdEnabler {
 }
 
 object TestAnnotations {
-  val annos = VerilatorEnabler.annos ++ WriteVcdEnabler.annos
+  val annos = VerilatorEnabler.annos ++ WriteVcdEnabler.annos ++ Seq(WriteVcdAnnotation)
 }

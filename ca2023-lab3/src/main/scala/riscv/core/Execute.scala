@@ -32,7 +32,7 @@ class Execute extends Module {
 
   val alu      = Module(new ALU)
 
-  // TODO: meter al alu_ctrl en el Decode, porque la señal que gobierna el comportamiento de la ALU también debería formar parte de la palabra de control
+  // FIXME: meter al alu_ctrl en el Decode, porque la señal que gobierna el comportamiento de la ALU también debería formar parte de la palabra de control
   val alu_ctrl = Module(new ALUControl) // NOTE: ALUControl es un módulo encargado de extraer la operación a realizar en base al opcode y los campos func3 y func7
 
   alu_ctrl.io.opcode := opcode

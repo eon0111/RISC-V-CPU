@@ -26,6 +26,11 @@ class InstructionFetch extends Module {
     io.instruction := io.instruction_read_data
     // lab3(InstructionFetch) begin
 
+    // NOTE: en el flanco ascendente del primer ciclo de reloj, la señal instruction_address posee
+    // el valor EntryAddress, que llega al registro de segmentación FD, donde se guardará ese valor
+    // cuando llegue el flanco descendente del reloj. En ese momento, además, se guardará en el pc
+    // la dirección de la siguiente instrucción a ejecutar, que será, o bien el target calculado en
+    // una instrucción de salto, o el PC+4. 
     pc  := Mux(io.jump_flag_id, io.jump_address_id, pc + 4.U)
 
     // lab3(InstructionFetch) end

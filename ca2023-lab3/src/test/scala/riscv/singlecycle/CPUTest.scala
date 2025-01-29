@@ -28,6 +28,8 @@ class TestTopModule(exeFilename: String) extends Module {
     val regs_debug_read_data    = Output(UInt(Parameters.DataWidth))
     val mem_debug_read_data     = Output(UInt(Parameters.DataWidth))
 
+    val instruction_valid       = Output(Bool())
+
     val srFD_d_instruction_address = Output(UInt(Parameters.AddrWidth))
     val srFD_d_instruction         = Output(UInt(Parameters.InstructionWidth))
   })
@@ -79,6 +81,7 @@ class TestTopModule(exeFilename: String) extends Module {
     val cpu = Module(new CPU)
     cpu.io.debug_read_address  := 0.U
     cpu.io.instruction_valid   := rom_loader.io.load_finished // NOTE: Hasta que el cargador no termina de leer el binario no se activa el flag que hace que la unidad de fetch comience a realizar las actualizaciones del PC, el cual se inicializa con la dirección establecida en Parameters.EntryAddress (0x1000)
+    io.instruction_valid       := rom_loader.io.load_finished // NOTE: se conecta el flag que indica que el programa ha sido cargado en memoria, a la señal que me permite esperar a que se produzca ese evento antes de depurar el código
     mem.io.instruction_address := cpu.io.instruction_address  // NOTE: Inicialmente, se establece en la unidad de fetch que la primera instrucción del programa se encuentra localizada en la dirección 0x1000 (Parameters.EntryAddress)
     cpu.io.instruction         := mem.io.instruction
 
@@ -158,16 +161,22 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
   behavior.of("Single Cycle CPU")
   it should "run a simple program with a segmentation register placed in between fetch and decode phases" in {
     test(new TestTopModule("sb.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
+      // NOTE: espera hasta que el cargador termine
+      while(!c.io.instruction_valid.peek().litToBoolean) {
+        c.clock.step()
+        c.io.mem_debug_read_address.poke(4.U) // Avoid timeout
+      }
+      
       c.clock.step()
       // c.io.mem_debug_read_address.poke(0x100C.U)
       // var prev_inst = c.io.mem_debug_read_data.peek()
       // println("[*] Instruction: " + prev_inst)
       c.clock.step()
-      c.clock.step()
-      c.clock.step()
-      c.clock.step()
-      c.clock.step()
-      c.io.srFD_d_instruction_address.expect(0x1004.U)
+      // c.clock.step()
+      // c.clock.step()
+      // c.clock.step()
+      // c.clock.step()
+      c.io.srFD_d_instruction_address.expect(0x1000.U)
       // c.io.srFD_d_instruction.expect(prev_inst)
     }
   }
