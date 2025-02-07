@@ -75,7 +75,7 @@ class CPU extends Module {
   mem.io.reg2_data           := regs.io.read_data2
   mem.io.memory_read_enable  := id.io.memory_read_enable
   mem.io.memory_write_enable := id.io.memory_write_enable
-  mem.io.funct3              := inst_fetch.io.instruction(14, 12)
+  mem.io.funct3              := srFD.io.d_instruction(14, 12)
 
   io.memory_bundle.address := Cat(
     0.U(Parameters.SlaveDeviceCountBits.W),

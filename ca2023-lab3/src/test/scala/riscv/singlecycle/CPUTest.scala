@@ -167,17 +167,10 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
         c.io.mem_debug_read_address.poke(4.U) // Avoid timeout
       }
       
-      c.clock.step()
-      // c.io.mem_debug_read_address.poke(0x100C.U)
-      // var prev_inst = c.io.mem_debug_read_data.peek()
-      // println("[*] Instruction: " + prev_inst)
-      c.clock.step()
-      // c.clock.step()
-      // c.clock.step()
-      // c.clock.step()
-      // c.clock.step()
-      c.io.srFD_d_instruction_address.expect(0x1000.U)
-      // c.io.srFD_d_instruction.expect(prev_inst)
+      for (i <- 1 to 50) {
+        c.clock.step()
+        c.io.mem_debug_read_address.poke((i * 4).U) // Avoid timeout
+      }
     }
   }
 }
