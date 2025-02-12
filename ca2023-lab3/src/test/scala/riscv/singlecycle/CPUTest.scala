@@ -160,7 +160,7 @@ class ByteAccessTest extends AnyFlatSpec with ChiselScalatestTester {
 class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
   behavior.of("Single Cycle CPU")
   it should "run a simple program with a segmentation register placed in between fetch and decode phases" in {
-    test(new TestTopModule("sb.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
+    test(new TestTopModule("simple2.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
       // NOTE: espera hasta que el cargador termine
       while(!c.io.instruction_valid.peek().litToBoolean) {
         c.clock.step()
@@ -171,6 +171,9 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
         c.clock.step()
         c.io.mem_debug_read_address.poke((i * 4).U) // Avoid timeout
       }
+
+      c.io.regs_debug_read_address.poke(6.U)  // t1
+      c.io.regs_debug_read_data.expect(5.U)
     }
   }
 }

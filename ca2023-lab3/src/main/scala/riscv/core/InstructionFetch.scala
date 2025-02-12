@@ -16,17 +16,19 @@ class InstructionFetch extends Module {
     val jump_address_id       = Input(UInt(Parameters.AddrWidth)) // La dirección de un salto en caso de indicarse con el flag
     val instruction_read_data = Input(UInt(Parameters.DataWidth))
     val instruction_valid     = Input(Bool())
+    val pc_reset              = Input(Bool())
 
-    val instruction_address = Output(UInt(Parameters.AddrWidth))  // La dirección de la siguiente instrucción a ejecutar
+    val next_pc             = Output(UInt(Parameters.AddrWidth))  // La dirección de la siguiente instrucción a ejecutar
+    val current_pc          = Output(UInt(Parameters.AddrWidth))  // La dirección de la instrucción a decodificar en el ciclo actual
     val instruction         = Output(UInt(Parameters.InstructionWidth)) // La siguiente instrucción a ejecutar
   })
   val pc = RegInit(ProgramCounter.EntryAddress)
 
-  when(io.instruction_valid) {
+  when(io.instruction_valid && !io.pc_reset) {
     io.instruction := io.instruction_read_data
     // lab3(InstructionFetch) begin
 
-    // NOTE: en el flanco ascendente del primer ciclo de reloj, la señal instruction_address posee
+    // NOTE: en el flanco ascendente del primer ciclo de reloj, la señal next_pc posee
     // el valor EntryAddress, que llega al registro de segmentación FD, donde se guardará ese valor
     // cuando llegue el flanco descendente del reloj. En ese momento, además, se guardará en el pc
     // la dirección de la siguiente instrucción a ejecutar, que será, o bien el target calculado en
@@ -36,8 +38,10 @@ class InstructionFetch extends Module {
     // lab3(InstructionFetch) end
 
   }.otherwise {
-    pc             := pc
+    pc             := Mux(io.jump_flag_id, io.jump_address_id, pc)
     io.instruction := 0x00000013.U
   }
-  io.instruction_address := pc
+
+  io.next_pc    := pc
+  io.current_pc := pc - 4.U // FIXME: también puedo dejar este como pc, next_pc dejarlo como pc + 4 y, en el mux de arriba, que la segunda opción sea pc, y me ahorro una unidad de resta
 }

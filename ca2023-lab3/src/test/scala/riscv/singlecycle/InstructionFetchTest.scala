@@ -32,13 +32,13 @@ class InstructionFetchTest extends AnyFlatSpec with ChiselScalatestTester {
             cur = pre + 4
             c.io.jump_flag_id.poke(false.B)
             c.clock.step()
-            c.io.instruction_address.expect(cur)
+            c.io.next_pc.expect(cur)
             pre = pre + 4
           case 1 => // jump
             c.io.jump_flag_id.poke(true.B)
             c.io.jump_address_id.poke(entry)
             c.clock.step()
-            c.io.instruction_address.expect(entry)
+            c.io.next_pc.expect(entry)
             pre = entry
         }
       }
