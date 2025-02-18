@@ -28,6 +28,7 @@ BINS = \
 	sb.asmbin\
 	simple.asmbin\
 	simple2.asmbin \
+	simple_subroutine.asmbin\
 
 # Clear the .DEFAULT_GOAL special variable, so that the following turns
 # to the first target after .DEFAULT_GOAL is not set.

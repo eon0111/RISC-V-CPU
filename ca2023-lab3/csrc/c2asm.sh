@@ -17,7 +17,7 @@ if [[ ! -f $1 ]]; then
 	exit 1
 fi
 
-filename="$(echo "$1" | cut -d '.' -f 1).txt"
+# filename="$(echo "$1" | cut -d '.' -f 1).txt"
 
 if [[ -f $memFile ]]; then
 	rm $memFile
@@ -26,7 +26,7 @@ fi
 # 2. Generar ensamblador y exportar a un fichero
 riscv64-unknown-elf-gcc -O0 -Wall -march=rv32i -mabi=ilp32 -S $1 -o tmp.S
 riscv64-unknown-elf-as -R -march=rv32i -mabi=ilp32 -o tmp.o tmp.S
-riscv64-unknown-elf-objdump -d tmp.o > $filename
+riscv64-unknown-elf-objdump -d tmp.o # > $filename
 
 # 3. Eliminar ficheros temporales
 rm tmp.S

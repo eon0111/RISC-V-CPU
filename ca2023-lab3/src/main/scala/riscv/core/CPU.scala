@@ -22,17 +22,19 @@ class CPU extends Module {
   val mem        = Module(new MemoryAccess)
   val wb         = Module(new WriteBack)
 
-  // Segmentation registers
+  // Registros de segmentación
   val srFD       = Module(new FD)
   // val srDE       = Module(new DE)
   // val srEM       = Module(new EM)
   // val srMW       = Module(new MW)
 
-  val hazard_unit = Module(new HazardUnit)
-  hazard_unit.io.jump_flag := ex.io.if_jump_flag
-  inst_fetch.io.pc_reset   := hazard_unit.io.FD_flush
+  // when(!io.instruction_valid) {
+  //   inst_fetch.io.pc_reset := 1.B
+  // } .otherwise {
+  //   inst_fetch.io.pc_reset := hazard_unit.io.PC_reset
+  // }
 
-  // Connect segmentation registers to CPU IO debug signals
+  // Conexionado de los registros de segmentación a la E/S de depuración de la CPU
   io.srFD_d_instruction_address := srFD.io.d_instruction_address
   io.srFD_d_instruction         := srFD.io.d_instruction
 
@@ -44,14 +46,16 @@ class CPU extends Module {
   inst_fetch.io.instruction_valid     := io.instruction_valid
   inst_fetch.io.instruction_read_data := io.instruction
   
-  // NOTE: se pasa la dirección de la siguiente instrucción, generada en en el fetch, al puerto
-  // instruction_address de la E/S del módulo CPU. De este modo se posibilita la lectura de la
-  // instrucción alojada en memoria.
+  /*
+    NOTE: se pasa la dirección de la siguiente instrucción, generada en en el fetch, al puerto
+    instruction_address de la E/S del módulo CPU. De este modo se posibilita la lectura de la
+    instrucción alojada en memoria.
+  */
   io.instruction_address := inst_fetch.io.next_pc
 
   // NOTE: Conexionado de las etapas de fetch y decodificación a su registro de segmentación
   srFD.io.f_instruction         := inst_fetch.io.instruction
-  srFD.io.f_instruction_address := inst_fetch.io.current_pc
+  srFD.io.f_instruction_address := inst_fetch.io.next_pc
   id.io.instruction             := srFD.io.d_instruction
   
   regs.io.write_enable  := id.io.reg_write_enable

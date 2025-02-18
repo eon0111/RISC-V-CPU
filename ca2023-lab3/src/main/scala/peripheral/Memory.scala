@@ -63,7 +63,14 @@ class Memory(capacity: Int) extends Module {
    * Puede intuirse que este mecanismo de generación de memorias y acceso a las mimas permite, entre
    * otros, construir caches, indicando el tag en el parámetro de dirección de los métodos de
    * lectura/escritura. */
-  val mem = SyncReadMem(capacity, Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
+  /* NOTE: he tenido que cambiar el tipo de memoria porque las memorias de la clase SyncReadMem no
+   * permiten realizar lecturas de manera asíncrona/combinacional, esto es, que cuando le solicita la
+   * lectura de la memoria, el dato leído no sale de esta hasta el siguiente flanco ascendente de reloj,
+   * lo que imposibilita mantener la sincronía entre el PC y las instrucciones leídas.
+   * Al crear una memoria del tipo Mem, la lectura del dato se lleva a cabo en el instante mismo en
+   * que se solicita. Gracias a este cambio, la ejecución de los programas comienza al cambio en el 
+   * valor de la señal instruction_valid, y no un ciclo después. */
+  val mem = Mem(capacity, Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
 
   when(io.bundle.write_enable) {
 	// NOTE: write_data_vec es la palabra a escribir en memoria, descrita como un vector de 4 bytes
@@ -82,9 +89,9 @@ class Memory(capacity: Int) extends Module {
 	// puedan realizarse escrituras de tamaño inferior al tamaño de la palabra.
     mem.write((io.bundle.address >> 2.U).asUInt, write_data_vec, io.bundle.write_strobe)
   }
-  io.bundle.read_data := mem.read((io.bundle.address >> 2.U).asUInt, true.B).asUInt
-  io.debug_read_data  := mem.read((io.debug_read_address >> 2.U).asUInt, true.B).asUInt
-  io.instruction      := mem.read((io.instruction_address >> 2.U).asUInt, true.B).asUInt
+  io.bundle.read_data := mem.read((io.bundle.address >> 2.U).asUInt, true.B.asClock).asUInt
+  io.debug_read_data  := mem.read((io.debug_read_address >> 2.U).asUInt, true.B.asClock).asUInt
+  io.instruction      := mem.read((io.instruction_address >> 2.U).asUInt, true.B.asClock).asUInt
 }
 
 class MemoryFromFile(capacity: Int, memFile: String) extends Module {

@@ -1,8 +1,11 @@
+#define LOOP_END 4
+
 int main() {
- 	int a = 0;
-	if (a == 0)
-		a++;
-  else
- 		a--;
-	return 0;
+ 	int i = 0;
+  int e = LOOP_END;
+
+  while (i <= e)
+  {
+    i++;
+  }
 }

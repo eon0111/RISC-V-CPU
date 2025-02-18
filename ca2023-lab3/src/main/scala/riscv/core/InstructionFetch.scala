@@ -16,32 +16,52 @@ class InstructionFetch extends Module {
     val jump_address_id       = Input(UInt(Parameters.AddrWidth)) // La dirección de un salto en caso de indicarse con el flag
     val instruction_read_data = Input(UInt(Parameters.DataWidth))
     val instruction_valid     = Input(Bool())
-    val pc_reset              = Input(Bool())
 
     val next_pc             = Output(UInt(Parameters.AddrWidth))  // La dirección de la siguiente instrucción a ejecutar
-    val current_pc          = Output(UInt(Parameters.AddrWidth))  // La dirección de la instrucción a decodificar en el ciclo actual
     val instruction         = Output(UInt(Parameters.InstructionWidth)) // La siguiente instrucción a ejecutar
   })
+
   val pc = RegInit(ProgramCounter.EntryAddress)
 
-  when(io.instruction_valid && !io.pc_reset) {
+  when(io.instruction_valid && !io.jump_flag_id) {
     io.instruction := io.instruction_read_data
     // lab3(InstructionFetch) begin
 
     // NOTE: en el flanco ascendente del primer ciclo de reloj, la señal next_pc posee
     // el valor EntryAddress, que llega al registro de segmentación FD, donde se guardará ese valor
     // cuando llegue el flanco descendente del reloj. En ese momento, además, se guardará en el pc
-    // la dirección de la siguiente instrucción a ejecutar, que será, o bien el target calculado en
+    // la dirección de la siguiente instrucción a ejecutar, que será, o bien el target calculado por
     // una instrucción de salto, o el PC+4. 
     pc  := Mux(io.jump_flag_id, io.jump_address_id, pc + 4.U)
 
     // lab3(InstructionFetch) end
 
   }.otherwise {
+    /* 
+      NOTE: cuando se decodifica una instrucción de salto y se determina que ese salto debe llevarse
+      a cabo, se activa la señal jump_flag_id, tras lo cual, se guarda en el PC el target del salto.
+      No obstante, el cambio en el valor del PC no es instantáneo, sino que, debido a cómo se
+      construyen internamente los registros en Chisel, el valor en la entrada de un registro no se
+      escribe en él hasta llegado el siguiente flanco ascendente del reloj. En el contexto de nuestra
+      CPU, esto implica que cuando se determina que un salto debe ser tomado, el PC siguiente a la
+      instrucción de salto no es el targe, si no el PC de la instrucción siguiente al salto, lo cual
+      provoca que esa instrucción sea leída de la memoria y pase al pipeline. Es por ello por lo que
+      se sobreescribe el valor de la señal de salida instruction, haciendo que mientras el flag de
+      salto se encuentre activo, la siguiente instrucción que pase al pipeline, más concretamente,
+      al registro de segmentación FD, sea un NOP.
+      Debido a la inserción del NOP, se pierde un ciclo por cada salto tomado.
+
+      - Ejemplo (simple_subroutine.S): cuando la instrucción de salto a la subrutina 'add_one' pasa
+      por primera vez a la segunda fase en el pipeline, la lógica del módulo de 'execute' determina
+      que hay un salto incondicional, y activa la señal 'jump_flag_id'. A la activación de esa señal,
+      la lógica del módulo de 'fetch' determina que el siguiente PC deberá ser el target, y que la
+      instrucción que saldrá del módulo (puerto 'instruction'), será un 'NOP', invalidando la lectura
+      de la instrucción siguiente al 'JAL'. En el siguiente ciclo de reloj, se decodificará un 'NOP',
+      y la instrucción leída será la primera de la subrutina, puesto que así lo indicará el PC.
+    */
     pc             := Mux(io.jump_flag_id, io.jump_address_id, pc)
     io.instruction := 0x00000013.U
   }
 
-  io.next_pc    := pc
-  io.current_pc := pc - 4.U // FIXME: también puedo dejar este como pc, next_pc dejarlo como pc + 4 y, en el mux de arriba, que la segunda opción sea pc, y me ahorro una unidad de resta
+  io.next_pc := pc
 }

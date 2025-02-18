@@ -1,0 +1,47 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Tue Feb 18 18:24:52 2025
+[*]
+[dumpfile] "/home/eon/Documentos/TFM/RISC-V-CPU/ca2023-lab3/test_run_dir/Single_Cycle_CPU_should_run_a_simple_program_with_a_segmentation_register_placed_in_between_fetch_and_decode_phases/TestTopModule.vcd"
+[dumpfile_mtime] "Tue Feb 18 18:22:39 2025"
+[dumpfile_size] 188347
+[savefile] "/home/eon/Documentos/TFM/RISC-V-CPU/doc/trazas_gtkwave/simple_subroutine_funcionando.gtkw"
+[timestart] 32
+[size] 1366 716
+[pos] -1 -1
+*-2.000000 33 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.TestTopModule.
+[treeopen] TOP.TestTopModule.cpu.
+[treeopen] TOP.TestTopModule.cpu.ex.
+[sst_width] 273
+[signals_width] 174
+[sst_expanded] 1
+[sst_vpaned_height] 192
+@28
+[color] 7
+TOP.clock
+@22
+TOP.TestTopModule.cpu.inst_fetch.pc[31:0]
+@28
+[color] 1
+TOP.TestTopModule.cpu.inst_fetch.io_instruction_valid
+@22
+TOP.TestTopModule.cpu.srFD.io_f_instruction[31:0]
+TOP.TestTopModule.cpu.srFD.io_d_instruction[31:0]
+@28
+[color] 2
+TOP.TestTopModule.cpu.inst_fetch.io_jump_flag_id
+@22
+[color] 2
+TOP.TestTopModule.cpu.inst_fetch.io_jump_address_id[31:0]
+[color] 5
+TOP.TestTopModule.cpu.regs.registers_5[31:0]
+[color] 5
+TOP.TestTopModule.cpu.regs.registers_6[31:0]
+[color] 5
+TOP.TestTopModule.cpu.regs.registers_7[31:0]
+[color] 5
+TOP.TestTopModule.cpu.regs.registers_10[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
