@@ -10,7 +10,7 @@ import riscv.Parameters
 class WriteBack extends Module {
 
   val io = IO(new Bundle() {
-    val instruction_address = Input(UInt(Parameters.AddrWidth))
+    val next_pc = Input(UInt(Parameters.AddrWidth))
     val alu_result          = Input(UInt(Parameters.DataWidth))
     val memory_read_data    = Input(UInt(Parameters.DataWidth))
     val regs_write_source   = Input(UInt(2.W))
@@ -23,7 +23,11 @@ class WriteBack extends Module {
     io.alu_result,
     IndexedSeq(
       RegWriteSource.Memory                 -> io.memory_read_data,
-      RegWriteSource.NextInstructionAddress -> (io.instruction_address + 4.U) // FIXME: esto es un poco chapucero, porque se calcula el PC+4 dos veces (fetch y wb). Lo suyo sería tener un puerto de salida en InstructionFetch por donde se saque el PC + 4, y poner uno de entrada en WriteBack por donde se pase ese valor
+      RegWriteSource.NextInstructionAddress -> io.next_pc
+      /* NOTE: esto antes era un poco chapucero, porque se calculaba el PC+4 dos veces, una en el
+       * módulo de fetch y, otra, en el de writeback (fetch y wb). Esto se ha corregido de forma
+       * que se calcule el PC+4 tan solo en el fetch, y se vaya avanzando hasta llegar al writeback,
+       * ahorrando un sumador */
     )
   )
   

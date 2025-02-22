@@ -10,22 +10,24 @@ import riscv.core.Instructions
 class FD extends Module {
 
   val io = IO(new Bundle {
-    val f_instruction         = Input(UInt(Parameters.InstructionWidth))
-    val f_instruction_address = Input(UInt(Parameters.AddrWidth))
+    val f_instruction = Input(UInt(Parameters.InstructionWidth))
+    val f_current_pc  = Input(UInt(Parameters.AddrWidth))
+    val f_next_pc     = Input(UInt(Parameters.AddrWidth))
 
-    // FIXME: por el momento no necesito sacar el PC+4 del InstructionFetch porque se hace en
-    // Writeback, pero es un poco chapucero...
-
-    val d_instruction         = Output(UInt(Parameters.InstructionWidth))
-    val d_instruction_address = Output(UInt(Parameters.AddrWidth))
+    val d_instruction = Output(UInt(Parameters.InstructionWidth))
+    val d_current_pc  = Output(UInt(Parameters.AddrWidth))
+    val d_next_pc     = Output(UInt(Parameters.AddrWidth))
   })
 
-  val instruction         = RegInit(0.U(Parameters.InstructionWidth))
-  val instruction_address = RegInit(0.U(Parameters.AddrWidth))
+  val instruction = RegInit(0.U(Parameters.InstructionWidth))
+  val current_pc  = RegInit(0.U(Parameters.AddrWidth))
+  val next_pc     = RegInit(0.U(Parameters.AddrWidth))
 
-  instruction         := io.f_instruction
-  instruction_address := io.f_instruction_address
+  instruction := io.f_instruction
+  current_pc  := io.f_current_pc
+  next_pc     := io.f_next_pc
 
-  io.d_instruction         := instruction
-  io.d_instruction_address := instruction_address
+  io.d_instruction := instruction
+  io.d_current_pc  := current_pc
+  io.d_next_pc     := next_pc
 }

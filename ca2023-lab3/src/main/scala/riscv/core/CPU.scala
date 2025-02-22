@@ -35,7 +35,7 @@ class CPU extends Module {
   // }
 
   // Conexionado de los registros de segmentación a la E/S de depuración de la CPU
-  io.srFD_d_instruction_address := srFD.io.d_instruction_address
+  io.srFD_d_instruction_address := srFD.io.d_current_pc
   io.srFD_d_instruction         := srFD.io.d_instruction
 
   io.deviceSelect := mem.io.memory_bundle
@@ -51,12 +51,13 @@ class CPU extends Module {
     instruction_address de la E/S del módulo CPU. De este modo se posibilita la lectura de la
     instrucción alojada en memoria.
   */
-  io.instruction_address := inst_fetch.io.next_pc
+  io.instruction_address := inst_fetch.io.current_pc
 
   // NOTE: Conexionado de las etapas de fetch y decodificación a su registro de segmentación
-  srFD.io.f_instruction         := inst_fetch.io.instruction
-  srFD.io.f_instruction_address := inst_fetch.io.next_pc
-  id.io.instruction             := srFD.io.d_instruction
+  srFD.io.f_instruction := inst_fetch.io.instruction
+  srFD.io.f_current_pc  := inst_fetch.io.current_pc
+  srFD.io.f_next_pc     := inst_fetch.io.next_pc
+  id.io.instruction     := srFD.io.d_instruction
   
   regs.io.write_enable  := id.io.reg_write_enable
   regs.io.write_address := id.io.reg_write_address
@@ -70,7 +71,7 @@ class CPU extends Module {
   // lab3(cpu) begin
 
   ex.io.instruction         := srFD.io.d_instruction
-  ex.io.instruction_address := srFD.io.d_instruction_address // FIXME: comprobar si este forwarding es correcto hacerlo o no
+  ex.io.instruction_address := srFD.io.d_current_pc // FIXME: comprobar si este forwarding es correcto hacerlo o no
   ex.io.reg1_data           := regs.io.read_data1
   ex.io.reg2_data           := regs.io.read_data2
   ex.io.immediate           := id.io.ex_immediate
@@ -94,9 +95,9 @@ class CPU extends Module {
   io.memory_bundle.write_strobe  := mem.io.memory_bundle.write_strobe
   mem.io.memory_bundle.read_data := io.memory_bundle.read_data
 
-  wb.io.instruction_address := srFD.io.d_instruction_address
-  wb.io.alu_result          := ex.io.mem_alu_result
-  wb.io.memory_read_data    := mem.io.wb_memory_read_data
-  wb.io.regs_write_source   := id.io.wb_reg_write_source
+  wb.io.next_pc           := srFD.io.d_next_pc
+  wb.io.alu_result        := ex.io.mem_alu_result
+  wb.io.memory_read_data  := mem.io.wb_memory_read_data
+  wb.io.regs_write_source := id.io.wb_reg_write_source
 
 }

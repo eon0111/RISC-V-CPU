@@ -53,7 +53,7 @@ class LoadedMemoryTest extends AnyFlatSpec with ChiselScalatestTester {
   it should "store memory contents from file" in {
     test(new CPUWrapper("simple.asmbin.txt")) { c =>
       c.io.sram_debug_read_address.poke(0x0)
-      c.io.sram_debug_read_data.expect("h_fe010113".U)
+      c.io.sram_debug_read_data.expect(0xfe010113)
     }
   }
 }
