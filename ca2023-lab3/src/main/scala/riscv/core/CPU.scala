@@ -70,7 +70,9 @@ class CPU extends Module {
   
   // lab3(cpu) begin
 
-  ex.io.instruction         := srFD.io.d_instruction
+  ex.io.opcode              := srFD.io.d_instruction(6, 0)
+  ex.io.funct3              := srFD.io.d_instruction(14, 12)
+  ex.io.rd                  := srFD.io.d_instruction(11,7)
   ex.io.instruction_address := srFD.io.d_current_pc // FIXME: comprobar si este forwarding es correcto hacerlo o no
   ex.io.reg1_data           := regs.io.read_data1
   ex.io.reg2_data           := regs.io.read_data2

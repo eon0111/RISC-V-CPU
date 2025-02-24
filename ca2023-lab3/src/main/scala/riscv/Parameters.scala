@@ -23,6 +23,15 @@ object Parameters {
   val ByteWidth        = ByteBits.W
   val WordSize         = Math.ceil(DataBits / ByteBits).toInt
 
+  val OpcodeBits  = 7
+  val OpcodeWidth = OpcodeBits.W
+  val Func3Bits   = 3
+  val Func3Width  = OpcodeBits.W
+  val Func7Bits   = 7
+  val Func7Width  = OpcodeBits.W
+  val RDAddrBits  = 5
+  val RDAddrWidth = RDAddrBits.W
+
   val PhysicalRegisters         = 32
   val PhysicalRegisterAddrBits  = log2Up(PhysicalRegisters)
   val PhysicalRegisterAddrWidth = PhysicalRegisterAddrBits.W

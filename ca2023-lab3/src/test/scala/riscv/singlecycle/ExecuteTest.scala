@@ -16,7 +16,10 @@ class ExecuteTest extends AnyFlatSpec with ChiselScalatestTester {
   behavior.of("Execution of Single Cycle CPU")
   it should "execute correctly" in {
     test(new Execute).withAnnotations(TestAnnotations.annos) { c =>
-      c.io.instruction.poke(0x001101b3L.U) // x3 =  x2 + x1
+      var instruction = 0x001101b3L.U // x3 =  x2 + x1
+      c.io.opcode.poke(instruction(6,0))
+      c.io.funct3.poke(instruction(14,12))
+      c.io.rd.poke(instruction(11,7))
 
       var x = 0
       for (x <- 0 to 100) {
@@ -34,7 +37,10 @@ class ExecuteTest extends AnyFlatSpec with ChiselScalatestTester {
       }
 
       // beq test
-      c.io.instruction.poke(0x00208163L.U) // pc + 2 if x1 === x2
+      instruction = 0x00208163L.U // pc + 2 if x1 === x2
+      c.io.opcode.poke(instruction(6,0))
+      c.io.funct3.poke(instruction(14,12))
+      c.io.rd.poke(instruction(11,7))
       c.io.instruction_address.poke(2.U)
       c.io.immediate.poke(2.U)
       c.io.aluop1_source.poke(1.U)

@@ -11,7 +11,9 @@ import chisel3.util.Fill
 
 class Execute extends Module {
   val io = IO(new Bundle {
-    val instruction         = Input(UInt(Parameters.InstructionWidth))
+    val opcode              = Input(UInt(Parameters.OpcodeWidth))
+    val funct3              = Input(UInt(Parameters.Func3Width))
+    val rd                  = Input(UInt(Parameters.RDAddrWidth))
     val instruction_address = Input(UInt(Parameters.AddrWidth))
     val reg1_data           = Input(UInt(Parameters.DataWidth))
     val reg2_data           = Input(UInt(Parameters.DataWidth))
@@ -25,11 +27,11 @@ class Execute extends Module {
     val if_jump_address = Output(UInt(Parameters.DataWidth))
   })
 
-  val opcode = io.instruction(6, 0)
-  val funct3 = io.instruction(14, 12)
-  val funct7 = io.instruction(31, 25)
-  val rd     = io.instruction(11, 7)
-  val uimm   = io.instruction(19, 15)
+  // val opcode = io.instruction(6, 0)
+  // val funct3 = io.instruction(14, 12)
+  // val funct7 = io.instruction(31, 25)
+  // val rd     = io.instruction(11, 7)
+  // val uimm   = io.instruction(19, 15)
 
   val alu    = Module(new ALU)
 
@@ -55,10 +57,10 @@ class Execute extends Module {
   // lab3(Execute) end
 
   io.mem_alu_result := alu.io.result
-  io.if_jump_flag := opcode === Instructions.jal ||
-    (opcode === Instructions.jalr) ||
-    (opcode === InstructionTypes.B) && MuxLookup(
-      funct3,
+  io.if_jump_flag := io.opcode === Instructions.jal ||
+    (io.opcode === Instructions.jalr) ||
+    (io.opcode === InstructionTypes.B) && MuxLookup(
+      io.funct3,
       false.B,
       IndexedSeq(
         InstructionsTypeB.beq  -> (io.reg1_data === io.reg2_data),
@@ -69,5 +71,5 @@ class Execute extends Module {
         InstructionsTypeB.bgeu -> (io.reg1_data.asUInt >= io.reg2_data.asUInt)
       )
     )
-  io.if_jump_address := io.immediate + Mux(opcode === Instructions.jalr, io.reg1_data, io.instruction_address)
+  io.if_jump_address := io.immediate + Mux(io.opcode === Instructions.jalr, io.reg1_data, io.instruction_address)
 }
