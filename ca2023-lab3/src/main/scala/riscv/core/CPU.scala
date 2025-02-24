@@ -77,6 +77,7 @@ class CPU extends Module {
   ex.io.immediate           := id.io.ex_immediate
   ex.io.aluop1_source       := id.io.ex_aluop1_source
   ex.io.aluop2_source       := id.io.ex_aluop2_source
+  ex.io.alu_func            := id.io.ex_alu_func
 
   // lab3(cpu) end
 

@@ -18,6 +18,7 @@ class Execute extends Module {
     val immediate           = Input(UInt(Parameters.DataWidth))
     val aluop1_source       = Input(UInt(1.W))
     val aluop2_source       = Input(UInt(1.W))
+    val alu_func            = Input(ALUFunctions())
 
     val mem_alu_result  = Output(UInt(Parameters.DataWidth))
     val if_jump_flag    = Output(Bool())
@@ -30,19 +31,12 @@ class Execute extends Module {
   val rd     = io.instruction(11, 7)
   val uimm   = io.instruction(19, 15)
 
-  val alu      = Module(new ALU)
-
-  // FIXME: meter al alu_ctrl en el Decode, porque la señal que gobierna el comportamiento de la ALU también debería formar parte de la palabra de control
-  val alu_ctrl = Module(new ALUControl) // NOTE: ALUControl es un módulo encargado de extraer la operación a realizar en base al opcode y los campos func3 y func7
-
-  alu_ctrl.io.opcode := opcode
-  alu_ctrl.io.funct3 := funct3
-  alu_ctrl.io.funct7 := funct7
+  val alu    = Module(new ALU)
 
   // lab3(Execute) begin
 
   // NOTE: configuración del tipo de operación en la ALU
-  alu.io.func := alu_ctrl.io.alu_funct
+  alu.io.func := io.alu_func
 
   // NOTE: selección del primer operando en base a la salida del Mux del decode en el que se toma la decisión de tomar la dirección de la instrucción o el valor del primer registro de datos
   alu.io.op1 := Mux(

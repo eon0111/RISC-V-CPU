@@ -129,6 +129,7 @@ class InstructionDecode extends Module {
 
     val regs_reg1_read_address = Output(UInt(Parameters.PhysicalRegisterAddrWidth))
     val regs_reg2_read_address = Output(UInt(Parameters.PhysicalRegisterAddrWidth))
+    val ex_alu_func            = Output(ALUFunctions())
     val ex_immediate           = Output(UInt(Parameters.DataWidth))
     val ex_aluop1_source       = Output(UInt(1.W))
     val ex_aluop2_source       = Output(UInt(1.W))
@@ -176,6 +177,18 @@ class InstructionDecode extends Module {
     )
   )
   io.ex_immediate := immediate
+
+  /* NOTE: ALUControl es un módulo encargado de extraer la operación a realizar en la ALU en base al
+   * opcode y los campos func3 y func7, y se ha optado por cambiarlo de localización al 'decode'
+   * (antes estaba en 'execute') ya que la señal que gobierna el comportamiento de la ALU también
+   * debería formar parte de la palabra de control */
+  val alu_ctrl = Module(new ALUControl)
+  alu_ctrl.io.opcode := opcode
+  alu_ctrl.io.funct3 := funct3
+  alu_ctrl.io.funct7 := funct7
+
+  io.ex_alu_func := alu_ctrl.io.alu_funct
+
   io.ex_aluop1_source := Mux(
     opcode === Instructions.auipc || opcode === InstructionTypes.B || opcode === Instructions.jal,
     ALUOp1Source.InstructionAddress,

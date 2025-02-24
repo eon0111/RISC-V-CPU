@@ -64,12 +64,13 @@ class Memory(capacity: Int) extends Module {
    * otros, construir caches, indicando el tag en el parámetro de dirección de los métodos de
    * lectura/escritura. */
   /* NOTE: he tenido que cambiar el tipo de memoria porque las memorias de la clase SyncReadMem no
-   * permiten realizar lecturas de manera asíncrona/combinacional, esto es, que cuando le solicita la
+   * permiten realizar lecturas de manera asíncrona/combinacional, esto es, que cuando se solicita la
    * lectura de la memoria, el dato leído no sale de esta hasta el siguiente flanco ascendente de reloj,
    * lo que imposibilita mantener la sincronía entre el PC y las instrucciones leídas.
    * Al crear una memoria del tipo Mem, la lectura del dato se lleva a cabo en el instante mismo en
-   * que se solicita. Gracias a este cambio, la ejecución de los programas comienza al cambio en el 
-   * valor de la señal instruction_valid, y no un ciclo después. */
+   * que se solicita.
+   * Este cambio se ha hecho principalmente para facilitar la depuración de las trazas en GTKWave,
+   * puesto que no supone ninguna alteración sobre el flujo de ejecución de los programas. */
   val mem = Mem(capacity, Vec(Parameters.WordSize, UInt(Parameters.ByteWidth)))
 
   when(io.bundle.write_enable) {
