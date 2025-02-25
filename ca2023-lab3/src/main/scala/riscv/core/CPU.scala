@@ -24,15 +24,9 @@ class CPU extends Module {
 
   // Registros de segmentación
   val srFD       = Module(new FD)
-  // val srDE       = Module(new DE)
+  val srDE       = Module(new DE)
   // val srEM       = Module(new EM)
   // val srMW       = Module(new MW)
-
-  // when(!io.instruction_valid) {
-  //   inst_fetch.io.pc_reset := 1.B
-  // } .otherwise {
-  //   inst_fetch.io.pc_reset := hazard_unit.io.PC_reset
-  // }
 
   // Conexionado de los registros de segmentación a la E/S de depuración de la CPU
   io.srFD_d_instruction_address := srFD.io.d_current_pc
@@ -47,13 +41,13 @@ class CPU extends Module {
   inst_fetch.io.instruction_read_data := io.instruction
   
   /*
-    NOTE: se pasa la dirección de la siguiente instrucción, generada en en el fetch, al puerto
+    NOTE: se pasa la dirección de la siguiente instrucción, generada en el fetch, al puerto
     instruction_address de la E/S del módulo CPU. De este modo se posibilita la lectura de la
     instrucción alojada en memoria.
   */
   io.instruction_address := inst_fetch.io.current_pc
 
-  // NOTE: Conexionado de las etapas de fetch y decodificación a su registro de segmentación
+  // Conexionado de las etapas de fetch y decodificación a su registro de segmentación
   srFD.io.f_instruction := inst_fetch.io.instruction
   srFD.io.f_current_pc  := inst_fetch.io.current_pc
   srFD.io.f_next_pc     := inst_fetch.io.next_pc
@@ -67,27 +61,43 @@ class CPU extends Module {
   
   regs.io.debug_read_address := io.debug_read_address
   io.debug_read_data         := regs.io.debug_read_data
-  
+
+  // Conexionado de las etapas de decodificación y ejecución a su registro de segmentación
+  srDE.io.d_current_pc          := srFD.io.d_current_pc
+  srDE.io.d_next_pc             := srFD.io.d_next_pc
+  srDE.io.d_opcode              := srFD.io.d_instruction(6, 0)
+  srDE.io.d_func3               := srFD.io.d_instruction(14, 12)
+  srDE.io.d_func7               := srFD.io.d_instruction(11,7)
+  srDE.io.d_regs_read_data_1    := regs.io.read_data1
+  srDE.io.d_regs_read_data_2    := regs.io.read_data2
+  srDE.io.d_ex_immediate        := id.io.ex_immediate
+  srDE.io.d_ex_alu_func         := id.io.ex_alu_func
+  srDE.io.d_ex_aluop1_source    := id.io.ex_aluop1_source
+  srDE.io.d_ex_aluop2_source    := id.io.ex_aluop2_source
+  srDE.io.d_memory_read_enable  := id.io.memory_read_enable
+  srDE.io.d_memory_write_enable := id.io.memory_write_enable
+  srDE.io.d_wb_reg_write_source := id.io.wb_reg_write_source
+
   // lab3(cpu) begin
 
-  ex.io.opcode              := srFD.io.d_instruction(6, 0)
-  ex.io.funct3              := srFD.io.d_instruction(14, 12)
-  ex.io.rd                  := srFD.io.d_instruction(11,7)
-  ex.io.instruction_address := srFD.io.d_current_pc // FIXME: comprobar si este forwarding es correcto hacerlo o no
-  ex.io.reg1_data           := regs.io.read_data1
-  ex.io.reg2_data           := regs.io.read_data2
-  ex.io.immediate           := id.io.ex_immediate
-  ex.io.aluop1_source       := id.io.ex_aluop1_source
-  ex.io.aluop2_source       := id.io.ex_aluop2_source
-  ex.io.alu_func            := id.io.ex_alu_func
+  ex.io.instruction_address := srDE.io.e_current_pc // FIXME: comprobar si este forwarding es correcto hacerlo o no
+  ex.io.opcode              := srDE.io.e_opcode
+  ex.io.funct3              := srDE.io.e_func3
+  ex.io.rd                  := srDE.io.e_func7
+  ex.io.reg1_data           := srDE.io.e_regs_read_data_1
+  ex.io.reg2_data           := srDE.io.e_regs_read_data_2
+  ex.io.immediate           := srDE.io.e_ex_immediate
+  ex.io.alu_func            := srDE.io.e_ex_alu_func
+  ex.io.aluop1_source       := srDE.io.e_ex_aluop1_source
+  ex.io.aluop2_source       := srDE.io.e_ex_aluop1_source
 
   // lab3(cpu) end
 
   mem.io.alu_result          := ex.io.mem_alu_result
   mem.io.reg2_data           := regs.io.read_data2
-  mem.io.memory_read_enable  := id.io.memory_read_enable
-  mem.io.memory_write_enable := id.io.memory_write_enable
-  mem.io.funct3              := srFD.io.d_instruction(14, 12)
+  mem.io.memory_read_enable  := srDE.io.e_memory_read_enable
+  mem.io.memory_write_enable := srDE.io.e_memory_write_enable
+  mem.io.funct3              := srDE.io.e_func3
 
   io.memory_bundle.address := Cat(
     0.U(Parameters.SlaveDeviceCountBits.W),
@@ -98,7 +108,7 @@ class CPU extends Module {
   io.memory_bundle.write_strobe  := mem.io.memory_bundle.write_strobe
   mem.io.memory_bundle.read_data := io.memory_bundle.read_data
 
-  wb.io.next_pc           := srFD.io.d_next_pc
+  wb.io.next_pc           := srDE.io.e_next_pc
   wb.io.alu_result        := ex.io.mem_alu_result
   wb.io.memory_read_data  := mem.io.wb_memory_read_data
   wb.io.regs_write_source := id.io.wb_reg_write_source
