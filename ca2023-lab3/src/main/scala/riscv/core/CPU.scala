@@ -21,13 +21,17 @@ class CPU extends Module {
   val ex         = Module(new Execute)
   val mem        = Module(new MemoryAccess)
   val wb         = Module(new WriteBack)
-
+  
+  // Unidad de amenazas
+  // val hazard_unit = Module(new HazardUnit)
+  // hazard_unit.io.jump_flag := ex.io.if_jump_flag
+  
   // Registros de segmentación
-  val srFD       = Module(new FD)
-  val srDE       = Module(new DE)
+  val srFD       = Module(new FD) //withReset(hazard_unit.io.flush_FD){Module(new FD)}
+  val srDE       = Module(new DE) //withReset(hazard_unit.io.flush_DE){Module(new DE)}
   // val srEM       = Module(new EM)
   // val srMW       = Module(new MW)
-
+  
   // Conexionado de los registros de segmentación a la E/S de depuración de la CPU
   io.srFD_d_instruction_address := srFD.io.d_current_pc
   io.srFD_d_instruction         := srFD.io.d_instruction
@@ -53,12 +57,13 @@ class CPU extends Module {
   srFD.io.f_next_pc     := inst_fetch.io.next_pc
   id.io.instruction     := srFD.io.d_instruction
   
-  regs.io.write_enable  := id.io.reg_write_enable
-  regs.io.write_address := id.io.reg_write_address
+  regs.io.write_enable  := srDE.io.e_reg_write_enable
+  regs.io.write_address := srDE.io.e_reg_write_address
   regs.io.write_data    := wb.io.regs_write_data
   regs.io.read_address1 := id.io.regs_reg1_read_address
   regs.io.read_address2 := id.io.regs_reg2_read_address
   
+  // Conexionado del banco de registro a los puertos de depuración
   regs.io.debug_read_address := io.debug_read_address
   io.debug_read_data         := regs.io.debug_read_data
 
@@ -76,7 +81,9 @@ class CPU extends Module {
   srDE.io.d_ex_aluop2_source    := id.io.ex_aluop2_source
   srDE.io.d_memory_read_enable  := id.io.memory_read_enable
   srDE.io.d_memory_write_enable := id.io.memory_write_enable
+  srDE.io.d_reg_write_enable    := id.io.reg_write_enable
   srDE.io.d_wb_reg_write_source := id.io.wb_reg_write_source
+  srDE.io.d_reg_write_address   := id.io.reg_write_address
 
   // lab3(cpu) begin
 
@@ -89,7 +96,7 @@ class CPU extends Module {
   ex.io.immediate           := srDE.io.e_ex_immediate
   ex.io.alu_func            := srDE.io.e_ex_alu_func
   ex.io.aluop1_source       := srDE.io.e_ex_aluop1_source
-  ex.io.aluop2_source       := srDE.io.e_ex_aluop1_source
+  ex.io.aluop2_source       := srDE.io.e_ex_aluop2_source
 
   // lab3(cpu) end
 
@@ -111,6 +118,6 @@ class CPU extends Module {
   wb.io.next_pc           := srDE.io.e_next_pc
   wb.io.alu_result        := ex.io.mem_alu_result
   wb.io.memory_read_data  := mem.io.wb_memory_read_data
-  wb.io.regs_write_source := id.io.wb_reg_write_source
+  wb.io.regs_write_source := srDE.io.e_wb_reg_write_source
 
 }

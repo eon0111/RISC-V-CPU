@@ -22,13 +22,13 @@ OBJCOPY := $(CROSS_COMPILE)objcopy
 	$(OBJCOPY) -O binary -j .text -j .data $< $@
 
 BINS = \
-	fibonacci.asmbin \
-	mmio.asmbin \
-	quicksort.asmbin \
-	sb.asmbin\
-	simple.asmbin\
-	simple2.asmbin \
-	simple_subroutine.asmbin\
+	simple_asm.asmbin\
+	# fibonacci.asmbin \
+	# mmio.asmbin \
+	# quicksort.asmbin \
+	# sb.asmbin\
+	# simple2.asmbin \
+	# simple_subroutine.asmbin\
 
 # Clear the .DEFAULT_GOAL special variable, so that the following turns
 # to the first target after .DEFAULT_GOAL is not set.

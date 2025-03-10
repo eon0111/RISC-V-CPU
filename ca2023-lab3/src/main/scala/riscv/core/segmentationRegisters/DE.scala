@@ -18,6 +18,8 @@ class DE extends Module {
     val d_memory_read_enable  = Input(Bool())
     val d_memory_write_enable = Input(Bool())
     val d_wb_reg_write_source = Input(UInt(2.W))
+    val d_reg_write_enable    = Input(Bool())
+    val d_reg_write_address   = Input(UInt(Parameters.PhysicalRegisterAddrWidth))
 
     val e_ex_immediate        = Output(UInt(Parameters.DataWidth))
     val e_ex_alu_func         = Output(ALUFunctions())
@@ -26,6 +28,8 @@ class DE extends Module {
     val e_memory_read_enable  = Output(Bool())
     val e_memory_write_enable = Output(Bool())
     val e_wb_reg_write_source = Output(UInt(2.W))
+    val e_reg_write_enable    = Output(Bool())
+    val e_reg_write_address   = Output(UInt(Parameters.PhysicalRegisterAddrWidth))
     
     // Datos
     val d_current_pc       = Input(UInt(Parameters.InstructionWidth))
@@ -59,6 +63,8 @@ class DE extends Module {
   val memory_read_enable  = RegInit(0.B)
   val memory_write_enable = RegInit(0.B)
   val wb_reg_write_source = RegInit(0.U(2.W))
+  val reg_write_enable    = RegInit(0.U.asBool)
+  val reg_write_address   = RegInit(0.U(Parameters.PhysicalRegisterAddrWidth))
 
   current_pc          := io.d_current_pc
   next_pc             := io.d_next_pc
@@ -74,6 +80,8 @@ class DE extends Module {
   memory_read_enable  := io.d_memory_read_enable
   memory_write_enable := io.d_memory_write_enable
   wb_reg_write_source := io.d_wb_reg_write_source
+  reg_write_enable    := io.d_reg_write_enable
+  reg_write_address   := io.d_reg_write_address
 
   io.e_current_pc          := current_pc
   io.e_next_pc             := next_pc
@@ -89,5 +97,7 @@ class DE extends Module {
   io.e_memory_read_enable  := memory_read_enable
   io.e_memory_write_enable := memory_write_enable
   io.e_wb_reg_write_source := wb_reg_write_source
+  io.e_reg_write_enable    := reg_write_enable
+  io.e_reg_write_address   := reg_write_address
 
 }

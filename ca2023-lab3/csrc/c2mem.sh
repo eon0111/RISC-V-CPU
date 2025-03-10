@@ -1,6 +1,6 @@
 #!/bin/bash
 
-strUso="[*] INFO.: Uso:\n\tcode2memfile [src].c\n"
+strUso="[*] INFO.: Uso:\n\tc2mem [src].c\n"
 strErrNArgs="[!] ERROR: número insuficiente de argumentos"
 strErrFich404="[!] ERROR: el fichero \"$1\" no existe. Saliendo..."
 
@@ -42,4 +42,5 @@ for instr in $(echo "$instrRaw"); do
 		i=$(($i+1))
 	fi
 done
+
 # TODO: en los ejemplos mete 3 NOPs al final del programa

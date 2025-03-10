@@ -14,6 +14,10 @@ class FD extends Module {
     val f_current_pc  = Input(UInt(Parameters.AddrWidth))
     val f_next_pc     = Input(UInt(Parameters.AddrWidth))
 
+    /* TODO: meter una señal de entrada que sea el reset que llega de la hazard unit cuando se
+     * determina el valor del jump_flag en 'execute' */
+    /* TODO: conectar el reset que llega de la unidad de amenazas al reset de todos los registros */
+
     val d_instruction = Output(UInt(Parameters.InstructionWidth))
     val d_current_pc  = Output(UInt(Parameters.AddrWidth))
     val d_next_pc     = Output(UInt(Parameters.AddrWidth))
