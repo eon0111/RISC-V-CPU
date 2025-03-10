@@ -27,15 +27,11 @@ class CPU extends Module {
   // hazard_unit.io.jump_flag := ex.io.if_jump_flag
   
   // Registros de segmentación
-  val srFD       = Module(new FD) //withReset(hazard_unit.io.flush_FD){Module(new FD)}
-  val srDE       = Module(new DE) //withReset(hazard_unit.io.flush_DE){Module(new DE)}
-  // val srEM       = Module(new EM)
+  val srFD       = Module(new FD)
+  val srDE       = Module(new DE)
+  val srEM       = Module(new EM)
   // val srMW       = Module(new MW)
   
-  // Conexionado de los registros de segmentación a la E/S de depuración de la CPU
-  io.srFD_d_instruction_address := srFD.io.d_current_pc
-  io.srFD_d_instruction         := srFD.io.d_instruction
-
   io.deviceSelect := mem.io.memory_bundle
     .address(Parameters.AddrBits - 1, Parameters.AddrBits - Parameters.SlaveDeviceCountBits)
 
@@ -44,11 +40,9 @@ class CPU extends Module {
   inst_fetch.io.instruction_valid     := io.instruction_valid
   inst_fetch.io.instruction_read_data := io.instruction
   
-  /*
-    NOTE: se pasa la dirección de la siguiente instrucción, generada en el fetch, al puerto
-    instruction_address de la E/S del módulo CPU. De este modo se posibilita la lectura de la
-    instrucción alojada en memoria.
-  */
+  /* NOTE: se pasa la dirección de la siguiente instrucción, generada en el fetch, al puerto
+   * instruction_address de la E/S del módulo CPU. De este modo se posibilita la lectura de la
+   * instrucción alojada en memoria */
   io.instruction_address := inst_fetch.io.current_pc
 
   // Conexionado de las etapas de fetch y decodificación a su registro de segmentación
@@ -57,6 +51,7 @@ class CPU extends Module {
   srFD.io.f_next_pc     := inst_fetch.io.next_pc
   id.io.instruction     := srFD.io.d_instruction
   
+  // Conexionado del banco de registros
   regs.io.write_enable  := srDE.io.e_reg_write_enable
   regs.io.write_address := srDE.io.e_reg_write_address
   regs.io.write_data    := wb.io.regs_write_data
@@ -100,11 +95,18 @@ class CPU extends Module {
 
   // lab3(cpu) end
 
-  mem.io.alu_result          := ex.io.mem_alu_result
+  // Conexionado de las etapas de ejecución y memoria a su registro de segmentación
+  srEM.io.e_alu_result          := ex.io.mem_alu_result
+  srEM.io.e_funct3              := srDE.io.e_func3
+  srEM.io.e_memory_read_enable  := srDE.io.e_memory_read_enable
+  srEM.io.e_memory_write_enable := srDE.io.e_memory_write_enable
+  srEM.io.e_regs_read_data_2    := srDE.io.e_regs_read_data_2
+  
+  mem.io.alu_result          := srEM.io.m_alu_result
   mem.io.reg2_data           := regs.io.read_data2
-  mem.io.memory_read_enable  := srDE.io.e_memory_read_enable
-  mem.io.memory_write_enable := srDE.io.e_memory_write_enable
-  mem.io.funct3              := srDE.io.e_func3
+  mem.io.memory_read_enable  := srEM.io.m_memory_read_enable
+  mem.io.memory_write_enable := srEM.io.m_memory_write_enable
+  mem.io.funct3              := srEM.io.e_funct3
 
   io.memory_bundle.address := Cat(
     0.U(Parameters.SlaveDeviceCountBits.W),

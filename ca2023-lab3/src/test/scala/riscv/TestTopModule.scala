@@ -26,9 +26,6 @@ class TestTopModule(exeFilename: String) extends Module {
     val mem_debug_read_data     = Output(UInt(Parameters.DataWidth))
 
     val instruction_valid       = Output(Bool())
-
-    val srFD_d_instruction_address = Output(UInt(Parameters.AddrWidth))
-    val srFD_d_instruction         = Output(UInt(Parameters.InstructionWidth))
   })
 
   /* NOTE: En el proceso de carga de binarios están involucrados 4 módulos, que son:
@@ -93,9 +90,8 @@ class TestTopModule(exeFilename: String) extends Module {
     cpu.io.debug_read_address := io.regs_debug_read_address
     io.regs_debug_read_data   := cpu.io.debug_read_data
 
-    // Connect segmentation registers debug signals
-    io.srFD_d_instruction_address := cpu.io.srFD_d_instruction_address
-    io.srFD_d_instruction         := cpu.io.srFD_d_instruction
+    // Connect other debug signals
+    // TODO:
   // }
 
   mem.io.debug_read_address := io.mem_debug_read_address

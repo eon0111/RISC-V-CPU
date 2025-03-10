@@ -11,7 +11,6 @@ class DE extends Module {
   
   val io = IO(new Bundle {
     // Palabra de control
-    val d_ex_immediate        = Input(UInt(Parameters.DataWidth))
     val d_ex_alu_func         = Input(ALUFunctions())
     val d_ex_aluop1_source    = Input(UInt(1.W))
     val d_ex_aluop2_source    = Input(UInt(1.W))
@@ -20,8 +19,7 @@ class DE extends Module {
     val d_wb_reg_write_source = Input(UInt(2.W))
     val d_reg_write_enable    = Input(Bool())
     val d_reg_write_address   = Input(UInt(Parameters.PhysicalRegisterAddrWidth))
-
-    val e_ex_immediate        = Output(UInt(Parameters.DataWidth))
+    
     val e_ex_alu_func         = Output(ALUFunctions())
     val e_ex_aluop1_source    = Output(UInt(1.W))
     val e_ex_aluop2_source    = Output(UInt(1.W))
@@ -32,6 +30,7 @@ class DE extends Module {
     val e_reg_write_address   = Output(UInt(Parameters.PhysicalRegisterAddrWidth))
     
     // Datos
+    val d_ex_immediate     = Input(UInt(Parameters.DataWidth))
     val d_current_pc       = Input(UInt(Parameters.InstructionWidth))
     val d_next_pc          = Input(UInt(Parameters.InstructionWidth))
     val d_opcode           = Input(UInt(Parameters.OpcodeWidth))
@@ -39,7 +38,8 @@ class DE extends Module {
     val d_func7            = Input(UInt(Parameters.Func7Width))
     val d_regs_read_data_1 = Input(UInt(Parameters.DataWidth))
     val d_regs_read_data_2 = Input(UInt(Parameters.DataWidth))
-
+    
+    val e_ex_immediate     = Output(UInt(Parameters.DataWidth))
     val e_current_pc       = Output(UInt(Parameters.InstructionWidth))
     val e_next_pc          = Output(UInt(Parameters.InstructionWidth))
     val e_opcode           = Output(UInt(Parameters.OpcodeWidth))

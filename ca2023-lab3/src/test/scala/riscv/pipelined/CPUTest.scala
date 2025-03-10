@@ -63,3 +63,24 @@ class SegRegDETest extends AnyFlatSpec with ChiselScalatestTester {
     }
   }
 }
+
+class SegRegEMTest extends AnyFlatSpec with ChiselScalatestTester {
+  behavior.of("Pipelined CPU")
+  it should "run a simple program with FD, DE and EM segmentation registers present in the pipeline" in {
+    test(new TestTopModule("simple_asm.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
+      // NOTE: espera hasta que el cargador termine
+      while(!c.io.instruction_valid.peek().litToBoolean) {
+        c.clock.step()
+        c.io.mem_debug_read_address.poke(4.U) // Avoid timeout
+      }
+      
+      for (i <- 1 to 200) {
+        c.clock.step()
+        c.io.mem_debug_read_address.poke((i * 4).U) // Avoid timeout
+      }
+
+      c.io.regs_debug_read_address.poke(5.U)  // t0
+      c.io.regs_debug_read_data.expect(12.U)
+    }
+  }
+}

@@ -17,17 +17,6 @@ class CPUBundle extends Bundle {
   val debug_read_address  = Input(UInt(Parameters.PhysicalRegisterAddrWidth))
   val debug_read_data     = Output(UInt(Parameters.DataWidth))
 
-  // Debug signals for the segmentation registers
-  // FD
-  val srFD_d_instruction_address = Output(UInt(Parameters.AddrWidth))
-  val srFD_d_instruction         = Output(UInt(Parameters.InstructionWidth))
-
-  // DE
-  // TODO:
-
-  // EM
-  // TODO:
-
-  // MW
+  // Other debug signals
   // TODO:
 }
