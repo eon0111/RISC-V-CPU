@@ -112,19 +112,19 @@
       <a name="font" val="SansSerif plain 10"/>
       <a name="text" val="jump_address"/>
     </comp>
-    <comp lib="8" loc="(1009,614)" name="Text">
+    <comp lib="8" loc="(1005,610)" name="Text">
       <a name="font" val="SansSerif plain 10"/>
       <a name="text" val="func3 (14:12)"/>
     </comp>
-    <comp lib="8" loc="(1011,593)" name="Text">
+    <comp lib="8" loc="(1010,590)" name="Text">
       <a name="font" val="SansSerif plain 10"/>
       <a name="text" val="opcode (6:0)"/>
     </comp>
-    <comp lib="8" loc="(1111,542)" name="Text">
+    <comp lib="8" loc="(1110,540)" name="Text">
       <a name="font" val="SansSerif plain 10"/>
       <a name="text" val="instruction_address"/>
     </comp>
-    <comp lib="8" loc="(1141,562)" name="Text">
+    <comp lib="8" loc="(1140,560)" name="Text">
       <a name="font" val="SansSerif plain 10"/>
       <a name="text" val="r1_data"/>
     </comp>
@@ -160,7 +160,7 @@
       <a name="font" val="SansSerif plain 10"/>
       <a name="text" val="clk"/>
     </comp>
-    <comp lib="8" loc="(289,400)" name="Text">
+    <comp lib="8" loc="(285,400)" name="Text">
       <a name="font" val="SansSerif plain 10"/>
       <a name="text" val="instruction_address"/>
     </comp>
@@ -187,7 +187,7 @@
       <a name="font" val="SansSerif plain 10"/>
       <a name="text" val="wb_src"/>
     </comp>
-    <comp lib="8" loc="(716,84)" name="Text">
+    <comp lib="8" loc="(715,80)" name="Text">
       <a name="font" val="SansSerif plain 10"/>
       <a name="text" val="alu_func"/>
     </comp>
@@ -352,7 +352,10 @@
     <wire from="(910,480)" to="(910,640)"/>
     <wire from="(910,640)" to="(1050,640)"/>
     <wire from="(960,600)" to="(1050,600)"/>
-    <wire from="(960,620)" to="(1050,620)"/>
+    <wire from="(960,620)" to="(970,620)"/>
+    <wire from="(970,500)" to="(1340,500)"/>
+    <wire from="(970,500)" to="(970,620)"/>
+    <wire from="(970,620)" to="(1050,620)"/>
   </circuit>
   <circuit name="PC">
     <a name="appearance" val="custom"/>

@@ -135,7 +135,7 @@ class InstructionDecode extends Module {
     val ex_aluop2_source       = Output(UInt(1.W))
     val memory_read_enable     = Output(Bool())
     val memory_write_enable    = Output(Bool())
-    val wb_reg_write_source    = Output(UInt(2.W))
+    val wb_src                 = Output(UInt(2.W))
     val reg_write_enable       = Output(Bool())
     val reg_write_address      = Output(UInt(Parameters.PhysicalRegisterAddrWidth))
   })
@@ -224,7 +224,7 @@ class InstructionDecode extends Module {
   )
 
   // Configuración de la señal de control que habilita la escritura en el banco de registros
-  io.wb_reg_write_source := Mux(
+  io.wb_src := Mux(
     opcode === InstructionTypes.L,
     true.B,
     false.B
@@ -232,7 +232,7 @@ class InstructionDecode extends Module {
 
   // lab3(InstructionDecode) end
 
-  io.wb_reg_write_source := MuxCase(
+  io.wb_src := MuxCase(
     RegWriteSource.ALUResult,
     ArraySeq(
       (opcode === InstructionTypes.RM || opcode === InstructionTypes.I ||

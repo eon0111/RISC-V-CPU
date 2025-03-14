@@ -16,7 +16,7 @@ class DE extends Module {
     val d_ex_aluop2_source    = Input(UInt(1.W))
     val d_memory_read_enable  = Input(Bool())
     val d_memory_write_enable = Input(Bool())
-    val d_wb_reg_write_source = Input(UInt(2.W))
+    val d_wb_src              = Input(UInt(2.W))
     val d_reg_write_enable    = Input(Bool())
     val d_reg_write_address   = Input(UInt(Parameters.PhysicalRegisterAddrWidth))
     
@@ -25,7 +25,7 @@ class DE extends Module {
     val e_ex_aluop2_source    = Output(UInt(1.W))
     val e_memory_read_enable  = Output(Bool())
     val e_memory_write_enable = Output(Bool())
-    val e_wb_reg_write_source = Output(UInt(2.W))
+    val e_wb_src              = Output(UInt(2.W))
     val e_reg_write_enable    = Output(Bool())
     val e_reg_write_address   = Output(UInt(Parameters.PhysicalRegisterAddrWidth))
     
@@ -62,7 +62,7 @@ class DE extends Module {
   val ex_aluop2_source    = RegInit(0.U(1.W))
   val memory_read_enable  = RegInit(0.B)
   val memory_write_enable = RegInit(0.B)
-  val wb_reg_write_source = RegInit(0.U(2.W))
+  val wb_src              = RegInit(0.U(2.W))
   val reg_write_enable    = RegInit(0.U.asBool)
   val reg_write_address   = RegInit(0.U(Parameters.PhysicalRegisterAddrWidth))
 
@@ -79,7 +79,7 @@ class DE extends Module {
   ex_aluop2_source    := io.d_ex_aluop2_source
   memory_read_enable  := io.d_memory_read_enable
   memory_write_enable := io.d_memory_write_enable
-  wb_reg_write_source := io.d_wb_reg_write_source
+  wb_src              := io.d_wb_src
   reg_write_enable    := io.d_reg_write_enable
   reg_write_address   := io.d_reg_write_address
 
@@ -96,7 +96,7 @@ class DE extends Module {
   io.e_ex_aluop2_source    := ex_aluop2_source
   io.e_memory_read_enable  := memory_read_enable
   io.e_memory_write_enable := memory_write_enable
-  io.e_wb_reg_write_source := wb_reg_write_source
+  io.e_wb_src              := wb_src
   io.e_reg_write_enable    := reg_write_enable
   io.e_reg_write_address   := reg_write_address
 

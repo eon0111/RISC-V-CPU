@@ -57,6 +57,14 @@ class Execute extends Module {
   // lab3(Execute) end
 
   io.mem_alu_result := alu.io.result
+
+  /* NOTE: la arquitectura de este core difiere ligeramente de la arquitectura presentada en el
+   * Harris, en lo que respecta a la etapa de ejecución. En las instrucciones de salto, el core del 
+   * Harris emplea la ALU para determinar el cumplimiento de la condición de los saltos, en aquellos
+   * en los que corresponda hacerlo, y utiliza un sumador separado para computar el target del salto
+   * (PC + inmediato extendido)... */
+  // TODO: comprobar qué hace la ALU en los saltos, porque el target se computa en un sumador a parte, y el flag se genera en una lógica adicional, no en la ALU. */
+  // TODO: igual habría que integrar esta lógica adicional en la ALU, en lugar de tenerla fuera aunque, a priori, da un poco igual
   io.if_jump_flag := io.opcode === Instructions.jal ||
     (io.opcode === Instructions.jalr) ||
     (io.opcode === InstructionTypes.B) && MuxLookup(

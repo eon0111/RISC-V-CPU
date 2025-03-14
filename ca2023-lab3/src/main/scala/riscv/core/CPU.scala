@@ -30,7 +30,7 @@ class CPU extends Module {
   val srFD       = Module(new FD)
   val srDE       = Module(new DE)
   val srEM       = Module(new EM)
-  // val srMW       = Module(new MW)
+  val srMW       = Module(new MW)
   
   io.deviceSelect := mem.io.memory_bundle
     .address(Parameters.AddrBits - 1, Parameters.AddrBits - Parameters.SlaveDeviceCountBits)
@@ -52,13 +52,13 @@ class CPU extends Module {
   id.io.instruction     := srFD.io.d_instruction
   
   // Conexionado del banco de registros
-  regs.io.write_enable  := srDE.io.e_reg_write_enable
-  regs.io.write_address := srDE.io.e_reg_write_address
+  regs.io.write_enable  := srMW.io.w_reg_write_enable
+  regs.io.write_address := srMW.io.w_reg_write_address
   regs.io.write_data    := wb.io.regs_write_data
   regs.io.read_address1 := id.io.regs_reg1_read_address
   regs.io.read_address2 := id.io.regs_reg2_read_address
   
-  // Conexionado del banco de registro a los puertos de depuración
+  // Conexionado del banco de registros a los puertos de depuración
   regs.io.debug_read_address := io.debug_read_address
   io.debug_read_data         := regs.io.debug_read_data
 
@@ -76,13 +76,13 @@ class CPU extends Module {
   srDE.io.d_ex_aluop2_source    := id.io.ex_aluop2_source
   srDE.io.d_memory_read_enable  := id.io.memory_read_enable
   srDE.io.d_memory_write_enable := id.io.memory_write_enable
+  srDE.io.d_wb_src              := id.io.wb_src
   srDE.io.d_reg_write_enable    := id.io.reg_write_enable
-  srDE.io.d_wb_reg_write_source := id.io.wb_reg_write_source
   srDE.io.d_reg_write_address   := id.io.reg_write_address
 
   // lab3(cpu) begin
 
-  ex.io.instruction_address := srDE.io.e_current_pc // FIXME: comprobar si este forwarding es correcto hacerlo o no
+  ex.io.instruction_address := srDE.io.e_current_pc
   ex.io.opcode              := srDE.io.e_opcode
   ex.io.funct3              := srDE.io.e_func3
   ex.io.rd                  := srDE.io.e_func7
@@ -101,6 +101,10 @@ class CPU extends Module {
   srEM.io.e_memory_read_enable  := srDE.io.e_memory_read_enable
   srEM.io.e_memory_write_enable := srDE.io.e_memory_write_enable
   srEM.io.e_regs_read_data_2    := srDE.io.e_regs_read_data_2
+  srEM.io.e_next_pc             := srDE.io.e_next_pc
+  srEM.io.e_wb_src              := srDE.io.e_wb_src
+  srEM.io.e_reg_write_enable    := srDE.io.d_reg_write_enable
+  srEM.io.e_reg_write_address   := srDE.io.d_reg_write_address
   
   mem.io.alu_result          := srEM.io.m_alu_result
   mem.io.reg2_data           := regs.io.read_data2
@@ -117,9 +121,17 @@ class CPU extends Module {
   io.memory_bundle.write_strobe  := mem.io.memory_bundle.write_strobe
   mem.io.memory_bundle.read_data := io.memory_bundle.read_data
 
-  wb.io.next_pc           := srDE.io.e_next_pc
-  wb.io.alu_result        := ex.io.mem_alu_result
-  wb.io.memory_read_data  := mem.io.wb_memory_read_data
-  wb.io.regs_write_source := srDE.io.e_wb_reg_write_source
+  // Conexionado de las etapas de memoria y writeback a su registro de segmentación
+  srMW.io.m_alu_result        := srEM.io.m_alu_result
+  srMW.io.m_mem_read_data     := mem.io.wb_memory_read_data
+  srMW.io.m_next_pc           := srEM.io.m_next_pc
+  srMW.io.m_wb_src            := srEM.io.m_wb_src
+  srMW.io.m_reg_write_enable  := srEM.io.m_reg_write_enable
+  srMW.io.m_reg_write_address := srEM.io.m_reg_write_address
+
+  wb.io.next_pc           := srMW.io.w_next_pc
+  wb.io.alu_result        := srMW.io.w_alu_result
+  wb.io.memory_read_data  := srMW.io.w_mem_read_data
+  wb.io.regs_write_source := srMW.io.w_wb_src
 
 }
