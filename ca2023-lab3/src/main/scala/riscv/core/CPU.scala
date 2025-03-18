@@ -103,14 +103,14 @@ class CPU extends Module {
   srEM.io.e_regs_read_data_2    := srDE.io.e_regs_read_data_2
   srEM.io.e_next_pc             := srDE.io.e_next_pc
   srEM.io.e_wb_src              := srDE.io.e_wb_src
-  srEM.io.e_reg_write_enable    := srDE.io.d_reg_write_enable
-  srEM.io.e_reg_write_address   := srDE.io.d_reg_write_address
+  srEM.io.e_reg_write_enable    := srDE.io.e_reg_write_enable
+  srEM.io.e_reg_write_address   := srDE.io.e_reg_write_address
   
   mem.io.alu_result          := srEM.io.m_alu_result
-  mem.io.reg2_data           := regs.io.read_data2
+  mem.io.reg2_data           := srEM.io.m_regs_read_data_2
   mem.io.memory_read_enable  := srEM.io.m_memory_read_enable
   mem.io.memory_write_enable := srEM.io.m_memory_write_enable
-  mem.io.funct3              := srEM.io.e_funct3
+  mem.io.funct3              := srEM.io.m_funct3
 
   io.memory_bundle.address := Cat(
     0.U(Parameters.SlaveDeviceCountBits.W),

@@ -43,28 +43,7 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
   }
 }
 
-class SegRegDETest extends AnyFlatSpec with ChiselScalatestTester {
-  behavior.of("Pipelined CPU")
-  it should "run a simple program with both FD and DE segmentation registers present in the pipeline" in {
-    test(new TestTopModule("simple_asm.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
-      // NOTE: espera hasta que el cargador termine
-      while(!c.io.instruction_valid.peek().litToBoolean) {
-        c.clock.step()
-        c.io.mem_debug_read_address.poke(4.U) // Avoid timeout
-      }
-      
-      for (i <- 1 to 200) {
-        c.clock.step()
-        c.io.mem_debug_read_address.poke((i * 4).U) // Avoid timeout
-      }
-
-      c.io.regs_debug_read_address.poke(5.U)  // t0
-      c.io.regs_debug_read_data.expect(12.U)
-    }
-  }
-}
-
-class SegRegEMTest extends AnyFlatSpec with ChiselScalatestTester {
+class AllSegRegsTest extends AnyFlatSpec with ChiselScalatestTester {
   behavior.of("Pipelined CPU")
   it should "run a simple program with FD, DE and EM segmentation registers present in the pipeline" in {
     test(new TestTopModule("simple_asm.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
@@ -80,6 +59,10 @@ class SegRegEMTest extends AnyFlatSpec with ChiselScalatestTester {
       }
 
       c.io.regs_debug_read_address.poke(5.U)  // t0
+      c.io.regs_debug_read_data.expect(12.U)
+
+      // TODO: mirar a ver por qué falla el programa con la parte de lectura/escritura en memoria
+      c.io.regs_debug_read_address.poke(7.U)  // t2
       c.io.regs_debug_read_data.expect(12.U)
     }
   }

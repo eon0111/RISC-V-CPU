@@ -1,0 +1,17 @@
+  li    t1, END      | F D E M W
+  li    t0, 0x1      |   F D E M W
+  nop                |     F D E M W
+  nop                |       F D E M W
+  addi  t0, t0, 0x1  |         F D E M W
+here:                |
+  nop                |           F D E M W
+  nop                |             F D E M W
+  beq   t0, t1, loop |               F D E M W
+  nop                |                 F D E M W
+  nop                |                   F D E M W
+  addi  t0, t0, 0x1  |                     F D E M W
+  j     here         |                       F D E M W
+loop:                |
+  j loop             |                         F D E M W
+  
+p. 477 - Diagrama segmentado completo

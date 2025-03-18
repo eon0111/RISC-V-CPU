@@ -5,18 +5,38 @@
 _start:
   li    t1, END
   li    t0, 0x1
-  nop   # Solventamos la dependencia RAW metiendo un NOP entre las instrucciones
+  nop   # Solventamos la dependencia RAW metiendo tres NOPs entre las instrucciones
+  nop
+  nop
   addi  t0, t0, 0x1
 
 # while t0 < t1
-here:
-  nop   # Se introducen 2 NOP's al comienzo del bucle para resolver el 'riesgo de control' que supone la instrucción de salto al final de cada ciclo
+while:
+  nop   # Se introducen 2 NOP's al comienzo del bucle para resolver el 'riesgo de control' que supone la instrucción de salto al final de cada ciclo, a demás del 'riesgo de datos' del tipo RAW al tener una lectura de 't0' en el salto, tras una escritura de ese mismo registro en el 'addi' inmediatamente anterior a esta la instrucción
   nop
-  beq   t0, t1, loop
+  beq   t0, t1, while_end
   nop   # Solventamos el 'riesgo de control' introduciendo en el pipeline 2 NOP's tras el salto, de forma que no entre ninguna instrucción al pipeline hasta que el salto no se haya resuelto
   nop
   addi  t0, t0, 0x1
-  j     here
+  j     while
+
+while_end:
+  nop
+  nop
+  li    sp, 0x1000
+  nop
+  nop
+  nop
+  addi  sp, sp, -0x4
+  nop
+  nop
+  nop
+  sw    t0, 0(sp)
+  nop
+  nop
+  nop
+  lw    t2, 0(sp)
+  addi  sp, sp, 0x4
 
 loop:
   nop
