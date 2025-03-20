@@ -22,15 +22,25 @@ class CPU extends Module {
   val mem        = Module(new MemoryAccess)
   val wb         = Module(new WriteBack)
   
-  // Unidad de amenazas
-  // val hazard_unit = Module(new HazardUnit)
-  // hazard_unit.io.jump_flag := ex.io.if_jump_flag
-  
   // Registros de segmentación
   val srFD       = Module(new FD)
   val srDE       = Module(new DE)
   val srEM       = Module(new EM)
   val srMW       = Module(new MW)
+  
+  // Unidad de amenazas
+  val hazard_unit = Module(new HazardUnit)
+
+  hazard_unit.io.rs1_ex            := srDE.io.e_rs1
+  hazard_unit.io.rs2_ex            := srDE.io.e_rs2
+  hazard_unit.io.rd_mem            := srEM.io.m_reg_write_address
+  hazard_unit.io.rd_wb             := srMW.io.w_reg_write_address
+  hazard_unit.io.reg_wr_enable_mem := srEM.io.m_reg_write_enable
+  hazard_unit.io.reg_wr_enable_wb  := srMW.io.w_reg_write_enable
+  hazard_unit.io.rs1_d             := id.io.regs_reg1_read_address
+  hazard_unit.io.rs2_d             := id.io.regs_reg2_read_address
+  hazard_unit.io.rd_ex             := srDE.io.e_reg_write_address
+  hazard_unit.io.ex_regs_write_src := srDE.io.e_wb_src
   
   io.deviceSelect := mem.io.memory_bundle
     .address(Parameters.AddrBits - 1, Parameters.AddrBits - Parameters.SlaveDeviceCountBits)
@@ -79,6 +89,8 @@ class CPU extends Module {
   srDE.io.d_wb_src              := id.io.wb_src
   srDE.io.d_reg_write_enable    := id.io.reg_write_enable
   srDE.io.d_reg_write_address   := id.io.reg_write_address
+  srDE.io.d_rs1                 := id.io.regs_reg1_read_address
+  srDE.io.d_rs2                 := id.io.regs_reg2_read_address
 
   // lab3(cpu) begin
 
@@ -92,6 +104,10 @@ class CPU extends Module {
   ex.io.alu_func            := srDE.io.e_ex_alu_func
   ex.io.aluop1_source       := srDE.io.e_ex_aluop1_source
   ex.io.aluop2_source       := srDE.io.e_ex_aluop2_source
+  ex.io.rs1_src             := hazard_unit.io.alu_rs1_src
+  ex.io.rs2_src             := hazard_unit.io.alu_rs2_src
+  ex.io.alu_result_mem_fw   := srEM.io.m_alu_result
+  ex.io.alu_result_wb_fw    := srMW.io.w_alu_result
 
   // lab3(cpu) end
 

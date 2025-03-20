@@ -5,9 +5,6 @@
 _start:
   li    t1, END
   li    t0, 0x1
-  nop   # Solventamos la dependencia RAW metiendo tres NOPs entre las instrucciones
-  nop
-  nop
   addi  t0, t0, 0x1
 
 # while t0 < t1
@@ -24,21 +21,15 @@ while_end:
   nop
   nop
   li    sp, 0x1000
-  nop
-  nop
-  nop
   addi  sp, sp, -0x4
-  nop
-  nop
-  nop
   sw    t0, 0(sp)
-  nop
-  nop
-  nop
   lw    t2, 0(sp)
+  nop
+  nop
+  addi  t2, t2, 0x1
   addi  sp, sp, 0x4
 
 loop:
-  nop
-  nop
   j loop
+  nop
+  nop

@@ -9,6 +9,12 @@ import chisel3.util.MuxLookup
 import riscv.Parameters
 import chisel3.util.Fill
 
+object RsFwSel {
+  val RegFileData    = 0.U(2.W)
+  val ALUResultMemFw = 1.U(2.W)
+  val ALUResultWbFw  = 2.U(2.W)
+}
+
 class Execute extends Module {
   val io = IO(new Bundle {
     val opcode              = Input(UInt(Parameters.OpcodeWidth))
@@ -22,36 +28,60 @@ class Execute extends Module {
     val aluop2_source       = Input(UInt(1.W))
     val alu_func            = Input(ALUFunctions())
 
+    // Señales de control para la gestión de las entradas de la ALU cuando se hace forwarding
+    val rs1_src = Input(UInt(2.W))
+    val rs2_src = Input(UInt(2.W))
+    
+    // Resultados adelantados desde las fases de memoria y writeback
+    val alu_result_mem_fw = Input(UInt(Parameters.DataWidth))
+    val alu_result_wb_fw  = Input(UInt(Parameters.DataWidth))
+
     val mem_alu_result  = Output(UInt(Parameters.DataWidth))
     val if_jump_flag    = Output(Bool())
     val if_jump_address = Output(UInt(Parameters.DataWidth))
   })
 
-  // val opcode = io.instruction(6, 0)
-  // val funct3 = io.instruction(14, 12)
-  // val funct7 = io.instruction(31, 25)
-  // val rd     = io.instruction(11, 7)
-  // val uimm   = io.instruction(19, 15)
+  val alu = Module(new ALU)
 
-  val alu    = Module(new ALU)
+  val alu_rs1_src = MuxLookup(
+    io.rs1_src,
+    io.reg1_data,
+    IndexedSeq(
+      RsFwSel.RegFileData       -> io.reg1_data,
+      RsFwSel.ALUResultMemFw -> io.alu_result_mem_fw,
+      RsFwSel.ALUResultWbFw  -> io.alu_result_wb_fw
+    )
+  )
+
+  val alu_rs2_src = MuxLookup(
+    io.rs2_src,
+    io.reg2_data,
+    IndexedSeq(
+      RsFwSel.RegFileData       -> io.reg2_data,
+      RsFwSel.ALUResultMemFw -> io.alu_result_mem_fw,
+      RsFwSel.ALUResultWbFw  -> io.alu_result_wb_fw
+    )
+  )
 
   // lab3(Execute) begin
 
-  // NOTE: configuración del tipo de operación en la ALU
+  // Configuración del tipo de operación en la ALU
   alu.io.func := io.alu_func
 
-  // NOTE: selección del primer operando en base a la salida del Mux del decode en el que se toma la decisión de tomar la dirección de la instrucción o el valor del primer registro de datos
+  /* Selección del primer operando en base a la salida del Mux del decode en el que se toma la
+   * decisión de tomar la dirección de la instrucción o el valor del primer registro de datos */
   alu.io.op1 := Mux(
     io.aluop1_source.asBool,
     io.instruction_address,
-    io.reg1_data
+    alu_rs1_src
   )
 
-  // NOTE: selección del segundo operando de la ALU, también, a partir del valor de salida del Mux del decode en el que se toma la decisión de operar con el inmediato o el segundo registro de datos
+  /* Selección del segundo operando de la ALU, también, a partir del valor de salida del Mux de
+   * decode en el que se toma la decisión de operar con el inmediato o el segundo registro de datos */
   alu.io.op2 := Mux(
     io.aluop2_source.asBool,
     io.immediate,
-    io.reg2_data
+    alu_rs2_src
   )
 
   // lab3(Execute) end

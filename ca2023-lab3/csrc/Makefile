@@ -22,7 +22,8 @@ OBJCOPY := $(CROSS_COMPILE)objcopy
 	$(OBJCOPY) -O binary -j .text -j .data $< $@
 
 BINS = \
-	simple_asm.asmbin\
+	hazards_with_nops.asmbin\
+	hazards_with_hu.asmbin\
 	# fibonacci.asmbin \
 	# mmio.asmbin \
 	# quicksort.asmbin \
