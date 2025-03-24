@@ -34,7 +34,7 @@ class Execute extends Module {
     
     // Resultados adelantados desde las fases de memoria y writeback
     val alu_result_mem_fw = Input(UInt(Parameters.DataWidth))
-    val alu_result_wb_fw  = Input(UInt(Parameters.DataWidth))
+    val wb_regs_write_data_fw  = Input(UInt(Parameters.DataWidth))
 
     val mem_alu_result  = Output(UInt(Parameters.DataWidth))
     val if_jump_flag    = Output(Bool())
@@ -47,9 +47,9 @@ class Execute extends Module {
     io.rs1_src,
     io.reg1_data,
     IndexedSeq(
-      RsFwSel.RegFileData       -> io.reg1_data,
+      RsFwSel.RegFileData    -> io.reg1_data,
       RsFwSel.ALUResultMemFw -> io.alu_result_mem_fw,
-      RsFwSel.ALUResultWbFw  -> io.alu_result_wb_fw
+      RsFwSel.ALUResultWbFw  -> io.wb_regs_write_data_fw
     )
   )
 
@@ -57,9 +57,9 @@ class Execute extends Module {
     io.rs2_src,
     io.reg2_data,
     IndexedSeq(
-      RsFwSel.RegFileData       -> io.reg2_data,
+      RsFwSel.RegFileData    -> io.reg2_data,
       RsFwSel.ALUResultMemFw -> io.alu_result_mem_fw,
-      RsFwSel.ALUResultWbFw  -> io.alu_result_wb_fw
+      RsFwSel.ALUResultWbFw  -> io.wb_regs_write_data_fw
     )
   )
 

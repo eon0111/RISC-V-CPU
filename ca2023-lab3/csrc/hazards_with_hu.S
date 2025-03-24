@@ -23,10 +23,8 @@ while_end:
   li    sp, 0x1000
   addi  sp, sp, -0x4
   sw    t0, 0(sp)
-  lw    t2, 0(sp)
-  nop
-  nop
-  addi  t2, t2, 0x1
+  lw    t0, 0(sp)
+  addi  t0, t0, 0x1
   addi  sp, sp, 0x4
 
 loop:

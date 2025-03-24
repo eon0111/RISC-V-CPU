@@ -59,9 +59,6 @@ class AllSegRegsTest extends AnyFlatSpec with ChiselScalatestTester {
       }
 
       c.io.regs_debug_read_address.poke(5.U)  // t0
-      c.io.regs_debug_read_data.expect(12.U)
-
-      c.io.regs_debug_read_address.poke(7.U)  // t2
       c.io.regs_debug_read_data.expect(13.U)
     }
   }

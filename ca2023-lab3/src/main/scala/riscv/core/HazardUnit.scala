@@ -19,7 +19,11 @@ class HazardUnit extends Module {
 
     val alu_rs1_src = Output(UInt(2.W))
     val alu_rs2_src = Output(UInt(2.W))
-    val lw_stall    = Output(UInt(1.W))
+
+    val lw_stall    = Output(Bool())
+    val pc_stall    = Output(Bool())
+    val srFD_stall  = Output(Bool())
+    val srDE_flush  = Output(Bool())
   })
 
   /* TODO: comentar el funcionamiento del forwarding con rs1 */
@@ -44,7 +48,10 @@ class HazardUnit extends Module {
     )
   )
 
-  //io.lw_stall := io.ex_regs_write_src(0) & ((io.rs1_d === io.rd_ex) | (io.rs2_d === io.rd_ex))
-  io.lw_stall := (io.ex_regs_write_src === RegWriteSource.Memory) & ((io.rs1_d === io.rd_ex) | (io.rs2_d === io.rd_ex))
+  /* TODO: comentar la generación de la señal lw_stall */
+  io.lw_stall   := io.ex_regs_write_src(0) & ((io.rs1_d === io.rd_ex) | (io.rs2_d === io.rd_ex))
+  io.pc_stall   := io.lw_stall
+  io.srFD_stall := io.lw_stall
+  io.srDE_flush := io.lw_stall
 
 }

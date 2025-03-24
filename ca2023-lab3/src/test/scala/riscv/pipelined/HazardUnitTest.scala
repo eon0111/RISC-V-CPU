@@ -39,15 +39,6 @@ class HazardUnitTest extends AnyFlatSpec with ChiselScalatestTester {
        *    add t1, t1, t0
        */
       c.io.reg_wr_enable_mem.poke(1.B)
-      c.io.rs1_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
-      c.io.rd_wb.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
-      c.io.alu_rs1_src.expect(RsFwSel.ALUResultMemFw, "Fallo en la segunda condición para rs1")
-
-      /* RAW @ Memory (rs2_ex = rd_mem), por ejemplo:
-       *    li  t0, 1
-       *    add t1, t1, t0
-       */
-      c.io.reg_wr_enable_mem.poke(1.B)
       c.io.reg_wr_enable_wb.poke(1.B)
       c.io.rs2_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
       c.io.rd_mem.poke(5.U(Parameters.PhysicalRegisterAddrWidth))

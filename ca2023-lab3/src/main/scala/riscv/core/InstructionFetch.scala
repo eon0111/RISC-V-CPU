@@ -16,6 +16,7 @@ class InstructionFetch extends Module {
     val jump_address_id       = Input(UInt(Parameters.AddrWidth)) // La dirección de un salto en caso de indicarse con el flag
     val instruction_read_data = Input(UInt(Parameters.DataWidth)) // La instrucción leída de memoria en la dirección que indica el PC actual (current_pc)
     val instruction_valid     = Input(Bool())
+    val pc_stall              = Input(Bool())
 
     val current_pc            = Output(UInt(Parameters.AddrWidth))  // La dirección de la instrucción que va a leerse de la memoria en el flanco ascendente del ciclo actual
     val next_pc               = Output(UInt(Parameters.AddrWidth))  // La dirección de la instrucción siguiente (PC + 4)
@@ -28,7 +29,7 @@ class InstructionFetch extends Module {
    * del PC+4 hacia la fase de decode */
   val pc_plus_four = pc + 4.U
 
-  when(io.instruction_valid) {
+  when(io.instruction_valid & !io.pc_stall) {
     io.instruction := io.instruction_read_data
     // lab3(InstructionFetch) begin
 
@@ -39,11 +40,14 @@ class InstructionFetch extends Module {
      * la dirección de la siguiente instrucción a ejecutar, que será, o bien el target calculado por
      * una instrucción de salto, o el PC+4
      */
-    pc  := Mux(io.jump_flag_id, io.jump_address_id, pc_plus_four)
+    pc := Mux(io.jump_flag_id, io.jump_address_id, pc_plus_four)
 
     // lab3(InstructionFetch) end
 
-  }.otherwise {
+  } .elsewhen(io.instruction_valid & io.pc_stall) {
+    pc             := pc
+    io.instruction := io.instruction_read_data
+  } .otherwise {
     pc             := pc
     io.instruction := 0x00000013.U
   }

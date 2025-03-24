@@ -22,15 +22,17 @@ class CPU extends Module {
   val mem        = Module(new MemoryAccess)
   val wb         = Module(new WriteBack)
   
-  // Registros de segmentación
-  val srFD       = Module(new FD)
-  val srDE       = Module(new DE)
-  val srEM       = Module(new EM)
-  val srMW       = Module(new MW)
-  
   // Unidad de amenazas
   val hazard_unit = Module(new HazardUnit)
 
+  // Registros de segmentación
+  val srFD       = Module(new FD)
+  val srDE       = withReset(hazard_unit.io.srDE_flush){Module(new DE)}
+  val srEM       = Module(new EM)
+  val srMW       = Module(new MW)
+  
+  /* Conexionado de la unidad de amenazas a los distintos eltos. del pipeline sobre los que tiene
+   * control para resolver las amenazas detectadas, valga la redundancia */
   hazard_unit.io.rs1_ex            := srDE.io.e_rs1
   hazard_unit.io.rs2_ex            := srDE.io.e_rs2
   hazard_unit.io.rd_mem            := srEM.io.m_reg_write_address
@@ -49,6 +51,7 @@ class CPU extends Module {
   inst_fetch.io.jump_flag_id          := ex.io.if_jump_flag
   inst_fetch.io.instruction_valid     := io.instruction_valid
   inst_fetch.io.instruction_read_data := io.instruction
+  inst_fetch.io.pc_stall              := hazard_unit.io.pc_stall
   
   /* NOTE: se pasa la dirección de la siguiente instrucción, generada en el fetch, al puerto
    * instruction_address de la E/S del módulo CPU. De este modo se posibilita la lectura de la
@@ -59,6 +62,7 @@ class CPU extends Module {
   srFD.io.f_instruction := inst_fetch.io.instruction
   srFD.io.f_current_pc  := inst_fetch.io.current_pc
   srFD.io.f_next_pc     := inst_fetch.io.next_pc
+  srFD.io.stall         := hazard_unit.io.srFD_stall
   id.io.instruction     := srFD.io.d_instruction
   
   // Conexionado del banco de registros
@@ -107,7 +111,7 @@ class CPU extends Module {
   ex.io.rs1_src             := hazard_unit.io.alu_rs1_src
   ex.io.rs2_src             := hazard_unit.io.alu_rs2_src
   ex.io.alu_result_mem_fw   := srEM.io.m_alu_result
-  ex.io.alu_result_wb_fw    := srMW.io.w_alu_result
+  ex.io.wb_regs_write_data_fw    := wb.io.regs_write_data
 
   // lab3(cpu) end
 

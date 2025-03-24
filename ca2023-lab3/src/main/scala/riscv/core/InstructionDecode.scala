@@ -117,10 +117,10 @@ object ALUOp2Source {
 }
 
 object RegWriteSource {
-  val ALUResult = 0.U(2.W)
-  val Memory    = 1.U(2.W)
-  // val CSR = 2.U(2.W)
-  val NextInstructionAddress = 3.U(2.W)
+  val ALUResult              = 0.U(2.W)
+  val Memory                 = 1.U(2.W)
+  val NextInstructionAddress = 2.U(2.W)
+  // val CSR = 3.U(2.W)
 }
 
 class InstructionDecode extends Module {
