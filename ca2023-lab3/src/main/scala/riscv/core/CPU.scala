@@ -26,7 +26,7 @@ class CPU extends Module {
   val hazard_unit = Module(new HazardUnit)
 
   // Registros de segmentación
-  val srFD       = Module(new FD)
+  val srFD       = withReset(hazard_unit.io.srFD_flush){Module(new FD)}
   val srDE       = withReset(hazard_unit.io.srDE_flush){Module(new DE)}
   val srEM       = Module(new EM)
   val srMW       = Module(new MW)
@@ -43,6 +43,7 @@ class CPU extends Module {
   hazard_unit.io.rs2_d             := id.io.regs_reg2_read_address
   hazard_unit.io.rd_ex             := srDE.io.e_reg_write_address
   hazard_unit.io.ex_regs_write_src := srDE.io.e_wb_src
+  hazard_unit.io.ex_jump_flag      := ex.io.if_jump_flag
   
   io.deviceSelect := mem.io.memory_bundle
     .address(Parameters.AddrBits - 1, Parameters.AddrBits - Parameters.SlaveDeviceCountBits)
@@ -98,20 +99,20 @@ class CPU extends Module {
 
   // lab3(cpu) begin
 
-  ex.io.instruction_address := srDE.io.e_current_pc
-  ex.io.opcode              := srDE.io.e_opcode
-  ex.io.funct3              := srDE.io.e_func3
-  ex.io.rd                  := srDE.io.e_func7
-  ex.io.reg1_data           := srDE.io.e_regs_read_data_1
-  ex.io.reg2_data           := srDE.io.e_regs_read_data_2
-  ex.io.immediate           := srDE.io.e_ex_immediate
-  ex.io.alu_func            := srDE.io.e_ex_alu_func
-  ex.io.aluop1_source       := srDE.io.e_ex_aluop1_source
-  ex.io.aluop2_source       := srDE.io.e_ex_aluop2_source
-  ex.io.rs1_src             := hazard_unit.io.alu_rs1_src
-  ex.io.rs2_src             := hazard_unit.io.alu_rs2_src
-  ex.io.alu_result_mem_fw   := srEM.io.m_alu_result
-  ex.io.wb_regs_write_data_fw    := wb.io.regs_write_data
+  ex.io.instruction_address   := srDE.io.e_current_pc
+  ex.io.opcode                := srDE.io.e_opcode
+  ex.io.funct3                := srDE.io.e_func3
+  ex.io.rd                    := srDE.io.e_func7
+  ex.io.reg1_data             := srDE.io.e_regs_read_data_1
+  ex.io.reg2_data             := srDE.io.e_regs_read_data_2
+  ex.io.immediate             := srDE.io.e_ex_immediate
+  ex.io.alu_func              := srDE.io.e_ex_alu_func
+  ex.io.aluop1_source         := srDE.io.e_ex_aluop1_source
+  ex.io.aluop2_source         := srDE.io.e_ex_aluop2_source
+  ex.io.rs1_src               := hazard_unit.io.alu_rs1_src
+  ex.io.rs2_src               := hazard_unit.io.alu_rs2_src
+  ex.io.alu_result_mem_fw     := srEM.io.m_alu_result
+  ex.io.wb_regs_write_data_fw := wb.io.regs_write_data
 
   // lab3(cpu) end
 

@@ -7,6 +7,7 @@ import riscv.core.HazardUnit
 import riscv.TestAnnotations
 import riscv.Parameters
 import riscv.core.RsFwSel
+import riscv.core.RegWriteSource
 
 class HazardUnitTest extends AnyFlatSpec with ChiselScalatestTester {
   behavior.of("Hazard Unit")
@@ -57,9 +58,21 @@ class HazardUnitTest extends AnyFlatSpec with ChiselScalatestTester {
     }
   }
 
-  it should "detect RAW hazards involving load instructions" in {
+  it should "solve the lw hazard, thus flushing DE and stalling FD" in {
     test(new HazardUnit).withAnnotations(TestAnnotations.annos) { c =>
-      
+      /*
+       * TODO: generar los casos para probar la resolución de hazards de control
+       */
+      c.io.ex_regs_write_src.poke(RegWriteSource.Memory)
+      c.io.rs1_d.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.rs1_d.poke(6.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.pc_stall.expect(1.B)
+      c.io.srFD_stall.expect(1.B)
+      c.io.srDE_flush(1.B)
     }
+
+    // TODO: podría implementar un programilla en ensamblador con todos los hazards e ir
+    // probando cada uno poco a poco (ciclo a ciclo), comprobando que se generan las señales
+    // adecuadas para resolverlos
   }
 }
