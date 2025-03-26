@@ -22,7 +22,8 @@ class HazardUnitTest extends AnyFlatSpec with ChiselScalatestTester {
       c.io.reg_wr_enable_wb.poke(1.B)
       c.io.rs1_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
       c.io.rd_mem.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
-      c.io.alu_rs1_src.expect(RsFwSel.ALUResultMemFw, "Fallo en la primera condición para rs1")
+      
+      c.io.alu_rs1_src.expect(RsFwSel.ALUResultMemFw)
 
       /* RAW @ Writeback (rs1_ex = rd_wb), por ejemplo:
        *    li   t0, 1
@@ -33,7 +34,8 @@ class HazardUnitTest extends AnyFlatSpec with ChiselScalatestTester {
       c.io.reg_wr_enable_wb.poke(1.B)
       c.io.rs1_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
       c.io.rd_wb.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
-      c.io.alu_rs1_src.expect(RsFwSel.ALUResultMemFw, "Fallo en la segunda condición para rs1")
+      
+      c.io.alu_rs1_src.expect(RsFwSel.ALUResultMemFw)
 
       /* RAW @ Memory (rs2_ex = rd_mem), por ejemplo:
        *    li  t0, 1
@@ -43,7 +45,8 @@ class HazardUnitTest extends AnyFlatSpec with ChiselScalatestTester {
       c.io.reg_wr_enable_wb.poke(1.B)
       c.io.rs2_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
       c.io.rd_mem.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
-      c.io.alu_rs2_src.expect(RsFwSel.ALUResultMemFw, "Fallo en la primera condición para rs2")
+      
+      c.io.alu_rs2_src.expect(RsFwSel.ALUResultMemFw)
 
       /* RAW @ Writeback (rs2_ex = rd_wb), por ejemplo:
        *    li  t0, 1
@@ -54,22 +57,79 @@ class HazardUnitTest extends AnyFlatSpec with ChiselScalatestTester {
       c.io.reg_wr_enable_wb.poke(1.B)
       c.io.rs2_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
       c.io.rd_wb.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
-      c.io.alu_rs2_src.expect(RsFwSel.ALUResultMemFw, "Fallo en la segunda condición para rs2")
+
+      c.io.alu_rs2_src.expect(RsFwSel.ALUResultMemFw)
     }
   }
 
   it should "solve the lw hazard, thus flushing DE and stalling FD" in {
     test(new HazardUnit).withAnnotations(TestAnnotations.annos) { c =>
-      /*
-       * TODO: generar los casos para probar la resolución de hazards de control
+      
+      /* rs1@D = rd@E & rs2@D != rd@E & reg_wr_src = Memory (0b01)
+       * lw  t0, (0)sp
+       * add t0, t0, t1
        */
       c.io.ex_regs_write_src.poke(RegWriteSource.Memory)
       c.io.rs1_d.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
-      c.io.rs1_d.poke(6.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.rs2_d.poke(6.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.rd_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
+      
       c.io.pc_stall.expect(1.B)
       c.io.srFD_stall.expect(1.B)
-      c.io.srDE_flush(1.B)
+      c.io.srDE_flush.expect(1.B)
+
+      /* rs1@D != rd@E & rs2@D = rd@E & reg_wr_src = Memory (0b01)
+       * lw  t0, (0)sp
+       * add t0, t1, t0
+       */
+      c.io.ex_regs_write_src.poke(RegWriteSource.Memory)
+      c.io.rs1_d.poke(6.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.rs2_d.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.rd_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
+      
+      c.io.pc_stall.expect(1.B)
+      c.io.srFD_stall.expect(1.B)
+      c.io.srDE_flush.expect(1.B)
+
+      /* rs1@D = rd@E & rs2@D != rd@E & reg_wr_src != Memory (0b01)
+       * lw  t0, (0)sp
+       * add t0, t0, t1
+       */
+      c.io.ex_regs_write_src.poke(RegWriteSource.ALUResult)
+      c.io.rs1_d.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.rs2_d.poke(6.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.rd_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
+      
+      c.io.pc_stall.expect(0.B)
+      c.io.srFD_stall.expect(0.B)
+      c.io.srDE_flush.expect(0.B)
+
+      /* rs1@D != rd@E & rs2@D = rd@E & reg_wr_src != Memory (0b01)
+       * lw  t0, (0)sp
+       * add t0, t1, t0
+       */
+      c.io.ex_regs_write_src.poke(RegWriteSource.ALUResult)
+      c.io.rs1_d.poke(6.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.rs2_d.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
+      c.io.rd_ex.poke(5.U(Parameters.PhysicalRegisterAddrWidth))
+      
+      c.io.pc_stall.expect(0.B)
+      c.io.srFD_stall.expect(0.B)
+      c.io.srDE_flush.expect(0.B)
     }
+  }
+
+  it should "solve control hazards, thus flushing FD if branches are not taken" in {
+  test(new HazardUnit).withAnnotations(TestAnnotations.annos) { c =>
+
+    /* Simulación de un salto que debe tomarse */
+    c.io.ex_jump_flag.poke(1.B)
+    c.io.srFD_flush.expect(1.B)
+
+    /* Simulación de un salto que no debe tomarse */
+    c.io.ex_jump_flag.poke(0.B)
+    c.io.srFD_flush.expect(0.B)
+  }
 
     // TODO: podría implementar un programilla en ensamblador con todos los hazards e ir
     // probando cada uno poco a poco (ciclo a ciclo), comprobando que se generan las señales

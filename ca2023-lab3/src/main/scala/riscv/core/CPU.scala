@@ -15,7 +15,11 @@ import riscv.core.segmentationRegisters.EM
 class CPU extends Module {
 
   val io         = IO(new CPUBundle)
-  val regs       = Module(new RegisterFile)
+
+  /* NOTE: Se inicializa el banco de registros de este modo para que en la fase de writeback se
+   * produzca la escritura del banco de registros, y no se espere al siguiente flanco ascendente
+   * del reloj */
+  val regs       = withClock((~this.clock.asBool).asClock){Module(new RegisterFile)}
   val inst_fetch = Module(new InstructionFetch)
   val id         = Module(new InstructionDecode)
   val ex         = Module(new Execute)
