@@ -125,7 +125,23 @@ class CPU extends Module {
   srEM.io.e_funct3              := srDE.io.e_func3
   srEM.io.e_memory_read_enable  := srDE.io.e_memory_read_enable
   srEM.io.e_memory_write_enable := srDE.io.e_memory_write_enable
-  srEM.io.e_regs_read_data_2    := srDE.io.e_regs_read_data_2
+
+  /* FIXME: en las instrucciones de escritura en memoria (sw, sh, sb), el dato a escribir se recibe
+   * por el puerto reg2_data@Memory. Ese dato tiene su origen en el banco de registros y, en el diseño
+   * del core monociclo, pasa directamente a la memoria. No obstante, en el diseño segmentado, esta
+   * conexión no puede llevarse a cabo por dos motivos: en primer lugar, y como es lógico, debe
+   * mantenerse la coherencia en el pipeline, esto es, que el dato debe atravesarlo en sincronía junto
+   * con el resto de datos y señales de control que se generan en las distintas fases del core como
+   * resultado del fetch de una instrucción concreta de modo que, en cada ciclo y en cada etapa, se
+   * estén empleando los datos y señales específicos de cada instrucción.
+   * En segundo lugar y, pese a que en un primer momento pareciera lógico facilitar el tránsito directo
+   * del dato a través de la fase de ejecución, esta implementación no tendría en cuenta los posibles
+   * riesgos de datos que pudieran originarse como resultado del fetch de instrucciones
+   * aritmético-lógicas y de escritura en memoria consecutivas. Es por ello por lo que debe implementarse
+   * lógica adicional dentro de la fase de ejecución, la cual permitirá, gracias a la operativa de
+   * la unidad de amenazas, realizar el forwarding del resultado de la ALU en la fase de memoria, o
+   * del dato seleccionado en el writeback, a la fase de ejecución */
+  srEM.io.e_regs_read_data_2    := ex.io.mem_reg2_data
   srEM.io.e_next_pc             := srDE.io.e_next_pc
   srEM.io.e_wb_src              := srDE.io.e_wb_src
   srEM.io.e_reg_write_enable    := srDE.io.e_reg_write_enable

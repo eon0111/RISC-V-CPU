@@ -24,10 +24,10 @@ OBJCOPY := $(CROSS_COMPILE)objcopy
 BINS = \
 	hazards_with_nops.asmbin\
 	hazards_with_hu.asmbin\
+	sb.asmbin\
 	# fibonacci.asmbin \
 	# mmio.asmbin \
 	# quicksort.asmbin \
-	# sb.asmbin\
 	# simple2.asmbin \
 	# simple_subroutine.asmbin\
 

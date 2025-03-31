@@ -36,6 +36,7 @@ class Execute extends Module {
     val alu_result_mem_fw = Input(UInt(Parameters.DataWidth))
     val wb_regs_write_data_fw  = Input(UInt(Parameters.DataWidth))
 
+    val mem_reg2_data   = Output(UInt(Parameters.DataWidth))
     val mem_alu_result  = Output(UInt(Parameters.DataWidth))
     val if_jump_flag    = Output(Bool())
     val if_jump_address = Output(UInt(Parameters.DataWidth))
@@ -63,6 +64,8 @@ class Execute extends Module {
     )
   )
 
+  io.mem_reg2_data := alu_rs2_src
+
   // lab3(Execute) begin
 
   // Configuración del tipo de operación en la ALU
@@ -88,12 +91,14 @@ class Execute extends Module {
 
   io.mem_alu_result := alu.io.result
 
-  /* NOTE: la arquitectura de este core difiere ligeramente de la arquitectura presentada en el
-   * Harris, en lo que respecta a la etapa de ejecución. En las instrucciones de salto, el core del 
+  /* NOTE: En lo que respecta a la etapa de ejecución la arquitectura de este core difiere ligeramente
+   * de la arquitectura presentada en el Harris. En las instrucciones de salto, el core del 
    * Harris emplea la ALU para determinar el cumplimiento de la condición de los saltos, en aquellos
    * en los que corresponda hacerlo, y utiliza un sumador separado para computar el target del salto
-   * (PC + inmediato extendido)... */
-  // TODO: comprobar qué hace la ALU en los saltos, porque el target se computa en un sumador a parte, y el flag se genera en una lógica adicional, no en la ALU. */
+   * (PC + inmediato extendido), mientras que en nuestro core, es la ALU la pieza de hardware empleada
+   * en el cómputo del target, mientras que el cumplimiento de la condición se determina con una lógica
+   * adicional. No obstante, en el diseño original, el target se calculaba dos veces, en la ALU y,
+   * de manera simultánea, en un sumador aislado dentro también de la etapa de ejecución. */
   // TODO: igual habría que integrar esta lógica adicional en la ALU, en lugar de tenerla fuera aunque, a priori, da un poco igual
   io.if_jump_flag := io.opcode === Instructions.jal ||
     (io.opcode === Instructions.jalr) ||
@@ -109,5 +114,8 @@ class Execute extends Module {
         InstructionsTypeB.bgeu -> (io.reg1_data.asUInt >= io.reg2_data.asUInt)
       )
     )
-  io.if_jump_address := io.immediate + Mux(io.opcode === Instructions.jalr, io.reg1_data, io.instruction_address)
+
+  // TODO: cargarme este sumador y enchufarle al if_jump_address el resultado de la ALU
+  // FIXME: el problema seguramente esté aquí (recuerda los forwardings...)
+  io.if_jump_address := io.immediate + Mux(io.opcode === Instructions.jalr, alu_rs1_src, io.instruction_address)
 }
