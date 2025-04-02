@@ -165,6 +165,11 @@ class InstructionDecode extends Module {
       ),
       Instructions.lui   -> Cat(io.instruction(31, 12), 0.U(12.W)), // NOTE: doc@p19 -> 'lui' mueve un inmediato de 20 bits (con signo) a un registro.
                                                                     // TODO: en un principio no habría diferencia entre hacer 'lui rd, imm' y 'addi rd, x0, imm', no?
+      /* NOTE: la instrucción 'auipc' guarda en el registro 'rd' la suma del PC de la instrucción
+       * más un offset de 20 bits, desplazado 12 bits hacia la izda. Esto permite, mediante la
+       * consecución de una instrucción 'auipc' y un 'jal', realizar saltos a cualquier punto del
+       * espacio de direccionamiento que, en el caso de nuestra arquitectura, es de 32 bits (20 MSB's
+       * del 'auipc' + 12 LSB's del 'jal') */
       Instructions.auipc -> Cat(io.instruction(31, 12), 0.U(12.W)),
       // jal's imm represents a multiple of 2 bytes.
       Instructions.jal -> Cat(

@@ -25,11 +25,12 @@ BINS = \
 	hazards_with_nops.asmbin\
 	hazards_with_hu.asmbin\
 	sb.asmbin\
+	auipc.asmbin\
+	simple_subroutine.asmbin\
 	# fibonacci.asmbin \
 	# mmio.asmbin \
 	# quicksort.asmbin \
 	# simple2.asmbin \
-	# simple_subroutine.asmbin\
 
 # Clear the .DEFAULT_GOAL special variable, so that the following turns
 # to the first target after .DEFAULT_GOAL is not set.

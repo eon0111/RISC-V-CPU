@@ -10,7 +10,7 @@ _start:
 loop_start:
   bgt t1, t2, loop_end
   mv  a0, t1   # Se pasa la variable acumuladora como argumento de la función add_one
-  jal add_one # Guarda en 'ra' el PC+4 y salta a la función
+  jal add_one  # Guarda en 'ra' el PC+4 y salta a la función
   mv  t1, a0   # Guardamos el resultado
   j   loop_start
 loop_end:
