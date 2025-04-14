@@ -108,3 +108,19 @@ class SubroutineTest extends AnyFlatSpec with ChiselScalatestTester {
     }
   }
 }
+
+class SimpleTest extends AnyFlatSpec with ChiselScalatestTester {
+  behavior.of("Pipelined CPU")
+  it should "store a value in memory" in {
+    test(new TestTopModule("simple.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
+      for (i <- 1 to 10000) {
+        c.clock.step()
+        c.io.mem_debug_read_address.poke((i * 4).U) // Avoid timeout
+      }
+
+      c.io.mem_debug_read_address.poke(4.U)
+      c.clock.step()
+      c.io.mem_debug_read_data.expect(255.U)
+    }
+  }
+}

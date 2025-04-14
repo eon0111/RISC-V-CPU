@@ -106,12 +106,12 @@ class Execute extends Module {
       io.funct3,
       false.B,
       IndexedSeq(
-        InstructionsTypeB.beq  -> (io.reg1_data === io.reg2_data),
-        InstructionsTypeB.bne  -> (io.reg1_data =/= io.reg2_data),
-        InstructionsTypeB.blt  -> (io.reg1_data.asSInt < io.reg2_data.asSInt),
-        InstructionsTypeB.bge  -> (io.reg1_data.asSInt >= io.reg2_data.asSInt),
-        InstructionsTypeB.bltu -> (io.reg1_data.asUInt < io.reg2_data.asUInt),
-        InstructionsTypeB.bgeu -> (io.reg1_data.asUInt >= io.reg2_data.asUInt)
+        InstructionsTypeB.beq  -> (alu_rs1_src === alu_rs2_src),
+        InstructionsTypeB.bne  -> (alu_rs1_src =/= alu_rs2_src),
+        InstructionsTypeB.blt  -> (alu_rs1_src.asSInt < alu_rs2_src.asSInt),
+        InstructionsTypeB.bge  -> (alu_rs1_src.asSInt >= alu_rs2_src.asSInt),
+        InstructionsTypeB.bltu -> (alu_rs1_src.asUInt < alu_rs2_src.asUInt),
+        InstructionsTypeB.bgeu -> (alu_rs1_src.asUInt >= alu_rs2_src.asUInt)
       )
     )
 

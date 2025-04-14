@@ -27,7 +27,8 @@ BINS = \
 	sb.asmbin\
 	auipc.asmbin\
 	simple_subroutine.asmbin\
-	# fibonacci.asmbin \
+	fibonacci.asmbin \
+	simple.asmbin \
 	# mmio.asmbin \
 	# quicksort.asmbin \
 	# simple2.asmbin \
