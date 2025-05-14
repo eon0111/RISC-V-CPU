@@ -20,11 +20,17 @@ class MemoryAccess extends Module {
 
     val memory_bundle = Flipped(new RAMBundle)
   })
+  /* NOTE: El valor de "mem_address_index" indica el byte al que apunta la dirección
+   * de memoria calculada por la ALU */
   val mem_address_index = io.alu_result(log2Up(Parameters.WordSize) - 1, 0).asUInt
 
   io.memory_bundle.write_enable := false.B
   io.memory_bundle.write_data   := 0.U
   io.memory_bundle.address      := io.alu_result
+
+  /* NOTE: El parámetro "write_strobe" es una máscara de 4 bits que indica la posición
+   * o posiciones de los bytes de una palabra de 32 bits, que se escribirán en una
+   * posición de memoria */
   io.memory_bundle.write_strobe := VecInit(Seq.fill(Parameters.WordSize)(false.B))
   io.wb_memory_read_data        := 0.U
 
@@ -71,6 +77,9 @@ class MemoryAccess extends Module {
     io.memory_bundle.write_strobe := VecInit(Seq.fill(Parameters.WordSize)(false.B))
     when(io.funct3 === InstructionsTypeS.sb) {
       io.memory_bundle.write_strobe(mem_address_index) := true.B
+      /* NOTE: Ahora construye el byte a escribir en memoria, haciendo un shift del dato
+       * leído del RF, hacia la izquierda, hasta que el byte se encuetre posicionado
+       * en la palabra en el lugar que se indica con el strobe */
       io.memory_bundle.write_data := io.reg2_data(Parameters.ByteBits, 0) << (mem_address_index << log2Up(
         Parameters.ByteBits
       ).U)

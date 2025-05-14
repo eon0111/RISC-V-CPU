@@ -56,7 +56,7 @@ class Memory(capacity: Int) extends Module {
   /* NOTE: las memorias que proporciona Chisel son direccionables a palabra, no a byte. Esta
    * decisión puede deberse a la necesidad de dotar a la librería con la capacidad de generar
    * memorias de cualquier tipología y tipo de direccionamiento, en función del tipo de dato con que
-   * se inicialize la memoria en el constructor, y en función de la máscara que se emplee en los
+   * se inicialice la memoria en el constructor, y en función de la máscara que se emplee en los
    * accesos a estas memorias. Por ejemplo, una memoria inicializada del siguiente modo:
    * SyncReadMem(4096, Vec(4, 32)), daría como resultado una memoria con 4096 entradas donde, cada
    * entrada, albergaría 4 palabras de 32 bits cada una.
