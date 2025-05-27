@@ -1,0 +1,74 @@
+\documentclass[12pt]{report}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[margin=80px]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec} % Para que no salga "Capítulo X" al comienzo de cada capítulo, sino sólo el índice del capítulo
+  \titleformat{\chapter}[hang]
+    {\normalfont\huge\bfseries}
+    {\thechapter}{20pt}{\huge}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[R]{\thepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PORTADA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{res/logo-facultad.png}
+    \label{fig:logo-uc}
+\end{figure}
+
+\vspace*{140px}
+
+\begin{center}
+\Large{IMPLEMENTACIÓN Y EXTENSIÓN DE UN PROCESADOR RISCV-V SOBRE CHISEL Y FPGA}
+
+\vspace{15px}
+
+\large{(Implementation and Extension of a RISC-V Processor \\
+based on Chisel and FPGA)}
+
+\vspace{30px}
+
+\normalsize{Trabajo de Fin de Máster\\para acceder al}
+
+\vspace{15px}
+
+\large{Máster Universitario en Ingeniería Informática}
+\end{center}
+
+\vspace{\fill}
+
+\rightline{
+    \normalsize{Autor: Noé Ruano Gutiérrez}}
+\rightline{
+    \normalsize{Director: Pablo Prieto Torralbo}}
+\rightline{
+    \normalsize{Julio - 2025}}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ÍNDICE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Índice}
+
+% TODO
+
+%%%%%%%%%%%%%%%%%%%%%%%%% 1. Introducción %%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\chapter{Introducción}
+\section{Motivación}
+En la actualidad existen dos modelos de negocio en el ámbito del diseño y/o fabricación de procesadores. Por un lado estarían aquellas compañías cuyo beneficio proviene principalmente de la venta de licencias para el uso de sus diseños, como pudiera ser el caso de ARM, al tiempo que encontramos otras compañías que centran su actividad empresarial tanto en el diseño como en la fabricación y venta de hardware (casos de Intel o AMD), sin perjuicio de que pudieran obtener beneficios también por la venta de su propiedad intelectual.
+
+Ambos modelos se basan en la siguiente idea: que la especificación del conjunto de instrucciones que deberá ejecutar un computador constituye por sí misma una entidad patentable, lo cual obliga a pagar regalías considerables al tenedor de la propiedad intelectual, a todo aquel que quisiera obtener beneficio de la venta de diseños en los que incorporase esas especificaciones. Esto obstaculiza de manera notable el surgimiento de innovaciones que pudieran aprovechar las ya existentes en materia de conjuntos de instrucciones y arquitecturas de largo recorrido como son x86-64 o ARM, obligando a todos aquellos que no pudieran costearse el pago de las licencias a partir de cero y diseñar sus propios ISAs.
+
+No obstante, en los últimos años del siglo XX y principios del XXI, surgieron corrientes que apostaban por la creación de arquitecturas libres con proyectos como Sparc (libre hasta 1987) u OpenRISC (año 2000), este último aún en desarrollo. No obstante (TODO: aquí empezar a hablar de RISC-V)...
+
+\section{Objetivos}
+TODO
+\end{document}
