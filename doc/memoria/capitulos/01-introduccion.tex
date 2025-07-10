@@ -1,0 +1,55 @@
+\chapter{Introducción}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Motivación %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Motivación}
+
+En la actualidad existen dos modelos de negocio en el ámbito del diseño y/o fabricación de procesadores. Por un lado estarían aquellas compañías cuyo beneficio proviene principalmente de la venta de licencias para el uso de sus diseños, como pudiera ser el caso de ARM, al tiempo que existen otras compañías que centran su actividad empresarial tanto en el diseño como en la fabricación y venta de hardware (casos de Intel o AMD), sin perjuicio de que pudieran obtener beneficios también del pago por el uso de su propiedad intelectual con fines comerciales.
+
+Ambos modelos se basan en la siguiente premisa: que la especificación del conjunto de instrucciones que deberá ejecutar un computador constituye por sí mismo una entidad patentable. Esto obliga a todo aquel que quisiera obtener beneficio de la comercialización de productos derivados de esas especificaciones, a pagar regalías considerables al tenedor de la propiedad intelectual, lo cual obstaculiza de manera notable el surgimiento de innovaciones que pudieran aprovechar las ya existentes en materia de conjuntos de instrucciones y arquitecturas de largo recorrido como son x86-64 o ARM, obligando a todos aquellos sujetos que no pudieran costearse el pago de las licencias a partir de cero y diseñar sus propios ISAs.
+
+No obstante, en los últimos años del siglo XX y principios del XXI, surgieron corrientes que apostaban por la creación de arquitecturas libres, con proyectos como Sparc u OpenRISC, este último aún en desarrollo \cite{openrisc}. Pero no sería hasta el año 2011 \cite{geneology} cuando, en la Universidad de Berkeley, comenzaría a gestarse el que es sin lugar a dudas el ISA abierto que mayor renombre ha conseguido tomar hasta la fecha: RISC-V. Tanto es así, que gigantes tecnológicos como Google, Intel, Microsoft o Nvidia \cite{partners} realizan importantes aportaciones monetarias de manera regular a la fundación que mantiene y desarrolla la especificación (RISC-V International), claro está, con objeto de obtener un beneficio futuro a partir de la comercialización de productos basados en esta nueva tecnología.
+
+Además de compañías privadas, multitud de instituciones públicas contribuyen, por supuesto, a impulsar el desarrollo de la especificación. En el ámbito europeo, la EPI\footnote{European Processor Initiative} es la iniciativa mediante la cual se canalizan los esfuerzos de la academia e industria europeas por hacer realidad el proyecto de una arquitectura abierta, robusta y capaz, que sitúe a la Unión Europea a la vanguardia de la computación a exaescala. Y es este uno de los principales motivos que han impulsado el desarrollo de este trabajo: la posibilidad de conocer en profundidad y trabajar con una de las tecnologías clave para el futuro tecnológico de Europa, y de España.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Objetivos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Objetivos}
+
+El principal objetivo del proyecto es la implementación de un computador sencillo, mononúcleo, segmentado y en orden, que pueda ejecutar el conjunto de instrucciones definido en la especificación del ISA abierto RISC-V. Para ello se partirá de un diseño ya existente, monociclo e incompleto, elaborado por el investigador de la Universidad Nacional Cheng Kung, Ching-Chun (Jim) Huang, quien lo emplea como material docente en una asignatura de arquitectura y tecnología de computadores impartida en esa misma universidad.
+
+El diseño de partida se encuentra descrito en el lenguaje Chisel, que es un lenguaje de propósito específico o DSL (Domain-Specific Language) construido sobre el lenguaje de programación Scala, este último, un lenguaje de propósito general o GPL (General Purpose Language). Esto requerirá las adquisición, por parte del autor del presente trabajo, del conocimiento sobre ambos lenguajes que le permita, a posteriori, afrontar la tarea de completar el pipeline del mencionado diseño original para, más adelante, modificarlo de manera que este se encuentre segmentado en cinco etapas.
+
+Por último, se pretende elaborar una prueba de concepto consistente en el despliegue del diseño final sobre una placa FPGA (Field Programmable Gate Array), de modo que pueda comprobarse sobre hardware real el buen funcionamiento y desempeño de este diseño.
+
+%%%%%%%%%%%%%%%%%%%%% Planificación y metodología seguidos %%%%%%%%%%%%%%%%%%%%
+
+\section{Planificación y metodología seguidos}
+
+\subsection{Formación previa}
+
+En primer lugar se realizó una formación relativa a los lenguajes Scala y Chisel\footnote{Disponible en: \url{www.github.com/freechipsproject/chisel-bootcamp}}. Esta formación fue creada por diversos investigadores y colaboradores de la Universidad de Berkeley, y consiste en un cuaderno de Jupyter en el que se abordan, incialmente, aspectos introductorios relativos al desarrollo de software en el lenguaje Scala para, posteriormente, proporcionar al usuario, en lecciones de complejidad incremental, nociones fundamentales sobre el diseño de hardware empleando el lenguaje Chisel.
+
+\subsection{Construcción del computador monociclo}
+
+La segunda fase del proyecto consistió en la implementación de las partes incompletas del pipeline original, las cuales se encuentran debidamente indicadas en el código de partida. Esto implicó la puesta en práctica y consiguiente asentamiento de los conocimientos adquiridos durante la realización del bootcamp sobre Scala y Chisel, además de que constituyó en sí mismo un proceso de descubrimiento de la arquitectura del núcleo monociclo y sus particularidades.
+
+\subsection{Construcción del procesador segmentado}
+
+A continuación, con el diseño base completado, se procedió a segmentar el pipeline en las cinco etapas siguientes:
+
+\begin{enumerate}
+  \item{Lectura de instrucción o fase de \textit{fech}}
+  \item{Decodificación de la instrucción}
+  \item{Ejecución}
+  \item{Lectura/escritura de resultados en memoria}
+  \item{Escritura en el banco de registros, o fase de \textit{writeback}}
+\end{enumerate}
+
+En un primer momento se optó por aplicar un enfoque incremental en lo que respecta a la inserción de los registros de etapa. No obstante, este enfoque se aplicó tan solo en la integración del primer registro de etapa para separar la fase de \textit{fetch} del resto del pipeline. Esto fue así puesto que, de haber seguido integrando registros de etapa uno a uno, verificando el funcionamiento del núcleo con dos, tres y cuatro registros, el proceso de desarrollo se hubiera dilatado en el tiempo más allá de lo deseado inicalmente. Esto hubiera sido así puesto que, para cada una de las integraciones de un registro de segmentación a partir de aquel que separa las fases de \textit{fetch} y decodificación, hubiera sido preciso diseñar una solución distinta al problema que generan las dependencias de datos y de control entre las instrucciones que atraviesan el pipeline.
+
+Es por ello por lo que se consideró que resultaría más eficiente integrar los registros de segmentación siguientes al de \textit{fetch}-decodificación a la vez, desarrollando una única solución al problema generado por las dependencias de datos y de control.
+
+\subsection{Despliegue del diseño final sobre un FPGA}
+
+Para concluir el proyecto se elaboraría una prueba de concepto consistente en el despliegue del diseño elaborado sobre una placa FPGA diseñando, también en lenguaje Chisel, una interfaz con la que poder comunicar el computador con los dispositivos presentes en la placa. Ello posibilitaría el envío, carga en memoria y ejecución de binarios compilados para la arquitectura RISC-V, gracias a un módulo UART desarrollado por el investigador del grupo de Ingeniería de Computadores y director de este trabajo, Pablo Prieto Torralbo.
