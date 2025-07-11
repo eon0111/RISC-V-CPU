@@ -22,6 +22,8 @@
 
 \usepackage{subfiles}
 
+\usepackage{listings} % Para poder introducir secciones de código
+
 \begin{document}
 
 \pagestyle{fancy}
@@ -30,22 +32,26 @@
 \renewcommand{\headrulewidth}{0pt}
 \fancyfoot[R]{\thepage}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PORTADA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PORTADA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subfile{capitulos/00-portada.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ÍNDICE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ÍNDICE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter*{Índice}
 
 TODO
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Introducción %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Introducción %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \subfile{capitulos/01-introduccion}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. RISC-V %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. RISC-V %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \subfile{capitulos/02-risc-v}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 3. Herramientas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subfile{capitulos/03-herramientas}
 
 \printbibliography[title={Bibliografía}]
 
