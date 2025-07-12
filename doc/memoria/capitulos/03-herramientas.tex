@@ -1,28 +1,51 @@
-\chapter{Herramientas y tecnologías empleadas}
+\chapter{Herramientas y tecnologías}
 
 \section{Chisel}
 
-Chisel es un lenguaje de descripción de hardware de alto nivel gestado en el año 2012 en el seno del Departamento de Ingeniería Eléctrica y Ciencias de la Computación (abrev. EECS) de la Universidad de California, en Berkeley, y surgió como parte de un proyecto de investigación cuyo objetivo final era la implementación de una interfaz de programación software con la que elevar el nivel de abstracción ofrecido por HDL's convencionales como son VHDL o Verilog, ofreciendo la posibilidad de traducir los desarrollos elaborados, en entidades descritas en estos mismos lenguajes de bajo nivel con objeto de correr procesos de síntesis o emulación que permitiesen evaluar su funcionamiento.
+Chisel es un lenguaje de descripción de hardware de alto nivel gestado en el año 2012 en el seno del Departamento de Ingeniería Eléctrica y Ciencias de la Computación (abrev. EECS) de la Universidad de California, en Berkeley, y surgió como parte de un proyecto de investigación cuyo objetivo final era la implementación de una interfaz de programación software con la que elevar el nivel de abstracción ofrecido por HDL's convencionales como son VHDL o Verilog, ofreciendo la posibilidad de traducir los desarrollos elaborados, en entidades descritas en estos mismos lenguajes de bajo nivel con objeto de correr procesos de síntesis o emulación que permitiesen evaluar su funcionamiento \cite{chiselEECS}.
 
 Chisel es un lenguaje de propósito específico construido sobre Scala, que es, a su vez, un lenguaje de propósito general orientado a objetos, siendo esta la principal propiedad que permite a Chisel mostrar al usuario una interfaz de diseño de hardware de tan alto nivel y, por ende, amigable tanto para el desarrollador novel como para usuarios más avanzados, y es que resulta muy práctico el poder modelar un circuito lógico como un conjunto de clases relacionadas entre sí, cada una de ellas definiendo su funcionamiento interno particular, y constituyendo esas relaciones, conexiones entre los diferentes módulos de los que se componga el diseño global.
 
 La unidad fundamental de diseño de hardware en Chisel son los módulos, que encapsulan la disposición interna y el comportamiento de un circuito lógico. Esta disposición interna pueden componerla otros módulos, cables internos o cables de entrada/salida, cuyos valores serán empleados en la evaluación de las expresiones lógicas que definan el comportamiento del módulo, y que pueden describirse por medio de operadores aritmético-lógicos convencionales, o bien, por medio de los tipos de datos y componentes definidos en las librerías de Chisel, tales como multiplexores, decodificadores o incluso memorias.
 
-\begin{lstlisting}[language=Scala]
-import chisel3.{RawModule, withClockAndReset}
+A continuación, en la Figura TODO:, se proporciona un código sencillo con el que se describe un multiplexor de 4 entradas de 32 bits cada una. Nótese que los módulos se definen como clases que extienden la clase \textit{Module}... TODO:
 
-class Foo extends Module {
-  val io = IO(new Bundle{
-    val a = Input(Bool())
-    val b = Output(Bool())
-  })
-  io.b := !io.a
-}
-\end{lstlisting}
+\begin{figure}
+  \begin{lstlisting}[style=scalaStyle]{}
+  import chisel3.{RawModule, withClockAndReset}
+  
+  class Foo extends Module {
+    val io = IO(new Bundle{
+      val a = Input(Bool())
+      val b = Output(Bool())
+    })
+    io.b := !io.a
+  }
+  \end{lstlisting}
+  \caption{Definición de un multiplexor sencillo}
+\end{figure}
 
 \section{SBT}
 
-SBT son las siglas de "Scala Build Tool"
+SBT es una herramienta de construcción de software semejante a Maven o Gradle, y es la más utilizada por los desarrolladores en lenguaje Scala \cite[scalaSurvey].
+
+TODO: indicar cómo se crea un proyecto, hablar del build.sbt, comentar algo del sbt test y el testOnly...
+
+La forma más sencilla de obtener SBT en una distribución linux es mediante el gestor de SDK's, SDKMAN, ejecutando la secuencia de comandos indicada en la Figura TODO:. Se instalan las utilidades \textit{zip} y \textit{unzip}, empleadas por el script de instalación de SDKMAN, así como la versión del JDK considerada más adecuada para ejecutar \textit{sbt} y, por último, el propio \textit{sbt}.
+
+\begin{figure}
+  \begin{lstlisting}[style=bashStyle]
+    apt install -y zip unzip
+    curl -s "https://get.sdkman.io" | bash
+
+    sdk install java $(sdk list java | grep -o "\b8\.[0-9]*\.[0-9]*\-tem" | head -1)
+    sdk install sbt
+
+    sbt --version
+  \end{lstlisting}
+  \caption{Instalación de \textit{sbt} en una distribución Linux basada en Debian}
+\end{figure}
+
 
 \section{RISC-V GNU Toolchain}
 
