@@ -1,68 +1,139 @@
 \chapter{Herramientas y tecnologías}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chisel %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Chisel}
 
-Chisel es un lenguaje de descripción de hardware de alto nivel gestado en el año 2012 en el seno del Departamento de Ingeniería Eléctrica y Ciencias de la Computación (abrev. EECS) de la Universidad de California, en Berkeley, y surgió como parte de un proyecto de investigación cuyo objetivo final era la implementación de una interfaz de programación software con la que elevar el nivel de abstracción ofrecido por HDL's convencionales como son VHDL o Verilog, ofreciendo la posibilidad de traducir los desarrollos elaborados, en entidades descritas en estos mismos lenguajes de bajo nivel con objeto de correr procesos de síntesis o emulación que permitiesen evaluar su funcionamiento \cite{chiselEECS}.
+Chisel es un lenguaje de descripción de hardware de alto nivel gestado en el año 2012 en el seno del Departamento de Ingeniería Eléctrica y Ciencias de la Computación (abrev. EECS) de la Universidad de California, en Berkeley, y surgió como parte de un proyecto de investigación cuyo objetivo final era la implementación de una interfaz de lenguaje con la que elevar el nivel de abstracción ofrecido por HDL's convencionales como son VHDL o Verilog, ofreciendo la posibilidad de traducir los desarrollos elaborados, en entidades descritas en estos mismos lenguajes de bajo nivel, con objeto de correr procesos de síntesis o emulación que permitiesen evaluar su funcionamiento \cite{chiselEECS}.
 
-Chisel es un lenguaje de propósito específico construido sobre Scala, que es, a su vez, un lenguaje de propósito general orientado a objetos, siendo esta la principal propiedad que permite a Chisel mostrar al usuario una interfaz de diseño de hardware de tan alto nivel y, por ende, amigable tanto para el desarrollador novel como para usuarios más avanzados, y es que resulta muy práctico el poder modelar un circuito lógico como un conjunto de clases relacionadas entre sí, cada una de ellas definiendo su funcionamiento interno particular, y constituyendo esas relaciones, conexiones entre los diferentes módulos de los que se componga el diseño global.
+El hecho de que se trate de un HDL de alto nivel tiene un impacto directo y positivo sobre la celeridad en los procesos de desarrollo y prueba del hardware, permitiendo elaborar y probar diseños de una manera ágil sin perder las características de eficiencia y robustez que proporcionan lenguajes de más bajo nivel.
+
+Es un lenguaje de propósito específico construido sobre Scala, un lenguaje de propósito general orientado a objetos, siendo esta la principal propiedad que permite a Chisel mostrar al usuario una interfaz de diseño de hardware de tan alto nivel y, por ende, amigable tanto para el desarrollador novel como para usuarios más avanzados, y es que resulta muy práctico el poder modelar un circuito lógico como un conjunto de clases relacionadas entre sí, cada una de ellas definiendo su funcionamiento interno particular, y constituyendo esas relaciones, conexiones entre los diferentes módulos de los que se componga el diseño global.
+
+\subsection{Desarrollo en Chisel}
 
 La unidad fundamental de diseño de hardware en Chisel son los módulos, que encapsulan la disposición interna y el comportamiento de un circuito lógico. Esta disposición interna pueden componerla otros módulos, cables internos o cables de entrada/salida, cuyos valores serán empleados en la evaluación de las expresiones lógicas que definan el comportamiento del módulo, y que pueden describirse por medio de operadores aritmético-lógicos convencionales, o bien, por medio de los tipos de datos y componentes definidos en las librerías de Chisel, tales como multiplexores, decodificadores o incluso memorias.
 
-A continuación, en la Figura TODO:, se proporciona un código sencillo con el que se describe un multiplexor de 4 entradas de 32 bits cada una. Nótese que los módulos se definen como clases que extienden la clase \textit{Module}... TODO:
+A continuación, en la Figura 3.1, se proporciona un código sencillo con el que se describe un multiplexor de 4 entradas de 32 bits cada una. Nótese que los módulos se definen como clases que extienden la clase \textit{Module}, lo cual hace mandatorio que se cuente con, al menos, una interfaz encapsulada en el método \textit{IO}, por medio del cual se definirá esa interfaz como un elemento de entrada/salida. En el caso del código mostrado en la Figura 3.1 las interfaces de entrada/salida se encuentran definidas en las líneas 7 a 14 como parte de una instancia de la clase \textit{Budle}, que es un constructo que permite en Chisel crear nuevos tipos de datos al estilo de los \textit{struct} en el lenguaje C.
 
 \begin{figure}
-  \begin{lstlisting}[style=scalaStyle]{}
-  import chisel3.{RawModule, withClockAndReset}
-  
-  class Foo extends Module {
-    val io = IO(new Bundle{
-      val a = Input(Bool())
-      val b = Output(Bool())
-    })
-    io.b := !io.a
-  }
-  \end{lstlisting}
-  \caption{Definición de un multiplexor sencillo}
+\begin{lstlisting}[style=scalaStyle]{}
+package mux4
+
+import chisel3._
+import chisel3.util._
+
+class Mux4 extends Module {
+  val io = IO(new Bundle{
+    val i1  = Input(UInt(32.W))
+    val i2  = Input(UInt(32.W))
+    val i3  = Input(UInt(32.W))
+    val i4  = Input(UInt(32.W))
+    val sel = Input(UInt(2.W))
+
+    val o   = Output(UInt(32.W))
+  })
+
+  io.o := MuxLookup(io.sel, io.i1)(
+    Seq(
+      0.U -> io.i1,
+      1.U -> io.i2,
+      2.U -> io.i3,
+      3.U -> io.i4,
+    ))
+}
+\end{lstlisting}
+\caption{Definición de un multiplexor sencillo en Chisel}
 \end{figure}
+
+\subsection{Pruebas en Chisel}
+
+Como se comentaba al comienzo de esta sección sobre Chisel, una de sus características más reseñables es la agilidad con la que puede probarse el comportamiento de los módulos, y ello es gracias a los tests, los cuales son definiciones de clases que implementan uno de los \textit{traits} de Chisel en los que se definen a su vez los procedimientos que permiten evaluar el funcionamiento de los módulos. Estos \textit{traits} son interfaces que definen una serie funciones básicas con las que comprobar y alterar el estado de las señales dentro de los módulos.
+
+Estas interfaces han ido cambiando conforme evolucionaba el propio HDL y, a pesar de no ser la forma de prueba mantenida en las últimas versiones de Chisel, que sería \textit{ChiselSim}, se ha decidido utilizar \textit{ChiselScalatestTester} como interfaz de pruebas, puesto que desde el punto de vista de la implementación no se encuentran grandes diferencias entre ellas, además de que es la forma de prueba utilizada en el proyecto base.
+
+Las interfaces de prueba de Chisel definen cuatro funciones básicas con las que evaluar el comportamiento de un módulo: \textit{peek}, \textit{poke},  \textit{expect} y \textit{step}. Estas funciones se invocan sobre las diferentes señales de las cuales se componga el módulo y permiten realizar las siguientes acciones:
+
+\begin{itemize}
+  \item \textbf{\textit{peek}}: lectura del valor de una señal en el instante de invocación de la función
+  \vspace{-0.2cm}
+  \item \textbf{\textit{poke}}: cambio en el valor de la señal
+  \vspace{-0.2cm}
+  \item \textbf{\textit{expect}}: evaluación de valor determinado en la señal, esto es, probar si el valor de la señal en el instante de invocación de la función es el esperado
+  \vspace{-0.2cm}
+  \item \textbf{\textit{step}}: se invoca sobre una señal de reloj y permite avanzarlo un ciclo
+\end{itemize}
+
+En la Figura 3.2 se muestra un ejemplo de test que evalúa el comportamiento del módulo definido en el código de la Figura 3.1.
+
+\begin{figure}
+\begin{lstlisting}[style=scalaStyle]{}
+package mux4
+
+import chisel3._
+import chiseltest._
+import org.scalatest.flatspec.AnyFlatSpec
+import mux4.Mux4
+
+class Mux4Test extends AnyFlatSpec with ChiselScalatestTester {
+  behavior.of("Mux4")
+  it should "generate the right output given any valid selector value as input" in {
+    test(new Mux4) { c =>
+      c.io.i1.poke(1.U)
+      c.io.i2.poke(2.U)
+      c.io.i3.poke(3.U)
+      c.io.i4.poke(4.U)
+      var x = 0
+      for (x <- 0 to 3) {
+        c.io.sel.poke(x.U)
+        c.io.o.expect(x + 1)
+      }
+    }
+  }
+}
+\end{lstlisting}
+\caption{Implementación de un test para el multiplexor de 4 entradas}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SBT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{SBT}
 
-SBT es una herramienta de construcción de software semejante a Maven o Gradle, y es la más utilizada por los desarrolladores en lenguaje Scala \cite[scalaSurvey].
+SBT es una herramienta de construcción de software semejante a Maven o Gradle, y es la más utilizada por los desarrolladores en lenguaje Scala\cite{scalaSurvey}.
 
-TODO: indicar cómo se crea un proyecto, hablar del build.sbt, comentar algo del sbt test y el testOnly...
+Su uso es por medio de una interfaz de línea de comandos, proporcionando una consola interactiva desde la que pueden realizarse todo tipo de tareas administrativas sobre los proyectos, tales como lanzar pruebas, ejecutar un programa principal, compilar ficheros de código fuente de manera individual o construir el proyecto, requirendo esto último la creación de un fichero de configuración \textit{build.sbt} dentro del directorio del proyecto.
 
-La forma más sencilla de obtener SBT en una distribución linux es mediante el gestor de SDK's, SDKMAN, ejecutando la secuencia de comandos indicada en la Figura TODO:. Se instalan las utilidades \textit{zip} y \textit{unzip}, empleadas por el script de instalación de SDKMAN, así como la versión del JDK considerada más adecuada para ejecutar \textit{sbt} y, por último, el propio \textit{sbt}.
+Escrito también en el lenguaje Scala, en él se definirán las propiedades del proyecto, como puedan ser su nombre y versión, la versión de Scala empleada en la implementación o las librerías de las que depende, siendo estas dos últimas propiedades imprescibdibles de cara al proceso de compilación.
 
-\begin{figure}
-  \begin{lstlisting}[style=bashStyle]
-    apt install -y zip unzip
-    curl -s "https://get.sdkman.io" | bash
+En la Figura 3.3 se proporcionan ejemplos de uso de la consola de SBT, primero, invocando el proceso de elaboración del módulo descrito en la sección 3.1 mediante el comando \textit{compile} y, acto seguido, lanzando el test desarrollado, previa elaboración de este.
 
-    sdk install java $(sdk list java | grep -o "\b8\.[0-9]*\.[0-9]*\-tem" | head -1)
-    sdk install sbt
-
-    sbt --version
-  \end{lstlisting}
-  \caption{Instalación de \textit{sbt} en una distribución Linux basada en Debian}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.75\linewidth]{res/img/sbt-usage-basic.png}
+  \caption{Elaboración y prueba del módulo descrito en la sección 3.1}
 \end{figure}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RISC-V GNU Toolchain %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{RISC-V GNU Toolchain}
 
 TODO:
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% GTKWave %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GTKWave}
 
 TODO:
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Vivado %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{AMD Vivado Design Suite}
 
 TODO:
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Git %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Git y GitHub}
 
 TODO:
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Depuración %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Herramientas de apoyo a la depuración}
 
 TODO:
