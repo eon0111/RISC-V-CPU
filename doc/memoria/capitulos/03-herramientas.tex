@@ -59,7 +59,7 @@ Las interfaces de prueba de Chisel definen cuatro funciones básicas con las que
   \vspace{-0.2cm}
   \item \textbf{\textit{poke}}: cambio en el valor de la señal
   \vspace{-0.2cm}
-  \item \textbf{\textit{expect}}: evaluación de valor determinado en la señal, esto es, probar si el valor de la señal en el instante de invocación de la función es el esperado
+  \item \textbf{\textit{expect}}: evaluación de un valor determinado en la señal, esto es, probar si el valor de la señal en el instante de invocación de la función es el esperado
   \vspace{-0.2cm}
   \item \textbf{\textit{step}}: se invoca sobre una señal de reloj y permite avanzarlo un ciclo
 \end{itemize}
@@ -116,12 +116,24 @@ En la Figura 3.3 se proporcionan ejemplos de uso de la consola de SBT, primero, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% RISC-V GNU Toolchain %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{RISC-V GNU Toolchain}
 
-TODO:
+Gran parte de las pruebas llevadas a cabo sobre la implementación del núcleo han consistido en la carga, ejecución y depuración de programas desarrollados en lenguaje C, lo cual ha implicado aplicar un proceso de compilación cruzada para obtener binarios que pudieran ejecutar sobre la arquitectura RISC-V.
+
+Este proceso ha sido llevado a cabo por medio de la suite de herramientas de que se compone el toolchain de GNU para RISC-V\footnote{Disponible en: \url{https://github.com/riscv-collab/riscv-gnu-toolchain}}, disponible en sistemas Linux basados en Debian por medio del gestor de paquetes \textit{apt} (paquete \textit{gcc-riscv64-unknown-elf}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% GTKWave %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GTKWave}
 
-TODO:
+La depuración de componentes arquitecturales individuales tales como la ALU o el banco de registros, o incluso fases completas dentro del pipeline, es una tarea que puede acometerse de manera ágil por medio de tests, estableciendo primeramente los casos de prueba a implementar y verificando que los cambios en las señales bajo supervisión son los esperados para el conjunto de entradas definido en cada caso de prueba. No obstante, este proceso de depuración del pipeline se torna más complejo cuando se desea verificar el comportamiento global de la arquitectura mediante la ejecución de un programa, lo cual requiere la implementación de tests que verifiquen el estado de un número mucho mayor de señales a cada ciclo, lo cual supone un incremento notable en la complejidad de los tests desarrollados, así como en el proceso de depuración.
+
+Aún siendo esta una tarea ciertamente abordable, se optó por explorar alternativas más razonables que permitiesen depurar el estado de la arquitectura de una manera más rápida y visual, y se consideró que la herramienta GTKWave sería la opción que mejor cumpliría con este propósito.
+
+GTKWave es una herramienta de análisis empleada en la depuración de trazas generadas en los procesos de simulación de modelos elaborados con Verilog o VHDL. Estas trazas, generadas con la ejecución de los tests de Chisel, se almacenan en ficheros con un formato definido originalmente en el estándard IEEE 1364-1995 junto con el propio lenguaje Verilog\cite{IEEE1364}, y constituyen una descripción de todos los cambios acontecidos en el valor de las señales de los módulos durante la ejecución de las simulaciones.
+
+La herramienta permite explorar esos cambios de una manera visual por medio de una interfaz gráfica en la que puede explorarse el histórico de cambios de la totalidad de las señales que conformen cada módulo, tanto señales de entrada/salida como señales internas, así como elementos de estado, tal y como puede verse en la captura presentada en la Figura TODO:, donde se muestra la traza de la ejecución del test mostrado en la Figura 3.2.
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Vivado %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{AMD Vivado Design Suite}
