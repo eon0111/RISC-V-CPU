@@ -107,9 +107,10 @@ Escrito también en el lenguaje Scala, en él se definirán las propiedades del 
 
 En la Figura 3.3 se proporcionan ejemplos de uso de la consola de SBT, primero, invocando el proceso de elaboración del módulo descrito en la sección 3.1 mediante el comando \textit{compile} y, acto seguido, lanzando el test desarrollado, previa elaboración de este.
 
+\vspace{+0.3cm}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.75\linewidth]{res/img/sbt-usage-basic.png}
+  \includegraphics[width=0.8 \linewidth]{res/img/sbt-usage-basic.png}
   \caption{Elaboración y prueba del módulo descrito en la sección 3.1}
 \end{figure}
 
@@ -123,27 +124,35 @@ Este proceso ha sido llevado a cabo por medio de la suite de herramientas de que
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% GTKWave %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GTKWave}
 
-La depuración de componentes arquitecturales individuales tales como la ALU o el banco de registros, o incluso fases completas dentro del pipeline, es una tarea que puede acometerse de manera ágil por medio de tests, estableciendo primeramente los casos de prueba a implementar y verificando que los cambios en las señales bajo supervisión son los esperados para el conjunto de entradas definido en cada caso de prueba. No obstante, este proceso de depuración del pipeline se torna más complejo cuando se desea verificar el comportamiento global de la arquitectura mediante la ejecución de un programa, lo cual requiere la implementación de tests que verifiquen el estado de un número mucho mayor de señales a cada ciclo, lo cual supone un incremento notable en la complejidad de los tests desarrollados, así como en el proceso de depuración.
+La depuración de componentes arquitecturales individuales tales como la ALU o el banco de registros, o incluso fases completas dentro del pipeline, es una tarea que puede acometerse de manera ágil por medio de tests, estableciendo primeramente los casos de prueba a implementar, y verificando que los cambios en las señales bajo supervisión son los esperados para el conjunto de entradas definido en cada caso de prueba. No obstante, este proceso de depuración del pipeline se torna más complejo cuando se desea verificar el comportamiento global de la arquitectura mediante la ejecución de un programa, lo cual requiere la implementación de tests que verifiquen el estado de un número mucho mayor de señales a cada ciclo, incrementando notablemente la complejidad de los tests desarrollados y del proceso de depuración.
 
-Aún siendo esta una tarea ciertamente abordable, se optó por explorar alternativas más razonables que permitiesen depurar el estado de la arquitectura de una manera más rápida y visual, y se consideró que la herramienta GTKWave sería la opción que mejor cumpliría con este propósito.
+Aún siendo esta una tarea ciertamente abordable, se optó por explorar alternativas que permitiesen depurar el estado de la arquitectura de una manera más rápida y visual, y se consideró que la herramienta GTKWave cumpliría perfectamente con este propósito.
 
-GTKWave es una herramienta de análisis empleada en la depuración de trazas generadas en los procesos de simulación de modelos elaborados con Verilog o VHDL. Estas trazas, generadas con la ejecución de los tests de Chisel, se almacenan en ficheros con un formato definido originalmente en el estándard IEEE 1364-1995 junto con el propio lenguaje Verilog\cite{IEEE1364}, y constituyen una descripción de todos los cambios acontecidos en el valor de las señales de los módulos durante la ejecución de las simulaciones.
+GTKWave es una herramienta de análisis empleada en la depuración de trazas generadas en los procesos de simulación de modelos elaborados con Verilog o VHDL. Estas trazas, generadas con la ejecución de los tests de Chisel, se almacenan en ficheros con un formato definido originalmente en el estándard IEEE 1364-1995\cite{IEEE1364} y constituyen una descripción de todos los cambios experimentados por las señales de los módulos durante la ejecución de las simulaciones.
 
-La herramienta permite explorar esos cambios de una manera visual por medio de una interfaz gráfica en la que puede explorarse el histórico de cambios de la totalidad de las señales que conformen cada módulo, tanto señales de entrada/salida como señales internas, así como elementos de estado, tal y como puede verse en la captura presentada en la Figura TODO:, donde se muestra la traza de la ejecución del test mostrado en la Figura 3.2.
+La herramienta permite explorar esos cambios de una manera visual por medio de una interfaz gráfica en la que puede explorarse el histórico de cambios de la totalidad de las señales que conformen cada módulo, tal y como se muestra en la Figura 3.4, donde se presenta una captura de pantalla de la interfaz gráfica de GTKWave, mostrando una visualización de la traza generada tras la ejecución de un test semejante al mostrado en la Figura 3.2, adaptado para que los cambios en las señales se reflejen en la traza, algo que no se conseguía con la implementación original.
 
+\vspace{+0.5cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{res/img/test_mux4_gtkwave.png}
+  \caption{Visualización de la traza generada tras la simulación del test}
+\end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Artix A7 y AMD Vivado %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{FPGA Artix A7 y AMD Vivado Design Suite}
 
+AMD Vivado es un software de diseño hardware para SoC\footnote{System-on-Chip} y FPGAs desarrollado y mantenido por la empresa AMD que es, además, el fabricante de la placa de desarrollo Artix A7 empleada en las pruebas llevadas a cabo como parte del proceso de verificación final de la arquitectura diseñada.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Logisim Evolution %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Logisim Evolution}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Vivado %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{AMD Vivado Design Suite}
-
-TODO:
+Se trata de un software CAD de código abierto utilizado para el diseño y simulación de circuitos lógicos, y fue la herramienta empleada para la creación de los diagramas de la arquitectura que se mostrarán el capítulos posteriores de esta memoria.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Git %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Git y GitHub}
+\section{Git}
 
-TODO:
+Git fue concebido originalmente por Linus Torvalds como una alternativa de código abierto a BitKeeper, el software de control de versiones propietario empleado en el desarrollo del kernel de Linux entre los años 2002 y 2005\cite{githistory}, y es actualmente el software de control de versiones más utilizado por los desarrolladores, según los datos reflejados en el \textit{Stack Overflow Annual Developer Survey} del año 2022\cite{stackoverflow}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Depuración %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Herramientas de apoyo a la depuración}
