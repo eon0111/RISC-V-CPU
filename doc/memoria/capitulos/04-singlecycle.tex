@@ -1,0 +1,25 @@
+\chapter{El procesador monociclo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Arquitectura de partida %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Descripción de la arquitectura de partida}
+
+El código que describe la composición y funcionamiento internos del pipeline original se encuentra distribuido en cinco módulos, cada uno de los cuales modela una de las cinco etapas en las que se ha decidido segmentarlo. Además, existe un módulo superior dentro del cual se establece el conexionado entre las diferentes etapas y, por encima de este, un módulo en un nivel adicional en el que se definen las conexiones entre el agregado de las unidades funcionales del pipeline, y la memoria. Se proporciona en la Figura TODO: un diagrama con el que se espera poder ayudar a comprender las relaciones entre los distintos componentes que conforman el computador.
+
+TODO: insertar diagrama
+
+A continuación se indicarán los módulos que conforman el diseño de partida junto con una descripción tanto de la funcionalidad que modelan, como de las señales de entrada y salida que reciben y generan respectivamente. Además, cabe indicar que los ficheros de código fuente donde se encuentra definido cada módulo siguen la siguiente nomenclatura: \textit{<NombreModulo>.scala}.
+
+\subsection{InstructionFetch}
+
+En este módulo se describe el comportamiento de la fase de \textit{fetch}, donde se avanza el contador de programa en 4 unidades siempre y cuando el decodificador no haya determinado en el ciclo anterior que la instrucción en ese ciclo era un salto que debía tomarse, en cuyo caso se establece que el valor del contador de programa deberá ser el destino del salto.
+
+Algo a notar en el código es que dentro de este módulo no se define de ningún modo la lectura de la instrucción. Esto es así porque las operaciones de lectura y escritura en memoria 
+
+\subsection*{Señales de entrada}
+
+\begin{itemize}
+  \vspace{-0.2cm}
+  \item \textbf{\textit{jump_flag_id}}: es un bit que indica si el valor del program counter deberá ser igual al valor actual más cuatro unidades o, por el contrario, la dirección de destino de un salto que debe tomarse.
+  \item \textbf{\textit{jump_address_id}}: una señal de 32 bits por donde se recibe la dirección de destino calculada en la ejecución de las instrucciones de salto.
+  \item \textbf{\textit{instruction_read_data}}: .
+\end{itemize}
