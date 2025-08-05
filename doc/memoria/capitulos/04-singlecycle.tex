@@ -3,23 +3,110 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%% Arquitectura de partida %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Descripción de la arquitectura de partida}
 
-El código que describe la composición y funcionamiento internos del pipeline original se encuentra distribuido en cinco módulos, cada uno de los cuales modela una de las cinco etapas en las que se ha decidido segmentarlo. Además, existe un módulo superior dentro del cual se establece el conexionado entre las diferentes etapas y, por encima de este, un módulo en un nivel adicional en el que se definen las conexiones entre el agregado de las unidades funcionales del pipeline, y la memoria. Se proporciona en la Figura TODO: un diagrama con el que se espera poder ayudar a comprender las relaciones entre los distintos componentes que conforman el computador.
+El código que describe la composición y funcionamiento internos del pipeline original se encuentra distribuido en cinco módulos, cada uno de los cuales modela una de las cinco etapas en las que se ha decidido segmentarlo. Además, existe un módulo superior dentro del cual se establece el conexionado entre las diferentes etapas y, por encima de este, un módulo en un nivel adicional en el que se definen las conexiones entre el agregado de las unidades funcionales del pipeline y la memoria, unificada, la cual alberga datos e instrucciones.
 
-TODO: insertar diagrama
+Se proporciona a continuación, en la Figura 4.1, un diagrama con el que se espera poder ayudar a comprender las relaciones entre los distintos componentes que conforman el computador.
 
-A continuación se indicarán los módulos que conforman el diseño de partida junto con una descripción tanto de la funcionalidad que modelan, como de las señales de entrada y salida que reciben y generan respectivamente. Además, cabe indicar que los ficheros de código fuente donde se encuentra definido cada módulo siguen la siguiente nomenclatura: \textit{<NombreModulo>.scala}.
+\vspace{+0.3cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7 \linewidth]{res/img/diagramas/5-arquitectura-global-blackbox/diagrama-arquitectura-blackbox.png}
+  \caption{Diagrama de bloques de la arquitectura global del computador}
+\end{figure}
 
-\subsection{InstructionFetch}
+\vspace{+0.1cm}
+A continuación se indicarán los módulos que conforman el diseño de partida junto con una descripción tanto de la funcionalidad que modelan, como de las señales de entrada y salida que reciben y generan respectivamente. Además, cabe indicar que los ficheros de código fuente donde se encuentra definido cada módulo siguen la siguiente nomenclatura: \textit{«NombreModulo».scala}.
 
-En este módulo se describe el comportamiento de la fase de \textit{fetch}, donde se avanza el contador de programa en 4 unidades siempre y cuando el decodificador no haya determinado en el ciclo anterior que la instrucción en ese ciclo era un salto que debía tomarse, en cuyo caso se establece que el valor del contador de programa deberá ser el destino del salto.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Memory %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Memory}
 
-Algo a notar en el código es que dentro de este módulo no se define de ningún modo la lectura de la instrucción. Esto es así porque las operaciones de lectura y escritura en memoria 
+Tal y como se indicaba al comienzo de este capítulo sobre la arquitectura interna del computador, la memoria se encuentra unificada, albergando tanto instrucciones como datos, lo cual contribuye a simplificar el diseño global, haciendo posible que todas las operaciones sobre la memoria sean realizadas por medio de una misma interfaz, definida dentro de un único módulo (\textit{Memory}) que cuenta, además, con una instancia definida dentro del módulo \textit{TopModule}.
 
-\subsection*{Señales de entrada}
+Sobre el código del módulo \textit{Memory}, en él se define la clase \textit{Memory} con la que se construyen tanto la memoria unificada del computador, como la interfaz a la que se conecta el módulo \textit{CPU} para habilitar la comunicación entre la memoria y los módulos que compomen el núcleo, más concretamente, \textit{InstructionFetch} y \textit{MemoryAccess}, que emplean los puertos definidos en la interfaz de la memoria para leer de manera independiente, y en paralelo, los datos e instrucciones que en ella se encuentran alojados.
+
+A continuación se detallará el propósito de los puertos de entrada-salida del módulo. No obstante, dentro de la entrada-salida se define también un \textit{bundle} como una instancia de la clase \textit{RAMBundle}, definida dentro del mismo fichero donde se especifica la clase \textit{Memory}. Al instanciar esta clase se crea un \textit{Bundle} de Chisel, es decir, una agrupación de señales de entrada-salida, en este caso relacionadas con la interacción con la memoria.
+
+\subsubsection{Señales de entrada}
 
 \begin{itemize}
+  \item \textbf{\textit{instruction\_address}}: es un bus de 32 bits por donde la memoria recibe la dirección de la siguiente instrucción generada en el \textit{fetch}.
   \vspace{-0.2cm}
-  \item \textbf{\textit{jump_flag_id}}: es un bit que indica si el valor del program counter deberá ser igual al valor actual más cuatro unidades o, por el contrario, la dirección de destino de un salto que debe tomarse.
-  \item \textbf{\textit{jump_address_id}}: una señal de 32 bits por donde se recibe la dirección de destino calculada en la ejecución de las instrucciones de salto.
-  \item \textbf{\textit{instruction_read_data}}: .
+  \item \textbf{\textit{debug\_read\_address}}: se trata de otro bus de 32 bits por el que la memoria puede recibir direcciones arbitrarias en cualquier instante de tiempo con fines de depuración.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{address@bundle}}: la utilidad de este puerto, definido dentro del \textit{bundle}, es indicar una dirección de memoria, cualquiera, para leerla o escribir en ella
+  \vspace{-0.2cm}
+  \item \textbf{\textit{write\_data@bundle}}: es un bus de 32 bits mediante el cual se indica un dato a escribir en memoria
+  \vspace{-0.2cm}
+  \item \textbf{\textit{write\_enable@bundle}}: una señal con la que habilitar o deshabilitar la escritura en memoria
+  \vspace{-0.2cm}
+  \item \textbf{\textit{write\_strobe@bundle}}: tal y como puede verse en la Figura 4.2, donde se muestra el código con el que se implementa la clase RAMBundle, el tipo de dato del puerto de entrada \textit{write\_strobe} es un vector. Cada elemento de este vector es un booleano que indica si la sección n-ésima de la palabra a escribir en memoria, donde $0 \le n < Parameters.DataWidth$, con $Parameters.DataWidth = 4$, deberá o no serlo. Por ejemplo, en las instrucciones de escritura de bytes individuales, el vector con el que se define el `strobe` deberá tener la siguiente forma para indicar que deberá escribirse el último de los 4 bytes que conforman el dato: \{0001\}.
+\end{itemize}
+
+\subsubsection{Señales de salida}
+\begin{itemize}
+  \item \textbf{\textit{instruction}}: la instrucción leída en la dirección \textit{instruction\_address}.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{debug\_read\_data}}: el dato leído en la dirección \textit{debug\_read\_address}.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{read\_data@bundle}}: el dato leído en la dirección \textit{address@bundle} con la máscara indicada en el \textit{strobe}.
+\end{itemize}
+
+\begin{figure}[h]
+\begin{lstlisting}[style=scalaStyle]{}
+class RAMBundle extends Bundle {
+  val address       = Input(UInt(Parameters.AddrWidth))
+  val write_data    = Input(UInt(Parameters.DataWidth))
+  val write_enable  = Input(Bool())
+  val write_strobe  = Input(Vec(Parameters.WordSize, Bool()))
+  val read_data     = Output(UInt(Parameters.DataWidth))
+}
+\end{lstlisting}
+\caption{Implementación de la clase RAMBundle}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% InstructionROM y ROMLoader %%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{InstructionROM y ROMLoader}
+
+Puede verse en el diagrama de la Figura 4.1 que el computador lo componen, además del núcleo y la memoria, dos piezas adicionales: \textit{InstructionROM} y \textit{ROMLoader}. Estos son dos módulos involucrados en la carga de binarios en memoria. El primero define internamente una rutina con la que se traslada el contenido del fichero binario resultante de un proceso de compilación cruzada, a un fichero de texto codificado en ASCII con el que puede inicializarse una memoria de Chisel, definida también a nivel interno dentro del módulo. Posteriormente, la lógica que define el comportamiento del módulo \textit{ROMLoader} se encarga de trasladar, palabra a palabra, los contenidos de la ROM de instrucciones a la memoria de la CPU, a partir de un punto de entrada recibido como parámetro.
+
+Por último, el módulo \textit{ROMLloader} cuenta con una señal de salida con la que indica al módulo superior \textit{TopModule} que la carga del programa en memoria ha finalizado, con lo que la ejecución podría dar comienzo. Mientras la carga del programa sigue en curso, el \textit{bundle} de la memoria (\textit{Memory}) permanece conectado a un bundle definido dentro de \textit{ROMLoader}, de modo que pueda hacerse el volcado del contenido de la memoria definida dentro de \textit{InstructionROM}, a la memoria que empleará más adelante el core. Cuando el cargador finaliza su trabajo, se desacopla de la memoria y esta se conecta al core ya con el programa cargado y listo para ejecutar.
+
+En la Figura 4.3 se proporciona el fragmento del código de la clase \textit{TOPModule} con el que se construye la lógica que define el comportamiento descrito en este último párrafo. Puede verse que el acoplamiento entre los \textit{bundles} del cargador y la memoria, o entre esta y el núcleo, se realiza por medio del operador ´$<>$´, con el que se realiza el conexionado de señales con el mismo nombre.
+\vspace{+0.3cm}
+\begin{figure}[h]
+\begin{lstlisting}[style=scalaStyle]{}
+when(!rom_loader.io.load_finished) {
+  rom_loader.io.bundle <> mem.io.bundle
+  cpu.io.memory_bundle.read_data := 0.U
+}.otherwise {
+  rom_loader.io.bundle.read_data := 0.U
+  cpu.io.memory_bundle <> mem.io.bundle
+}
+\end{lstlisting}
+\caption{Implementación de la clase RAMBundle}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% InstructionFetch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{InstructionFetch}
+
+En este módulo se describe el comportamiento de la fase de \textit{fetch}, donde se avanza el contador de programa en 4 unidades siempre y cuando se de alguna de las dos circunstancias siguientes:
+
+\begin{itemize}
+  \item Que el cargador no haya terminado de volcar el contenido de la ROM de instrucciones en la memoria principal de la CPU.
+  \vspace{-0.2cm}
+  \item Que el decodificador no haya determinado en el ciclo anterior que la instrucción en ese ciclo era un salto que debía tomarse.
+\end{itemize}
+
+En el primer caso el contador de programa permanecerá inmutable hasta que el cargador no comunique la finalización del proceso de volcado y, en el segundo caso, el contador de programa tomará el valor del destino del salto.
+
+Algo a notar en el código es que dentro de este módulo no se define de ningún modo la lectura de la siguiente instrucción. Esto es así porque las operaciones sobre la memoria son llevadas a cabo por la lógica del módulo \textit{Memory}, que cuenta con una instancia definida de manera interna en el módulo \textit{TopModule}.
+
+\subsubsection{Señales de entrada}
+
+\begin{itemize}
+  \item \textbf{\textit{jump\_flag\_id}}: es un bit que indica si el valor del program counter deberá ser igual al valor actual más cuatro unidades o, por el contrario, la dirección de destino de un salto que debe ser tomado.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{jump\_address\_id}}: una señal de 32 bits por donde se recibe la dirección de destino calculada en la ejecución de las instrucciones de salto.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{instruction\_read\_data}}:
 \end{itemize}
