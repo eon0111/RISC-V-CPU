@@ -17,6 +17,13 @@ Se proporciona a continuación, en la Figura 4.1, un diagrama con el que se espe
 \vspace{+0.1cm}
 A continuación se indicarán los módulos que conforman el diseño de partida junto con una descripción tanto de la funcionalidad que modelan, como de las señales de entrada y salida que reciben y generan respectivamente. Además, cabe indicar que los ficheros de código fuente donde se encuentra definido cada módulo siguen la siguiente nomenclatura: \textit{«NombreModulo».scala}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TopModule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{TopModule}
+
+\textit{TopModule} es el módulo en el que se describe el conexionado de los grandes bloques que conforman el computador, es decir, el núcleo, la memoria, el cargador y la ROM de instrucciones, cuyo funcionamiento interno e interoperabilidad serán descritos en los subapartados siguientes a este.
+
+El módulo cuenta con una interfaz de entrada-salida cuyos puertos permiten observar el estado del banco de registros y de la memoria en cualquier momento, lo cual resulta de gran utilidad cuando se necesita depurar la ejecución de programas complejos que puedan sacar a la luz defectos en el diseño del pipeline, los cuales no hubieran podido ser detectados por medio de los tests convencionales que prueban el comportamiento individual de cada uno de los componentes que conforman el diseño global.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Memory %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Memory}
 
@@ -86,20 +93,45 @@ when(!rom_loader.io.load_finished) {
 \caption{Implementación de la clase RAMBundle}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CPU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{CPU}
+
+Este módulo constituye uno de los grandes bloques que conforma el computador, el núcleo, y en su interior se describe el conexionado entre los distintos bloques que modelan cada una de las etapas del pipeline, cuyo funcionamiento se describirá en los subapartados siguientes a este.
+
+Además de este conexionado, se define una interfaz de entrada-salida con los siguientes puertos:
+
+\subsubsection{Puertos de entrada}
+\begin{itemize}
+  \item \textbf{\textit{instruction}}: la instrucción leída de la memoria, en la dirección que genera el módulo \textit{InstructionFetch}.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{instruction\_valid}}: una señal que controla el flujo de ejecución de nuevas instrucciones, en tanto que puede detener su lectura, paralizando el pipeline. Esta entrada se conecta al puerto de salida \textit{load\_finished} del cargador, con el que se indica que la carga de instrucciones en la memoria principal del computador ha finalizado, puediendo dar comienzo a la ejecución del programa.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{debug\_read\_address}}: un bus de 5 bits por el cual puede indicarse el índice de un registro cuyo valor quiera conocerse. Esta dirección es recibida por medio de su correspondiente puerto de depuración en el módulo superior (\textit{TopModule}).
+\end{itemize}
+
+\subsubsection{Puertos de salida}
+\begin{itemize}
+  \item \textbf{\textit{debug\_read\_data}}: el puerto de depuración donde el núcleo deposita el contenido del registro solicitado.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{instruction\_address}}: la dirección de la siguiente instrucción generada en el \textit{fetch}.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{device\_select}}: el computador puede tener conectados hasta 8 dispositivos mapeados en memoria, cada uno de los cuales se identifica por medio de una etiqueta de 3 bits ($\log_2 8 = 3 bits$), y es este el puerto por medio del cual se indica el dispositivo con cuyo espacio de memoria se quiere interactuar. En la práctica este puerto carece de utilidad, puesto que el único dispositivo con cuya memoria puede trabajarse desde el núcleo es la propia memoria principal. No obstante, queda claro que este mecanismo resultaría muy conveniente si se quisiera dotar al computador de comunicación de entrada-salida con una mayor variedad de dispositivos.
+\end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% InstructionFetch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{InstructionFetch}
 
 En este módulo se describe el comportamiento de la fase de \textit{fetch}, donde se avanza el contador de programa en 4 unidades siempre y cuando se de alguna de las dos circunstancias siguientes:
 
 \begin{itemize}
-  \item Que el cargador no haya terminado de volcar el contenido de la ROM de instrucciones en la memoria principal de la CPU.
+  \item Que el cargador haya terminado de volcar el contenido de la ROM de instrucciones en la memoria principal de la CPU.
   \vspace{-0.2cm}
   \item Que el decodificador no haya determinado en el ciclo anterior que la instrucción en ese ciclo era un salto que debía tomarse.
 \end{itemize}
 
 En el primer caso el contador de programa permanecerá inmutable hasta que el cargador no comunique la finalización del proceso de volcado y, en el segundo caso, el contador de programa tomará el valor del destino del salto.
 
-Algo a notar en el código es que dentro de este módulo no se define de ningún modo la lectura de la siguiente instrucción. Esto es así porque las operaciones sobre la memoria son llevadas a cabo por la lógica del módulo \textit{Memory}, que cuenta con una instancia definida de manera interna en el módulo \textit{TopModule}.
+Algo a notar en el código es que dentro de este módulo no se define de ningún modo la lectura de la siguiente instrucción. Esto es así porque las operaciones sobre la memoria son llevadas a cabo por la lógica del módulo \textit{Memory}, que recibe, desde 
 
 \subsubsection{Señales de entrada}
 
