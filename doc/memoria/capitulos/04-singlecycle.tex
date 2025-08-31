@@ -31,7 +31,7 @@ Tal y como se indicaba al comienzo de este capítulo sobre la arquitectura inter
 
 Sobre el código del módulo \textit{Memory}, en él se define la clase \textit{Memory} con la que se construyen tanto la memoria unificada del computador, como la interfaz a la que se conecta el módulo \textit{CPU} para habilitar la comunicación entre la memoria y los módulos que compomen el núcleo, más concretamente, \textit{InstructionFetch} y \textit{MemoryAccess}, que emplean los puertos definidos en la interfaz de la memoria para leer de manera independiente, y en paralelo, los datos e instrucciones que en ella se encuentran alojados.
 
-A continuación se detallará el propósito de los puertos de entrada-salida del módulo. No obstante, dentro de la entrada-salida se define también un \textit{bundle} como una instancia de la clase \textit{RAMBundle}, definida dentro del mismo fichero donde se especifica la clase \textit{Memory}. Al instanciar esta clase se crea un \textit{Bundle} de Chisel, es decir, una agrupación de señales de entrada-salida, en este caso relacionadas con la interacción con la memoria.
+A continuación se detallará el propósito de los puertos de entrada-salida del módulo. No obstante, dentro de la entrada-salida se define también un \textit{bundle} como una instancia de la clase \textit{RAMBundle}, definida dentro del mismo fichero donde se especifica la clase \textit{Memory}. Al instanciar esta clase se crea un \textit{Bundle} de Chisel, es decir, una agrupación de señales de entrada-salida, en este caso, relacionadas con la interacción con la memoria.
 
 \subsubsection{Señales de entrada}
 
@@ -46,7 +46,7 @@ A continuación se detallará el propósito de los puertos de entrada-salida del
   \vspace{-0.2cm}
   \item \textbf{\textit{write\_enable@bundle}}: una señal con la que habilitar o deshabilitar la escritura en memoria
   \vspace{-0.2cm}
-  \item \textbf{\textit{write\_strobe@bundle}}: tal y como puede verse en la Figura 4.2, donde se muestra el código con el que se implementa la clase RAMBundle, el tipo de dato del puerto de entrada \textit{write\_strobe} es un vector. Cada elemento de este vector es un booleano que indica si la sección n-ésima de la palabra a escribir en memoria, donde $0 \le n < Parameters.DataWidth$, con $Parameters.DataWidth = 4$, deberá o no serlo. Por ejemplo, en las instrucciones de escritura de bytes individuales, el vector con el que se define el `strobe` deberá tener la siguiente forma para indicar que deberá escribirse el último de los 4 bytes que conforman el dato: \{0001\}.
+  \item \textbf{\textit{write\_strobe@bundle}}: tal y como puede verse en la Figura 4.2, donde se muestra el código con el que se implementa la clase RAMBundle, el tipo de dato del puerto de entrada \textit{write\_strobe} es un vector. Cada elemento de este vector es un booleano que indica si la sección n-ésima de la palabra a escribir en memoria, donde $0 \le n < Parameters.DataWidth$, con $Parameters.DataWidth = 4$, deberá o no serlo. Por ejemplo, en las instrucciones de escritura de bytes individuales, el vector con el que se define el `strobe' deberá tener la siguiente forma para indicar que deberá escribirse el último de los 4 bytes que conforman el dato: \{0001\}.
 \end{itemize}
 
 \subsubsection{Señales de salida}
@@ -59,7 +59,9 @@ A continuación se detallará el propósito de los puertos de entrada-salida del
 \end{itemize}
 
 \begin{figure}[h]
-\begin{lstlisting}[style=scalaStyle]{}
+  \centering
+  \begin{minipage}{0.9\linewidth}
+    \begin{lstlisting}[style=scalaStyle]{}
 class RAMBundle extends Bundle {
   val address       = Input(UInt(Parameters.AddrWidth))
   val write_data    = Input(UInt(Parameters.DataWidth))
@@ -67,8 +69,9 @@ class RAMBundle extends Bundle {
   val write_strobe  = Input(Vec(Parameters.WordSize, Bool()))
   val read_data     = Output(UInt(Parameters.DataWidth))
 }
-\end{lstlisting}
-\caption{Implementación de la clase RAMBundle}
+    \end{lstlisting}
+    \caption{Implementación de la clase RAMBundle}
+  \end{minipage}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% InstructionROM y ROMLoader %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,9 +82,12 @@ Puede verse en el diagrama de la Figura 4.1 que el computador lo componen, adem�
 Por último, el módulo \textit{ROMLloader} cuenta con una señal de salida con la que indica al módulo superior \textit{TopModule} que la carga del programa en memoria ha finalizado, con lo que la ejecución podría dar comienzo. Mientras la carga del programa sigue en curso, el \textit{bundle} de la memoria (\textit{Memory}) permanece conectado a un bundle definido dentro de \textit{ROMLoader}, de modo que pueda hacerse el volcado del contenido de la memoria definida dentro de \textit{InstructionROM}, a la memoria que empleará más adelante el core. Cuando el cargador finaliza su trabajo, se desacopla de la memoria y esta se conecta al core ya con el programa cargado y listo para ejecutar.
 
 En la Figura 4.3 se proporciona el fragmento del código de la clase \textit{TOPModule} con el que se construye la lógica que define el comportamiento descrito en este último párrafo. Puede verse que el acoplamiento entre los \textit{bundles} del cargador y la memoria, o entre esta y el núcleo, se realiza por medio del operador ´$<>$´, con el que se realiza el conexionado de señales con el mismo nombre.
+
 \vspace{+0.3cm}
 \begin{figure}[h]
-\begin{lstlisting}[style=scalaStyle]{}
+  \centering
+  \begin{minipage}{0.9\linewidth}
+    \begin{lstlisting}[style=scalaStyle]{}
 when(!rom_loader.io.load_finished) {
   rom_loader.io.bundle <> mem.io.bundle
   cpu.io.memory_bundle.read_data := 0.U
@@ -89,8 +95,9 @@ when(!rom_loader.io.load_finished) {
   rom_loader.io.bundle.read_data := 0.U
   cpu.io.memory_bundle <> mem.io.bundle
 }
-\end{lstlisting}
-\caption{Implementación de la clase RAMBundle}
+    \end{lstlisting}
+    \caption{Implementación de la clase RAMBundle}
+  \end{minipage}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CPU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -129,16 +136,60 @@ En este módulo se describe el comportamiento de la fase de \textit{fetch}, dond
   \item Que el decodificador no haya determinado en el ciclo anterior que la instrucción en ese ciclo era un salto que debía tomarse.
 \end{itemize}
 
-En el primer caso el contador de programa permanecerá inmutable hasta que el cargador no comunique la finalización del proceso de volcado y, en el segundo caso, el contador de programa tomará el valor del destino del salto.
-
-Algo a notar en el código es que dentro de este módulo no se define de ningún modo la lectura de la siguiente instrucción. Esto es así porque las operaciones sobre la memoria son llevadas a cabo por la lógica del módulo \textit{Memory}, que recibe, desde 
+En el primer caso el contador de programa permanecerá inmutable hasta el momento en que el cargador comunique la finalización del proceso de volcado y, en el segundo caso, el contador de programa tomará el valor del destino del salto.
 
 \subsubsection{Señales de entrada}
 
 \begin{itemize}
-  \item \textbf{\textit{jump\_flag\_id}}: es un bit que indica si el valor del program counter deberá ser igual al valor actual más cuatro unidades o, por el contrario, la dirección de destino de un salto que debe ser tomado.
+  \item \textbf{\textit{jump\_flag\_id}}: es un bit que indica si el valor del contador de programa deberá ser igual al valor actual más cuatro unidades o, por el contrario, la dirección de destino de un salto que debe ser tomado.
   \vspace{-0.2cm}
   \item \textbf{\textit{jump\_address\_id}}: una señal de 32 bits por donde se recibe la dirección de destino calculada en la ejecución de las instrucciones de salto.
   \vspace{-0.2cm}
-  \item \textbf{\textit{instruction\_read\_data}}:
+  \item \textbf{\textit{instruction\_read\_data}}: la instrucción leída de la memoria en la posición del contador de memoria.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{instruction\_valid}}: la señal con la que el cargador indica que su trabajo ha finalizado.
 \end{itemize}
+
+\subsubsection{Señales de salida}
+
+\begin{itemize}
+  \item \textbf{\textit{instruction\_address}}: la dirección de la instrucción a leer de la memoria en el siguiente ciclo.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{instruction}}: la instrucción leída de la memoria en el ciclo actual. Se hace un \textit{passthrough}, es decir, una asignación directa, entre este puerto y el puerto \textit{instruction\_read\_data}.
+\end{itemize}
+
+Originalmente el código de este módulo se encontraba incompleto, puesto que carecía de la implementación de la lógica que establece el siguiente valor del contador de programa, es decir, el destino de un salto o la dirección de la siguiente instrucción en el programa. Esta lógica, mostrada en el código de la Figura X, consiste en un multiplexor cuyo selector se conecta a la señal \textit{jump\_flag\_id}, y cuyas dos entradas son, por un lado, el destino de un salto recibido por el puerto \textit{jump\_address\_id} y, por otro lado, el valor del contador de programa más cuatro unidades (recordemos que se trata de una arquitectura de 32 bits).
+
+\vspace{+0.3cm}
+\begin{figure}[h]
+  \centering
+  \begin{minipage}{0.9\linewidth}
+    \begin{lstlisting}[style=scalaStyle]{}
+pc := Mux(io.jump_flag_id, io.jump_address_id, pc + 4.U)
+    \end{lstlisting}
+    \caption{Conexionado del contador de programa a la salida del multiplexor que determina su valor a cada ciclo en función de los saltos que se producen en el flujo de ejecución de los programas cargados en el computador}
+  \end{minipage}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% InstructionDecode %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{InstructionDecode}
+
+Como su nombre indica, esta es la clase que modela la lógica encargada de realizar la decodificación de las instrucciones recibidas desde el módulo de \textit{fetch} para elaborar el conjunto de señales que componen la palabra de control, por medio de las cuales se gobernará el comportamiento del resto de unidades funcionales en el pipeline, de modo que estas actúen conforme al significado de las instrucciones decodificadas.
+
+Se trata quizás del módulo con mayor complejidad de entre todos de los que se compone el pipeline, y esto se debe al elevado número de casuísticas que deben contemplarse en la generación de la palabra de control, que son el resultado directo de la variabilidad en cuanto a formatos de instrucciones dentro del ISA, así como de la variabilidad en el conjunto de valores posibles que pueden tomar los campos definidos en estos formatos.
+
+\subsubsection{Señales de entrada}
+
+\begin{itemize}
+  \item \textbf{\textit{instruction}}: la instrucción leída en la fase de \textit{fetch}.
+\end{itemize}
+
+\subsubsection{Señales de salida}
+
+\begin{itemize}
+  \item \textbf{\textit{regs\_reg\{1,2\}\_read\_address}}: las direcciones de los registros cuyos valores se emplearán en el cómputo de los resultados de instrucciones aritmético-lógicas, o en la determinación del cumplimiento de la condición de salto en las instrucciones de salto condicional.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{ex\_immediate}}: ...
+\end{itemize}
+
+...TO-DO...
