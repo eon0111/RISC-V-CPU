@@ -34,8 +34,25 @@ Por último, la especificación indica el formato de otro tipo de instrucciones 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONJUNTO RV32I %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{El conjunto de instrucciones base RV32I}
 
+En el manual de la arquitectura se indica que en el conjunto RV32I las instrucciones deben poder direccionar a 32 registros de propósito general. No obstante, tan solo se restringe el uso del registro `x0' para albergar una constante de valor 0, quedando recogido el uso del resto de registros en la ABI\footnote{\textit{Application Binary Interface}: una especificación de la forma en que los programas deben ser llamados a nivel de lenguaje máquina (paso de parámetros, retorno de resultados, etc.), así como la forma en que deben construirse y enlazarse los ejecutables que los albergan} de RISC-V \cite{riscv-abi}.
 
+En lo que respecta al formato de las instrucciones, existen cuatro formatos base \cite{riscv-unpriv-isa-20250508-unpriv-isa-base-instr-formats}:
 
+\begin{itemize}
+  \item \textbf{R}: operaciones aritmético-lógicas en las que los dos operandos son registros. 
+  \vspace{-0.2cm}
+  \item \textbf{I}: operaciones aritmético-lógicas en las que uno de los operandos es un inmediato codificado en la propia instrucción. Este formato es el empleado, además, en la codificación de la instrucción de lectura de memoria `lw' y sus derivados.
+  \vspace{-0.2cm}
+  \item \textbf{S}: instrucción de escritura en memoria `sw' y sus derivados.
+  \vspace{-0.2cm}
+  \item \textbf{U}: TODO
+  \vspace{-0.2cm}
+\end{itemize}
 
+A demás, de los formatos S y U se derivan, respectivamente, los siguientes formatos \cite{riscv-unpriv-isa-20250508-unpriv-isa-b-j-formats}:
 
-% Aquí se menciona a los creadores del estándar -> https://www.sifive.com/about/risc-v-history
+\begin{itemize}
+  \item \textbf{B}: saltos condicionales. La diferencia entre este formato y el formato S reside en que 
+  \vspace{-0.2cm}
+  \item \textbf{J}: saltos incondicionales.
+\end{itemize}
