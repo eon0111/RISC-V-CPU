@@ -39,20 +39,27 @@ En el manual de la arquitectura se indica que en el conjunto RV32I las instrucci
 En lo que respecta al formato de las instrucciones, existen cuatro formatos base \cite{riscv-unpriv-isa-20250508-unpriv-isa-base-instr-formats}:
 
 \begin{itemize}
-  \item \textbf{R}: operaciones aritmético-lógicas en las que los dos operandos son registros. 
+  \item \textbf{R}: operaciones aritmético-lógicas en las que los dos operandos son registros.
   \vspace{-0.2cm}
   \item \textbf{I}: operaciones aritmético-lógicas en las que uno de los operandos es un inmediato codificado en la propia instrucción. Este formato es el empleado, además, en la codificación de la instrucción de lectura de memoria `lw' y sus derivados.
   \vspace{-0.2cm}
   \item \textbf{S}: instrucción de escritura en memoria `sw' y sus derivados.
   \vspace{-0.2cm}
-  \item \textbf{U}: TODO
-  \vspace{-0.2cm}
+  \item \textbf{U}: TODO:
 \end{itemize}
 
-A demás, de los formatos S y U se derivan, respectivamente, los siguientes formatos \cite{riscv-unpriv-isa-20250508-unpriv-isa-b-j-formats}:
+A demás, de los formatos S y U se derivan, respectivamente, los siguientes formatos\cite{riscv-unpriv-isa-20250508-unpriv-isa-b-j-formats}:
 
 \begin{itemize}
-  \item \textbf{B}: saltos condicionales. La diferencia entre este formato y el formato S reside en que 
+  \item \textbf{B}: saltos condicionales. La diferencia entre este formato y el formato S reside en la manera de interpretar los campos con que se construye el inmediato. En las instrucciones de escritura en memoria, la dirección efectiva de acceso se forma concatenando las dos secciones del inmediato (la más significativa y la menos significativa) dentro de la instrucción, extendiendo el signo del resultado a 32 bits, y sumándolo al contenido del registro \textit{rs1}. Por otro lado, en la decodificación de las instrucciones de salto condicional, el offset respecto del contador de programa se construye de una manera menos intuitiva, tal y como puede verse en la Figura 2.1. Esto se debe a que, en aras de favorecer la reutilización de la lógica de decodificación del inmediato del formato S, se decidió construir el formato B  de forma que hubiera tanta superposición como fuera posible con el S. En resumidas cuentas, se sacrificó en cierto modo la legibilidad del inmediato dentro del formato, favoreciendo la eficiencia en la implementación.
+  
+\vspace{+0.3cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.95 \linewidth]{res/img/formato-b.png}
+  \caption{Descripción del formato que deben seguir las instrucciones del tipo B}
+\end{figure}
+
   \vspace{-0.2cm}
-  \item \textbf{J}: saltos incondicionales.
+  \item \textbf{J}: saltos incondicionales. TODO: comentar diferencias con formato U
 \end{itemize}
