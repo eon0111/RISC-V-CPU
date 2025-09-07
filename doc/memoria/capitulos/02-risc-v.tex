@@ -1,9 +1,9 @@
 \chapter{RISC-V}
 
-RISC son las siglas de `Reduced Instruction Set Computer', es decir, un computador con un conjunto de instrucciones reducido. Este concepto surgió en la década de 1970 a raíz de la necesidad de IBM por desarrollar un computador sencillo, pero capaz de ejecutar 12 millones de instrucciones por segundo, de modo que pudiera ser integrado en un sistema de enrutamiento de llamadas telefónicas \cite{cocke1990evolution}.
-Hasta la fecha los computadores incorporaban arquitecturas CISC\footnote{Siglas de `Complex Instruction Set Computer'} con las que eran capaces de llevar a cabo procesos complejos por medio de la ejecución de instrucciones igualmente complejas. Con frecuencia, esas instrucciones debían ser interpretadas a nivel arquitectural y traducidas a un microcódigo con el que se ejecutaban las operaciones necesarias para obtener los resultados esperados. No obstante, este enfoque requería  contar, en primer lugar, con un intérprete de bajo nivel que tradujera las instrucciones en sus correspondientes microcódigos, además de una memoria dedicada en la que alojarlos.
+RISC son las siglas de `Reduced Instruction Set Computer', es decir, un computador con un conjunto de instrucciones reducido. Una de las primeras menciones de este concepto la encontramos en la década de 1970. En aquel entonces, en IBM, tenían la necesidad de desarrollar un computador sencillo, pero capaz de ejecutar 12 millones de instrucciones por segundo, de modo que pudiera ser integrado en un sistema de enrutamiento de llamadas telefónicas \cite{cocke1990evolution}.
+Hasta la fecha los computadores incorporaban arquitecturas CISC\footnote{`Complex Instruction Set Computer', un computador con un conjunto de instrucciones complejo} con las que eran capaces de llevar a cabo procesos complejos por medio de la ejecución de instrucciones igualmente complejas. Con frecuencia, esas instrucciones debían ser interpretadas a nivel arquitectural y traducidas a un microcódigo con el que se ejecutaban las operaciones necesarias para obtener los resultados esperados. No obstante, este enfoque requería  contar, en primer lugar, con un intérprete de bajo nivel que tradujera las instrucciones en sus correspondientes microcódigos, además de una memoria dedicada en la que alojarlos.
 
-Las arquitecturas RISC surgen como respuesta a la tendencia de los conjuntos de instrucciones a ganar complejidad con el tiempo, a pesar de que algunos estudios \cite{tanenbaum1978implications} apuntaban que la mayoría de los programas desarrollados por aquel entonces tan solo empleaban un subconjunto de las instrucciones disponibles. En estos estudios se proponía la creación de arquitecturas más sencillas, baratas de producir y eficientes, las cuales, aún siéndolo, fueran capaces de ejecutar programas complejos de igual modo que lo hacían las arquitecturas CISC\footnote{`Complex Instruction Set Computer', un computador con un conjunto de instrucciones complejo}.
+Las arquitecturas RISC surgen como respuesta a la tendencia de los conjuntos de instrucciones a ganar complejidad con el tiempo, a pesar de que algunos estudios \cite{tanenbaum1978implications} apuntaban que la mayoría de los programas desarrollados por aquel entonces tan solo empleaban un subconjunto de las instrucciones disponibles. En estos estudios se proponía la creación de arquitecturas más sencillas, baratas de producir y eficientes, las cuales, aún siéndolo, fueran capaces de ejecutar programas complejos de igual modo que lo hacían las arquitecturas CISC.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HISTORIA DE RISC-V %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Historia de RISC-V}
@@ -48,11 +48,12 @@ En lo que respecta al formato de las instrucciones, existen cuatro formatos base
   \item \textbf{U}: es el formato empleado en la codificación de las instrucciones \textit{lui} y \textit{auipc}.
 \end{itemize}
 
+% Formatos derivados ---------------------------------------------------------------- %
 \subsection{Formatos derivados}
 
 \subsubsection{Formato B}
 
-El formato B es una variación del S y se emplea en la codificación de las instrucciones de salto condicional. La la diferencia entre este formato y el formato S reside en la manera de interpretar los campos con que se construye el inmediato.
+El formato B es una variación del S y se emplea en la codificación de las instrucciones de salto condicional. La diferencia entre este formato y el formato S reside en la manera de interpretar los campos con que se construye el inmediato.
 
 En las instrucciones de escritura en memoria, la dirección efectiva de acceso se forma concatenando las dos secciones del inmediato (la más significativa y la menos significativa) dentro de la instrucción, extendiendo el signo del resultado a 32 bits, y sumándolo al contenido del registro \textit{rs1}. Por otro lado, en la decodificación de las instrucciones de salto condicional, el offset respecto del contador de programa se construye de una manera menos intuitiva, tal y como puede verse en la Figura 2.1.
 
@@ -67,7 +68,7 @@ El offset siempre va a ser un múltiplo de 2, por lo que el último dígito bina
 
 \subsubsection{Formato J}
 
-El formato J debe emplearse en la codificación de las instrucciones de salto incondicional. Se trata de una variación del tipo U, que sigue la lógica del formato B en cuanto a la construcción del inmediato, tal y como puede observarse en la Figura TODO:: el offset se encuentra codificado en múltiplos de 2 por lo que el último bit va a ser siempre 0, con lo que puede codificarse dentro de la instrucción los 19 bits más significativos inmediatamente posteriores a ese último dígito binario.
+El formato J debe emplearse en la codificación de las instrucciones de salto incondicional. Se trata de una variación del tipo U, que sigue la lógica del formato B en cuanto a la construcción del inmediato, tal y como puede observarse en la Figura 2.2 el offset se encuentra codificado en múltiplos de 2 por lo que el último bit va a ser siempre 0, con lo que puede codificarse dentro de la instrucción los 19 bits más significativos inmediatamente posteriores a ese último dígito binario.
 
 \vspace{+0.3cm}
 \begin{figure}[h]
@@ -75,3 +76,25 @@ El formato J debe emplearse en la codificación de las instrucciones de salto in
   \includegraphics[width=0.95 \linewidth]{res/img/formato-j.png}
   \caption{Esquema con el formato que deben seguir las instrucciones del tipo J}
 \end{figure}
+
+% Extensiones ----------------------------------------------------------------------- %
+\subsection{Extensiones}
+
+La arquitectura de la que parte el proyecto no implementaba ninguna extensión, y el alcance del proyecto tan solo abarcaba la segmentación del pipeline. No obstante, en este capítulo dedicado al ISA RISC-V cabe mencionar algunas de las principales extensiones que se contemplan en la especificación.
+
+\subsubsection{Extensión `M'}
+
+Para simplificar la implementación del conjunto de instrucciones base se decidió incorporar las instrucciones de multiplicación y división de enteros a su propia extensión en la que se definen, de manera separada, el formato de las instrucciones de multiplicación (MUL, MULHU y MULHSU\footnote{Las instrucciones MULHU y MULHSU retornan los \textit{XLEN} bits más significativos en resultados cuya representación requiera de, a lo sumo, \(2 * XLEN\) bits}) y el de las instrucciones de división (DIV\footnote{Cociente con signo}, DIVU\footnote{Cociente sin signo} y REM(U)\footnote{Resto de los cocientes con y sin signo}).
+
+\subsubsection{Extensión `Zicsr'}
+
+La especificación del conjunto de instrucciones base no contempla la presencia de un registro de estado y control o `CSR'\footnote{Control-Status Register}. No obstante a ello, en la especificación del ISA no privilegiado sí se definen un conjunto de operaciones que son consideradas de utilidad en sistemas que gestionen múltiples \textit{harts}. Estas operaciones incluyen el manejo de contadores y temporizadores, así como la notificación del estado de las operaciones de punto flotante \cite{riscv-unpriv-isa-20250508-zicsr}.
+
+\subsubsection{Extensión `F'}
+
+La extensión `F' recoge las operaciones de punto flotante en precisión simple, y define sus formatos y comportamiento, así como la presencia de un conjunto de 32 registros dedicados, además de un registro de estado propio (\textit{fcsr}) y la disposición de sus campos.
+
+\subsubsection{Extensión `Zifencei'}
+
+En esta extensión se detallan el formato y comportamiento de la instrucción \textit{FENCE.I}, empleada en la sincronización entre escrituras sobre la memoria de instrucciones, y las lecturas sobre esa misma memoria \cite{riscv-unpriv-isa-20250508-zifencei}.
+Esta instrucción toma especial relevancia en contextos donde el código de un \textit{hart} que ejecuta en un sistema con arquitectura Harvard\footnote{Arquitecturas donde la memoria se encuentra dividida, proporcionando buses dedicados e independientes para acceder a la memoria de datos y a la de instrucciones}, puede hacer que se sobreescriba a sí mismo. Tras una escritura en un área de la memoria correspondiente al código del programa, este podría invocar la instrucción \textit{FENCE.I} para garantizar la coherencia en la memoria de instrucciones con respecto a la de datos, que es donde realiza la escritura. La primera, en el momento de ejecutar la instrucción escrita previamente, podría leer en la dirección de la instrucción un dato inconsistente, en función de si alguna lectura de instrucciones anteriores hubiera forzado o no la actualización de esa posición en la memoria.

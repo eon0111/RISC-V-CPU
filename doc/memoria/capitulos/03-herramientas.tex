@@ -8,18 +8,23 @@ Chisel es un lenguaje de descripción de hardware de alto nivel gestado en el a�
 
 El hecho de que se trate de un HDL de alto nivel tiene un impacto directo y positivo sobre la celeridad en los procesos de desarrollo y prueba del hardware, permitiendo elaborar y probar diseños de una manera ágil sin perder las características de eficiencia y robustez que proporcionan lenguajes de más bajo nivel.
 
-Es un lenguaje de propósito específico construido sobre Scala, un lenguaje de propósito general orientado a objetos, siendo esta la principal propiedad que permite a Chisel mostrar al usuario una interfaz de diseño de hardware de tan alto nivel y, por ende, amigable tanto para el desarrollador novel como para usuarios más avanzados, y es que resulta muy práctico el poder modelar un circuito lógico como un conjunto de clases relacionadas entre sí, cada una de ellas definiendo su funcionamiento interno particular, y constituyendo esas relaciones, conexiones entre los diferentes módulos de los que se componga el diseño global.
+Es un lenguaje de propósito específico construido sobre Scala, un lenguaje de propósito general orientado a objetos, siendo esta la principal propiedad que permite a Chisel mostrar al usuario una interfaz de diseño de hardware de tan alto nivel y, por ende, amigable tanto para el desarrollador novel como para usuarios más avanzados, y es que resulta muy práctico el poder modelar un circuito lógico como un conjunto de clases relacionadas entre sí. Cada una de esas clases define el funcionamiento interno particular de un componente determinado y, las relaciones entre las clases de las que se compone el diseño global, constituyen las conexiones físicas entre los diferentes módulos de los que este se compone.
 
 \subsection{Desarrollo en Chisel}
 
 La unidad fundamental de diseño de hardware en Chisel son los módulos, que encapsulan la disposición interna y el comportamiento de un circuito lógico. Esta disposición interna pueden componerla otros módulos, cables internos o cables de entrada/salida, cuyos valores serán empleados en la evaluación de las expresiones lógicas que definan el comportamiento del módulo, y que pueden describirse por medio de operadores aritmético-lógicos convencionales, o bien, por medio de los tipos de datos y componentes definidos en las librerías de Chisel, tales como multiplexores, decodificadores o incluso memorias.
 
-A continuación, en la Figura 3.1, se proporciona un código sencillo con el que se describe un multiplexor de 4 entradas de 32 bits cada una. Nótese que los módulos se definen como clases que extienden la clase \textit{Module}, lo cual hace mandatorio que se cuente con, al menos, una interfaz encapsulada en el método \textit{IO}, por medio del cual se definirá esa interfaz como un elemento de entrada/salida. En el caso del código mostrado en la Figura 3.1 las interfaces de entrada/salida se encuentran definidas en las líneas 7 a 14 como parte de una instancia de la clase \textit{Budle}, que es un constructo que permite en Chisel crear nuevos tipos de datos al estilo de los \textit{struct} en el lenguaje C.
+A continuación, en la Figura 3.1, se proporciona un código sencillo con el que se describe un multiplexor de 4 entradas de 32 bits cada una. Nótese que los módulos se definen como clases que extienden la clase \textit{Module}, lo cual obliga a contar con, al menos, una interfaz encapsulada en el método \textit{IO}, por medio del cual se definirá esa interfaz como un elemento de entrada/salida. En el caso del código mostrado en la Figura 3.1 las interfaces de entrada/salida se encuentran definidas en las líneas 7 a 14 como parte de una instancia de la clase \textit{Budle}, que es un constructo que permite en Chisel crear nuevos tipos de datos al estilo de los \textit{struct} en el lenguaje C.
 
-\begin{figure}
-\begin{lstlisting}[style=scalaStyle]{}
+\vspace{+0.3cm}
+\begin{figure}[H]
+\centering
+
+% Recuadro con el código
+\begin{minipage}[c]{0.48\textwidth}
+\vspace{0pt}
+\begin{lstlisting}[style=scalaStyle]
 package mux4
-
 import chisel3._
 import chisel3.util._
 
@@ -43,33 +48,42 @@ class Mux4 extends Module {
     ))
 }
 \end{lstlisting}
-\caption{Definición de un multiplexor sencillo en Chisel}
+\end{minipage}
+\hfill
+% Imagen centrada verticalmente respecto al código
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\raisebox{0.12\height}{\includegraphics[width=0.8\linewidth]{res/img/diagramas/cap03mux4/mux4.png}}
+\end{minipage}
+
+\caption{Código y diagrama del multiplexor de 4 entradas en Chisel}
 \end{figure}
 
 \subsection{Pruebas en Chisel}
 
 Como se comentaba al comienzo de esta sección sobre Chisel, una de sus características más reseñables es la agilidad con la que puede probarse el comportamiento de los módulos, y ello es gracias a los tests, los cuales son definiciones de clases que implementan uno de los \textit{traits} de Chisel en los que se definen a su vez los procedimientos que permiten evaluar el funcionamiento de los módulos. Estos \textit{traits} son interfaces que definen una serie funciones básicas con las que comprobar y alterar el estado de las señales dentro de los módulos.
 
-Estas interfaces han ido cambiando conforme evolucionaba el propio HDL y, a pesar de no ser la forma de prueba mantenida en las últimas versiones de Chisel, que sería \textit{ChiselSim}, se ha decidido utilizar \textit{ChiselScalatestTester} como interfaz de pruebas, puesto que desde el punto de vista de la implementación no se encuentran grandes diferencias entre ellas, además de que es la forma de prueba utilizada en el proyecto base.
+Se ha decidido utilizar \textit{ChiselScalatestTester} como interfaz de pruebas en lugar de la más reciente \textit{ChiselSim}, principalmente, porque \textit{ChiselScalatestTester} es la forma de prueba utilizada en el proyecto base, además de que, desde el punto de vista de la implementación, no se encuentran grandes diferencias entre ellas.
 
 Las interfaces de prueba de Chisel definen cuatro funciones básicas con las que evaluar el comportamiento de un módulo: \textit{peek}, \textit{poke},  \textit{expect} y \textit{step}. Estas funciones se invocan sobre las diferentes señales de las cuales se componga el módulo y permiten realizar las siguientes acciones:
 
+\vspace{-0.1cm}
 \begin{itemize}
   \item \textbf{\textit{peek}}: lectura del valor de una señal en el instante de invocación de la función.
-  \vspace{-0.2cm}
+  \vspace{-0.3cm}
   \item \textbf{\textit{poke}}: cambio en el valor de la señal.
-  \vspace{-0.2cm}
+  \vspace{-0.3cm}
   \item \textbf{\textit{expect}}: evaluación de un valor determinado en la señal, esto es, probar si el valor de la señal en el instante de invocación de la función es el esperado.
-  \vspace{-0.2cm}
+  \vspace{-0.3cm}
   \item \textbf{\textit{step}}: se invoca sobre una señal de reloj y permite avanzarlo un ciclo.
 \end{itemize}
+\vspace{-0.1cm}
 
-En la Figura 3.2 se muestra un ejemplo de test que evalúa el comportamiento del módulo definido en el código de la Figura 3.1.
+En la Figura 3.2 se muestra un ejemplo de test que evalúa el comportamiento del módulo definido en el código de la Figura 3.1. En el código del test se establece el valor de los cuatro puertos de entrada por medio del método \textit{poke} y, luego, se itera con los posibles valores de la señal de selección, comprobando, por medio del método \textit{expect}, que el valor en el puerto de salida es el esperado.
 
 \begin{figure}
 \begin{lstlisting}[style=scalaStyle]{}
 package mux4
-
 import chisel3._
 import chiseltest._
 import org.scalatest.flatspec.AnyFlatSpec
@@ -77,7 +91,7 @@ import mux4.Mux4
 
 class Mux4Test extends AnyFlatSpec with ChiselScalatestTester {
   behavior.of("Mux4")
-  it should "generate the right output given any valid selector value as input" in {
+  it should "output the right input, given any valid selector value" in {
     test(new Mux4) { c =>
       c.io.i1.poke(1.U)
       c.io.i2.poke(2.U)
@@ -92,6 +106,7 @@ class Mux4Test extends AnyFlatSpec with ChiselScalatestTester {
   }
 }
 \end{lstlisting}
+\vspace{-0.4cm}
 \caption{Implementación de un test para el multiplexor de 4 entradas}
 \end{figure}
 
@@ -99,13 +114,11 @@ class Mux4Test extends AnyFlatSpec with ChiselScalatestTester {
 
 \section{SBT}
 
-SBT es una herramienta de construcción de software semejante a Maven o Gradle, y es la más utilizada por los desarrolladores en lenguaje Scala\cite{scalaSurvey}.
-
-Su uso es por medio de una interfaz de línea de comandos, proporcionando una consola interactiva desde la que pueden realizarse todo tipo de tareas administrativas sobre los proyectos, tales como lanzar pruebas, ejecutar un programa principal, compilar ficheros de código fuente de manera individual o construir el proyecto, requirendo esto último la creación de un fichero de configuración \textit{build.sbt} dentro del directorio del proyecto.
+SBT es una herramienta de construcción de software semejante a Maven o Gradle, y es la más utilizada por los desarrolladores en lenguaje Scala\cite{scalaSurvey}.Su uso es por medio de una interfaz de línea de comandos, proporcionando una consola interactiva desde la que pueden realizarse todo tipo de tareas administrativas sobre los proyectos, tales como lanzar pruebas, ejecutar un programa principal, compilar ficheros de código fuente de manera individual o construir el proyecto, requirendo esto último la creación de un fichero de configuración \textit{build.sbt} dentro del directorio del proyecto.
 
 Escrito también en el lenguaje Scala, en él se definirán las propiedades del proyecto, como puedan ser su nombre y versión, la versión de Scala empleada en la implementación o las librerías de las que depende, siendo estas dos últimas propiedades imprescibdibles de cara al proceso de compilación.
 
-En la Figura 3.3 se proporcionan ejemplos de uso de la consola de SBT, primero, invocando el proceso de elaboración del módulo descrito en la sección 3.1 mediante el comando \textit{compile} y, acto seguido, lanzando el test desarrollado, previa elaboración de este.
+En la Figura 3.3 se proporcionan ejemplos de uso de la consola de SBT, primero, invocando el proceso de elaboración del módulo descrito en la sección 3.1 mediante el comando \textit{compile} y, acto seguido, lanzando el test desarrollado.
 
 \vspace{+0.3cm}
 \begin{figure}[h]
@@ -140,11 +153,20 @@ La herramienta permite explorar esos cambios de una manera visual por medio de u
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Artix A7 y AMD Vivado %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{FPGA Artix A7 y AMD Vivado Design Suite}
+\section{FPGA Arty A7-100T y AMD Vivado Design Suite}
 
-AMD Vivado es un software de diseño hardware para SoC\footnote{System-on-Chip: circuitos integrados que incorporan todos o la gran mayoría de los componentes que constituyen un computador} y FPGAs desarrollado y mantenido por la empresa AMD que es, además, el fabricante de la placa de desarrollo Artix A7 empleada en las pruebas llevadas a cabo como parte del proceso de verificación final de la arquitectura diseñada.
+AMD Vivado es un software de diseño hardware para SoC\footnote{System-on-Chip: circuitos integrados que incorporan todos o la gran mayoría de los componentes que constituyen un computador} y FPGAs desarrollado y mantenido por la empresa AMD que es, además, el fabricante de la placa de desarrollo Artit A7-100T empleada en las pruebas llevadas a cabo como parte del proceso de verificación final de la arquitectura diseñada.
 
-La placa alberga el FPGA AMD (anteriormente Xilinx) Artix-100T, con 101440 celdas lógicas\cite{arty}, superficie más que suficiente para albergar el núcleo segmentado.
+La placa alberga el FPGA AMD (anteriormente Xilinx) Artix7, con 101440 celdas lógicas\cite{arty}, superficie más que suficiente para albergar el núcleo segmentado. Además, tal y como puede verse en la imagen de la placa presentada en la Figura 3.5\footnote{Diligent. (2023). Arty A7 - Diligent Reference [png]. Arty A7 Reference Manual. Disponible \href{https://microbit.org/es-es/get-started/user-guide/overview/}{aquí}}, esta cuenta con numerosos elementos de entrada/salida tales como switches de pulsación (señalado como número 10 en la imagen) y lineales (número 9), diodos LED (números 7 y 8), interfaces Ethernet (3) y UART (bajo USB; número 2), así como conectores para modulos de expansión de Diligent (\textit{pmod}\footnote{\textit{Peripheral module interface}}; número 16) y shields de Arduino (11).
+
+\vspace{+0.2cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6 \linewidth]{res/img/artyA7.png}
+  \caption{Placa de desarrollo Arty A7-100T}
+\end{figure}
+
+\vspace{-0.4cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Logisim Evolution %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Logisim Evolution}

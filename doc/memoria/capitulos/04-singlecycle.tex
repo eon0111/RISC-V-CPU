@@ -103,7 +103,7 @@ when(!rom_loader.io.load_finished) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CPU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{CPU}
 
-Este módulo constituye uno de los grandes bloques que conforma el computador, el núcleo, y en su interior se describe el conexionado entre los distintos bloques que modelan cada una de las etapas del pipeline, cuyo funcionamiento se describirá en los subapartados siguientes a este.
+Este módulo constituye uno de los grandes bloques que conforma el computador, el núcleo, y en su interior se describe el conexionado entre los distintos bloques que modelan cada una de las etapas por las que pasa una instrucción cuando es leída de la memoria. El funcionamiento de estas etapas se describirá en los subapartados siguientes a este.
 
 Además de este conexionado, se define una interfaz de entrada-salida con los siguientes puertos:
 
@@ -128,7 +128,7 @@ Además de este conexionado, se define una interfaz de entrada-salida con los si
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% InstructionFetch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{InstructionFetch}
 
-En este módulo se describe el comportamiento de la fase de \textit{fetch}, donde se avanza el contador de programa en 4 unidades siempre y cuando se de alguna de las dos circunstancias siguientes:
+En este módulo se describe el comportamiento de la fase de \textit{fetch}, donde se avanza el contador de programa a la siguiente instrucción sumándole 4 unidades\footnote{Recordemos que se trata de un sistema 32 bits direccionable a byte, por lo que la siguiente instrucción se encontrará alejada 32 bits (4 bytes) respecto de la actual}, siempre y cuando se de alguna de las dos circunstancias siguientes:
 
 \begin{itemize}
   \item Que el cargador haya terminado de volcar el contenido de la ROM de instrucciones en la memoria principal de la CPU.
@@ -158,7 +158,7 @@ En el primer caso el contador de programa permanecerá inmutable hasta el moment
   \item \textbf{\textit{instruction}}: la instrucción leída de la memoria en el ciclo actual. Se hace un \textit{passthrough}, es decir, una asignación directa, entre este puerto y el puerto \textit{instruction\_read\_data}.
 \end{itemize}
 
-Originalmente el código de este módulo se encontraba incompleto, puesto que carecía de la implementación de la lógica que establece el siguiente valor del contador de programa, es decir, el destino de un salto o la dirección de la siguiente instrucción en el programa. Esta lógica, mostrada en el código de la Figura X, consiste en un multiplexor cuyo selector se conecta a la señal \textit{jump\_flag\_id}, y cuyas dos entradas son, por un lado, el destino de un salto recibido por el puerto \textit{jump\_address\_id} y, por otro lado, el valor del contador de programa más cuatro unidades (recordemos que se trata de una arquitectura de 32 bits).
+Originalmente el código de este módulo se encontraba incompleto, puesto que carecía de la implementación de la lógica que establece el siguiente valor del contador de programa, es decir, el destino de un salto o la dirección de la siguiente instrucción en el programa. Esta lógica, mostrada en el código de la Figura 4.4, consiste en un multiplexor cuyo selector se conecta a la señal \textit{jump\_flag\_id}, y cuyas dos entradas son, por un lado, el destino de un salto recibido por el puerto \textit{jump\_address\_id} y, por otro lado, el valor del contador de programa más cuatro unidades (recordemos que se trata de una arquitectura de 32 bits).
 
 \vspace{+0.3cm}
 \begin{figure}[h]

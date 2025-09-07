@@ -24,6 +24,7 @@
 \usepackage{adjustbox}
 \usepackage[justification=centering]{caption} % Para centrar los captions
 
+\usepackage{float}
 \usepackage{listings} % Para poder introducir secciones de código
 \usepackage{xcolor}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -97,11 +98,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PORTADA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subfile{capitulos/00-portada.tex}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 0.1. Agradecimientos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subfile{capitulos/00-01-agradecimientos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 0.2. Resumen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subfile{capitulos/00-02-resumen}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 0.3. Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subfile{capitulos/00-03-abstract}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ÍNDICE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\newpage
 \chapter*{Índice}
-
-TODO
+TODO:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Introducción %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
