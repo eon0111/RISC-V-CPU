@@ -211,11 +211,11 @@ class InstructionDecode extends Module {
   )
 
   // Configuración de la señal de control que habilita la escritura en el banco de registros
-  io.wb_reg_write_source := Mux(
+  /*io.wb_reg_write_source := Mux(
     opcode === InstructionTypes.L,
     true.B,
     false.B
-  )
+  )*/
 
   // lab3(InstructionDecode) end
 
