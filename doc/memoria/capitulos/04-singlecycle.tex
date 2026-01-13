@@ -189,7 +189,57 @@ Se trata quizás del módulo con mayor complejidad de entre todos de los que se 
 \begin{itemize}
   \item \textbf{\textit{regs\_reg\{1,2\}\_read\_address}}: las direcciones de los registros cuyos valores se emplearán en el cómputo de los resultados de instrucciones aritmético-lógicas, o en la determinación del cumplimiento de la condición de salto en las instrucciones de salto condicional.
   \vspace{-0.2cm}
-  \item \textbf{\textit{ex\_immediate}}: ...
+  \item \textbf{\textit{ex\_immediate}}: inmediato son signo, extendido a 32 bits.
+  \item \textbf{\textit{ex\_aluop\{1,2\}\_source}}: señales de control mediante las cuales se selecciona la procedencia de los operandos de la ALU.
+  \item \textbf{\textit{memory\_\{read,write\}\_enable}}: señales de control mediante las cuales se habilita la lectura o escritura en la memoria.
+  \item \textbf{\textit{wb\_reg\_write\_source}}: señal de control con la que se selecciona el origen del dato a escribir en el banco de registros en la fase de \textit{writeback}.
+  \item \textbf{\textit{reg\_write\_enable}}: señal de control mediante la cual se habilita la escritura en el banco de registros.
+  \item \textbf{\textit{reg\_write\_address}}: la dirección del registro en el que debe escribirse un resultado en la fase de \textit{writeback}.
 \end{itemize}
 
-...TO-DO...
+Dentro de este módulo tan solo fue preciso implementar la lógica correspondiente a la habilitación de la lectura o escritura en memoria, así como de la selección del origen del resultado a escribir en la fase de \textit{writeback}, tal y como puede verse en el código expuesto en la Figura 4.5. Esta lógica se materializa por medio de un par de multiplexores: el primero de ellos gobierna la habilitación de la lectura en memoria y, el segundo, la escritura en memoria.
+
+\begin{figure}[h]
+\begin{lstlisting}[style=scalaStyle]{}
+  io.memory_read_enable := Mux(
+    opcode === InstructionTypes.L,
+    true.B,
+    false.B
+  )
+  io.memory_write_enable := Mux(
+    opcode === InstructionTypes.S,
+    true.B,
+    false.B
+  )
+\end{lstlisting}
+\vspace{-0.4cm}
+\caption{Generación de las señales de habilitación de lectura/escritura en memoria}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% InstructionExecute %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{InstructionExecute}
+
+La clase \textit{Execute} modela el comportamiento del hardware implicado en las operaciones que se llevan a cabo en la fase de ejecución y que son, por un lado, el cómputo de resultados de operaciones aritmético-lógicas en la ALU\footnote{Arithmetic-Logic Unit: Unidad Aritmético-Lógica} y, por otro lado, la evaluación de las condiciones de salto junto con el cómputo del siguiente contador de programa en caso de resultar positivas esas evaluaciones.
+
+La ALU se construye dentro del módulo \textit{Execute} por medio de una instancia de la clase \textit{ALU}, la cual cuenta con tres puertos de entrada (operación y primer y segundo operandos), y uno de salida (resultado). Además, su comportamiento es gobernado en base a las salidas generadas por una instancia de la clase \textit{ALUControl}, por medio de cuya lógica se infiere el tipo de operación que deberá llevarse a cabo, en función de los valores que tomen los campos \textit{opcode}, \textit{funct3} y \textit{funct7} en la instrucción.
+
+\subsubsection{Señales de entrada}
+
+\begin{itemize}
+  \item \textbf{\textit{instruction}}: la instrucción completa, de la cual se extraerán los campos \textit{opcode}
+  \item \textbf{\textit{instruction\_address}}: TODO:
+  \item \textbf{\textit{reg1\_data}}: TODO:
+  \item \textbf{\textit{reg2\_data}}: TODO:
+  \item \textbf{\textit{immediate}}: TODO:
+  \item \textbf{\textit{aluop1\_source}}: TODO:
+  \item \textbf{\textit{aluop2\_source}}: TODO:
+\end{itemize}
+
+\subsubsection{Señales de salida}
+
+\begin{itemize}
+  \item \textbf{\textit{}}: TODO:
+  \item \textbf{mem\_alu\_result}: TODO:
+  \item \textbf{if\_jump\_flag}: TODO:
+  \item \textbf{if\_jump\_address}: TODO:
+\end{itemize}

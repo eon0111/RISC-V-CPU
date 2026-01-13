@@ -81,7 +81,8 @@ Las interfaces de prueba de Chisel definen cuatro funciones básicas con las que
 
 En la Figura 3.2 se muestra un ejemplo de test que evalúa el comportamiento del módulo definido en el código de la Figura 3.1. En el código del test se establece el valor de los cuatro puertos de entrada por medio del método \textit{poke} y, luego, se itera con los posibles valores de la señal de selección, comprobando, por medio del método \textit{expect}, que el valor en el puerto de salida es el esperado.
 
-\begin{figure}
+\vspace{+0.25cm}
+\begin{figure}[h]
 \begin{lstlisting}[style=scalaStyle]{}
 package mux4
 import chisel3._
