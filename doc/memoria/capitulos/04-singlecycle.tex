@@ -223,23 +223,45 @@ La clase \textit{Execute} modela el comportamiento del hardware implicado en las
 
 La ALU se construye dentro del módulo \textit{Execute} por medio de una instancia de la clase \textit{ALU}, la cual cuenta con tres puertos de entrada (operación y primer y segundo operandos), y uno de salida (resultado). Además, su comportamiento es gobernado en base a las salidas generadas por una instancia de la clase \textit{ALUControl}, por medio de cuya lógica se infiere el tipo de operación que deberá llevarse a cabo, en función de los valores que tomen los campos \textit{opcode}, \textit{funct3} y \textit{funct7} en la instrucción.
 
+A continuación se detallan las señales que conforman la entrada-salida del módulo, así como la función que desempeñan dentro de este.
+
 \subsubsection{Señales de entrada}
 
 \begin{itemize}
-  \item \textbf{\textit{instruction}}: la instrucción completa, de la cual se extraerán los campos \textit{opcode}
-  \item \textbf{\textit{instruction\_address}}: TODO:
-  \item \textbf{\textit{reg1\_data}}: TODO:
-  \item \textbf{\textit{reg2\_data}}: TODO:
-  \item \textbf{\textit{immediate}}: TODO:
-  \item \textbf{\textit{aluop1\_source}}: TODO:
-  \item \textbf{\textit{aluop2\_source}}: TODO:
+  \item \textbf{\textit{instruction}}: la instrucción completa, de la cual se extraerán los campos \textit{opcode}, \textit{funct3} y \textit{funct7}.
+  \item \textbf{\textit{instruction\_address}}: la dirección de la instrucción en ejecución. Este valor se empleará en el cómputo de direcciones efectivas de salto, así como del valor resultante de la ejecución de la instrucción \textit{auipc}.
+  \item \textbf{\textit{reg1\_data}}: el valor leído en la dirección del primer registro fuente.
+  \item \textbf{\textit{reg2\_data}}: el valor leído en la dirección del segundo registro fuente.
+  \item \textbf{\textit{immediate}}: el inmediato codificado en la instrucción, previamente extendido a 32 bits en la fase de decodificación.
+  \item \textbf{\textit{aluop1\_source}}: una señal de un bit con la que se indica cuál deberá ser el valor empleado como primer operando en la ALU. Esta señal controla la salida de un multiplexor cuyas entradas son la dirección de la instrucción y el valor leído en la dirección del primer registro fuente.
+  \item \textbf{\textit{aluop2\_source}}: una señal de un bit con la que se indica cuál deberá ser el valor empleado como segundo operando en la ALU. Esta señal controla la salida de un multiplexor cuyas entradas son el inmediato y el valor leído en la dirección del segundo registro fuente.
 \end{itemize}
 
 \subsubsection{Señales de salida}
 
 \begin{itemize}
-  \item \textbf{\textit{}}: TODO:
-  \item \textbf{mem\_alu\_result}: TODO:
-  \item \textbf{if\_jump\_flag}: TODO:
-  \item \textbf{if\_jump\_address}: TODO:
+  \item \textbf{mem\_alu\_result}: el valor calculado en la ALU.
+  \item \textbf{if\_jump\_flag}: una señal de un bit con la que se indica el resultado de la evaluación de la condición de salto.
+  \item \textbf{if\_jump\_address}: en caso de resultar positiva la evaluación de la condición de salto, la dirección efectiva de este.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MemoryAccess %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{MemoryAccess}
+
+TODO:
+
+\subsubsection{Señales de entrada}
+
+\begin{itemize}
+  \item \textbf{\textit{alu\_result}}: TODO:
+  \item \textbf{\textit{reg2\_data}}: TODO:
+  \item \textbf{\textit{memory\_read\_enable}}: TODO:
+  \item \textbf{\textit{memory\_write\_enable}}: TODO:
+  \item \textbf{\textit{funct3}}: TODO:
+\end{itemize}
+
+\subsubsection{Señales de salida}
+
+\begin{itemize}
+  \item \textbf{\textit{wb\_memory\_read\_data}}: TODO:
 \end{itemize}
