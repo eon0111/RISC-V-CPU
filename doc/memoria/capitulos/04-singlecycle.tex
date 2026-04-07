@@ -248,20 +248,49 @@ A continuación se detallan las señales que conforman la entrada-salida del mó
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MemoryAccess %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{MemoryAccess}
 
-TODO:
+El módulo \textit{MemoryAccess} incorpora la lógica por medio de la cual se gestionan los accesos a la memoria de datos en todas las variantes admitidas como parte de la especificación base, es decir, lecturas/escrituras de palabras completas, mitades o bytes individuales, con o sin extensión de signo.
+
+A continuación se indicarán los puertos que componen la entrada-salida del módulo, así como su propósito y el uso que se hace de los datos que albergan. No obstante cabe mencionar que, como parte de la entrada-salida del módulo, se crea una instancia de la clase \textit{RAMBundle} dentro de la cual se definen los puertos con los que poder interactuar con la memoria, tal y como se indicó en el apartado 4.1.2.
 
 \subsubsection{Señales de entrada}
 
 \begin{itemize}
-  \item \textbf{\textit{alu\_result}}: TODO:
-  \item \textbf{\textit{reg2\_data}}: TODO:
-  \item \textbf{\textit{memory\_read\_enable}}: TODO:
-  \item \textbf{\textit{memory\_write\_enable}}: TODO:
-  \item \textbf{\textit{funct3}}: TODO:
+  \item \textbf{\textit{alu\_result}}: la dirección en la cual se va a efectuar el acceso. Este mismo valor se pasa como entrada al bundle en su puerto \textit{address}.
+  \item \textbf{\textit{reg2\_data}}: cuando va a realizarse una escritura, el dato a escribir.
+  \item \textbf{\textit{memory\_read\_enable}}: un bit que habilita/deshabilita la lectura de datos en memoria.
+  \item \textbf{\textit{memory\_write\_enable}}: un bit que habilita/deshabilita la escritura de datos en la memoria.
+  \item \textbf{\textit{funct3}}: indica la longitud del dato con la que operar (palabra completa, mitad o byte).
 \end{itemize}
 
 \subsubsection{Señales de salida}
 
 \begin{itemize}
-  \item \textbf{\textit{wb\_memory\_read\_data}}: TODO:
+  \item \textbf{\textit{wb\_memory\_read\_data}}: cuando se realiza una operación de lectura, el dato leído.
+\end{itemize}
+
+La memoria es direccionable a byte y, a partir de los dos\footnote{$\log_2\left(\frac{32\ \text{bits (longitud de palabra)}}{8\ \text{bits (1 byte)}}\right) = 2$} últimos bits de la dirección puede computarse la posición del byte al cual se desea acceder. Ese valor, almacenado en la señal interna \textit{mem\_address\_index}, se emplea del modo siguiente:
+
+\begin{itemize}
+  \item Cuando se trata de \textbf{lecturas} de bytes individuales, con o sin extensión de signo, el índice se emplea para extraer la sección de 8 bits correspondiente de la palabra leída por medio del bundle. En el caso de las lecturas de media palabra, cuando el valor del índice es igual a 0 se lee la mitad menos significativa y, en cualquier otro caso, la más significativa.
+  \item En las operaciones de \textbf{escritura} el índice se emplea en la construcción del \textit{strobe} o máscara indicado en el bundle por medio del puerto \textit{write\_strobe}. En las escritura de bytes individuales se configura la máscara con un 1 en la posición del índice y el resto a 0 y, en las operaciones de escritura de media palabra, cuando el valor del índice es igual a 0 los dos bits menos significativos de la máscara se configuran con el valor 1; en cualquier otro caso se configurarían con valor 1 los dos bits más significativos.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WriteBack %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{WriteBack}
+
+El módulo \textit{WriteBack} consta de un multiplexor por medio del cual se selecciona el origen del dato a escribir en el banco de registros, bien sea un valor computado en la ALU, un dato leído de la memoria o el siguiente valor del contador de programa.
+
+\subsubsection{Señales de entrada}
+
+\begin{itemize}
+  \item \textbf{\textit{alu\_result}}: el valor computado en la ALU.
+  \item \textbf{\textit{memory\_read\_data}}: el dato leído de la memoria.
+  \item \textbf{\textit{instruction\_address}}: la dirección de la instrucción en curso.
+  \item \textbf{\textit{regs\_write\_source}}: la señal de control que determina la salida en la fase de writeback.
+\end{itemize}
+
+\subsubsection{Señales de salida}
+
+\begin{itemize}
+  \item \textbf{\textit{regs\_write\_data}}: el valor a escribir en el banco de registros.
 \end{itemize}
