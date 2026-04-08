@@ -13,3 +13,15 @@ ca2023-lab3/csrc/*.o
 project/*
 target/*
 ca2023-lab3/csrc/*.asmbin.txt
+doc/memoria/memoria.synctex.gz
+doc/memoria/bibliografia.bbl
+doc/memoria/bibliografia.blg
+doc/memoria/memoria.aux
+doc/memoria/memoria.bbl
+doc/memoria/memoria.bbl-SAVE-ERROR
+doc/memoria/memoria.bcf
+doc/memoria/memoria.fdb_latexmk
+doc/memoria/memoria.fls
+doc/memoria/memoria.log
+doc/memoria/memoria.out
+doc/memoria/memoria.run.xml
