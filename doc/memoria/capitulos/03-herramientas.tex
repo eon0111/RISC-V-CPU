@@ -8,13 +8,13 @@ Chisel es un lenguaje de descripción de hardware de alto nivel gestado en el a�
 
 El hecho de que se trate de un HDL de alto nivel tiene un impacto directo y positivo sobre la celeridad en los procesos de desarrollo y prueba del hardware, permitiendo elaborar y probar diseños de una manera ágil sin perder las características de eficiencia y robustez que proporcionan lenguajes de más bajo nivel.
 
-Es un lenguaje de propósito específico construido sobre Scala, un lenguaje de propósito general orientado a objetos, siendo esta la principal propiedad que permite a Chisel mostrar al usuario una interfaz de diseño de hardware de tan alto nivel y, por ende, amigable tanto para el desarrollador novel como para usuarios más avanzados, y es que resulta muy práctico el poder modelar un circuito lógico como un conjunto de clases relacionadas entre sí. Cada una de esas clases define el funcionamiento interno particular de un componente determinado y, las relaciones entre las clases de las que se compone el diseño global, constituyen las conexiones físicas entre los diferentes módulos de los que este se compone.
+Es un lenguaje de propósito específico construido sobre Scala, un lenguaje de propósito general orientado a objetos, siendo esta la principal propiedad que permite a Chisel mostrar al usuario una interfaz de diseño de hardware de tan alto nivel y, por ende, amigable tanto para el desarrollador novel como para usuarios más avanzados, y es que resulta muy práctico el poder modelar un circuito lógico como un conjunto de clases relacionadas entre sí. Cada una de estas clases define el comportamiento interno de un componente específico, mientras que las relaciones entre las distintas clases que conforman el diseño global representan las conexiones físicas entre los módulos del sistema. Este enfoque no solo facilita la estructuración del diseño, sino que también permite trasladar al desarrollo hardware principios propios de la ingeniería del software tales como la abstracción, la modularidad y la reutilización de código, favoreciendo así la construcción de sistemas complejos a partir de componentes bien definidos y fácilmente mantenibles.
 
 \subsection{Desarrollo en Chisel}
 
 La unidad fundamental de diseño de hardware en Chisel son los módulos, que encapsulan la disposición interna y el comportamiento de un circuito lógico. Esta disposición interna pueden componerla otros módulos, cables internos o cables de entrada/salida, cuyos valores serán empleados en la evaluación de las expresiones lógicas que definan el comportamiento del módulo, y que pueden describirse por medio de operadores aritmético-lógicos convencionales, o bien, por medio de los tipos de datos y componentes definidos en las librerías de Chisel, tales como multiplexores, decodificadores o incluso memorias.
 
-A continuación, en la Figura 3.1, se proporciona un código sencillo con el que se describe un multiplexor de 4 entradas de 32 bits cada una. Nótese que los módulos se definen como clases que extienden la clase \textit{Module}, lo cual obliga a contar con, al menos, una interfaz encapsulada en el método \textit{IO}, por medio del cual se definirá esa interfaz como un elemento de entrada/salida. En el caso del código mostrado en la Figura 3.1 las interfaces de entrada/salida se encuentran definidas en las líneas 7 a 14 como parte de una instancia de la clase \textit{Budle}, que es un constructo que permite en Chisel crear nuevos tipos de datos al estilo de los \textit{struct} en el lenguaje C.
+A continuación, en la Figura 3.1, se proporciona un código sencillo con el que se describe un multiplexor de 4 entradas de 32 bits cada una. Nótese que los módulos se definen como clases que extienden la clase \textit{Module}, lo cual obliga a contar con, al menos, una interfaz encapsulada en el método \textit{IO}, por medio del cual se definirá esa interfaz como un elemento de entrada/salida. En el caso del código mostrado en la Figura 3.1 las interfaces de entrada/salida se encuentran definidas en las líneas 7 a 14 como parte de una instancia de la clase \textit{Bundle}, que es un constructo que permite en Chisel crear nuevos tipos de datos al estilo de los \textit{struct} en el lenguaje C.
 
 \vspace{+0.3cm}
 \begin{figure}[H]
@@ -63,7 +63,7 @@ class Mux4 extends Module {
 
 Como se comentaba al comienzo de esta sección sobre Chisel, una de sus características más reseñables es la agilidad con la que puede probarse el comportamiento de los módulos, y ello es gracias a los tests, los cuales son definiciones de clases que implementan uno de los \textit{traits} de Chisel en los que se definen a su vez los procedimientos que permiten evaluar el funcionamiento de los módulos. Estos \textit{traits} son interfaces que definen una serie funciones básicas con las que comprobar y alterar el estado de las señales dentro de los módulos.
 
-Se ha decidido utilizar \textit{ChiselScalatestTester} como interfaz de pruebas en lugar de la más reciente \textit{ChiselSim}, principalmente, porque \textit{ChiselScalatestTester} es la forma de prueba utilizada en el proyecto base, además de que, desde el punto de vista de la implementación, no se encuentran grandes diferencias entre ellas.
+Se ha decidido utilizar \textit{ChiselScalatestTester} como interfaz de pruebas en lugar de la más reciente \textit{ChiselSim}. Dado que no se aprecian diferencias relevantes a nivel de implementación entre ambas interfaces, la elección se ha fundamentado en la equivalencia funcional entre ellas y en la necesidad de reutilizar el conjunto de tests ya desarrollados, evitando así esfuerzos de adaptación innecesarios.
 
 Las interfaces de prueba de Chisel definen cuatro funciones básicas con las que evaluar el comportamiento de un módulo: \textit{peek}, \textit{poke},  \textit{expect} y \textit{step}. Estas funciones se invocan sobre las diferentes señales de las cuales se componga el módulo y permiten realizar las siguientes acciones:
 
@@ -115,18 +115,9 @@ class Mux4Test extends AnyFlatSpec with ChiselScalatestTester {
 
 \section{SBT}
 
-SBT es una herramienta de construcción de software semejante a Maven o Gradle, y es la más utilizada por los desarrolladores en lenguaje Scala\cite{scalaSurvey}.Su uso es por medio de una interfaz de línea de comandos, proporcionando una consola interactiva desde la que pueden realizarse todo tipo de tareas administrativas sobre los proyectos, tales como lanzar pruebas, ejecutar un programa principal, compilar ficheros de código fuente de manera individual o construir el proyecto, requirendo esto último la creación de un fichero de configuración \textit{build.sbt} dentro del directorio del proyecto.
+SBT es una herramienta de construcción de software semejante a Maven o Gradle, y es la más utilizada por los desarrolladores en lenguaje Scala\cite{scalaSurvey}. Su uso es por medio de una interfaz de línea de comandos, proporcionando una consola interactiva desde la que pueden realizarse todo tipo de tareas administrativas sobre los proyectos, tales como lanzar pruebas, ejecutar un programa principal, compilar ficheros de código fuente de manera individual o construir el proyecto, requirendo esto último la creación de un fichero de configuración \textit{build.sbt} dentro del directorio del proyecto.
 
 Escrito también en el lenguaje Scala, en él se definirán las propiedades del proyecto, como puedan ser su nombre y versión, la versión de Scala empleada en la implementación o las librerías de las que depende, siendo estas dos últimas propiedades imprescibdibles de cara al proceso de compilación.
-
-En la Figura 3.3 se proporcionan ejemplos de uso de la consola de SBT, primero, invocando el proceso de elaboración del módulo descrito en la sección 3.1 mediante el comando \textit{compile} y, acto seguido, lanzando el test desarrollado.
-
-\vspace{+0.3cm}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.8 \linewidth]{res/img/sbt-usage-basic.png}
-  \caption{Elaboración y prueba del módulo descrito en la sección 3.1}
-\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% RISC-V GNU Toolchain %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{RISC-V GNU Toolchain}
@@ -158,7 +149,7 @@ La herramienta permite explorar esos cambios de una manera visual por medio de u
 
 AMD Vivado es un software de diseño hardware para SoC\footnote{System-on-Chip: circuitos integrados que incorporan todos o la gran mayoría de los componentes que constituyen un computador} y FPGAs desarrollado y mantenido por la empresa AMD que es, además, el fabricante de la placa de desarrollo Artit A7-100T empleada en las pruebas llevadas a cabo como parte del proceso de verificación final de la arquitectura diseñada.
 
-La placa alberga el FPGA AMD (anteriormente Xilinx) Artix7, con 101440 celdas lógicas\cite{arty}, superficie más que suficiente para albergar el núcleo segmentado. Además, tal y como puede verse en la imagen de la placa presentada en la Figura 3.5\footnote{Diligent. (2023). Arty A7 - Diligent Reference [png]. Arty A7 Reference Manual. Disponible \href{https://microbit.org/es-es/get-started/user-guide/overview/}{aquí}}, esta cuenta con numerosos elementos de entrada/salida tales como switches de pulsación (señalado como número 10 en la imagen) y lineales (número 9), diodos LED (números 7 y 8), interfaces Ethernet (3) y UART (bajo USB; número 2), así como conectores para modulos de expansión de Diligent (\textit{pmod}\footnote{\textit{Peripheral module interface}}; número 16) y shields de Arduino (11).
+La placa alberga el FPGA AMD (anteriormente Xilinx) Artix7, con 101440 celdas lógicas\cite{arty}, superficie más que suficiente para albergar el núcleo segmentado. Además, tal y como puede verse en la imagen de la placa presentada en la Figura 3.5\footnote{Diligent. (2023). Arty A7 - Diligent Reference [png]. Arty A7 Reference Manual. Disponible \href{https://microbit.org/es-es/get-started/user-guide/overview/}{aquí}}, esta cuenta con numerosos elementos de entrada/salida tales como switches de pulsación (10) y lineales (9), diodos LED (números 7 y 8), interfaces Ethernet (3) y UART (bajo USB; número 2), así como conectores para modulos de expansión de Diligent (\textit{pmod}\footnote{\textit{Peripheral module interface}}; número 16) y shields de Arduino (11).
 
 \vspace{+0.2cm}
 \begin{figure}[h]

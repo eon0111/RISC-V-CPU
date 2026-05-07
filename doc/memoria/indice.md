@@ -37,9 +37,9 @@
 		> Hablar de la solución que se ha dado a cada hueco de código
 
 5. El procesador segmentado
+	> Comentario sobre las arquitecturas segmentadas y los problemas generados al segmentar el pipeline (dependencias de datos y de control, con ejemplos)
+	> Comentario sobre la arquitectura interna de un registro de etapa
 	- Primera aproximación: integración de registros de etapa de manera incremental
-		> Comentario sobre las arquitecturas segmentadas y los problemas generados al segmentar el pipeline (dependencias de datos y de control, con ejemplos)
-		> Comentario sobre la arquitectura interna de un registro de etapa
 		> Comentario sobre la solución propuesta para separar la etapa de fetch del resto del pipeline
 		> Comentario sobre los tests predefinidos
 	- Segmentación del resto del pipeline
