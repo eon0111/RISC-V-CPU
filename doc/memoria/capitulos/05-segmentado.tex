@@ -80,12 +80,67 @@ Por último, y a pesar de las limitaciones comentadas, se debe destacar que la s
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Primera aproximación %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Primera aproximación}
+%%%%%%%%%%%%%%%%%%%%%%%%%% Arquitectura de un registro de etapa %%%%%%%%%%%%%%%%%%%%%%%%
+\section{Arquitectura de un registro de etapa}
 
-\textbf{TODO:} Ya veré en qué punto del capítulo meto lo de las decisiones de diseño relativas a la integración de los registros de etapa...
+La función de un registro de etapa es almacenar de manera transitoria el conjunto de señales de control y datos emitidos al término de una etapa de modo que, en el siguiente ciclo de reloj, esas mismas señales puedan ser transferidas a la etapa inmediatamente posterior en el pipeline. De este modo se consigue desacoplar temporalmente la ejecución de las distintas etapas permitiendo que varias instrucciones ocupen el pipeline de manera concurrente.
 
-En un primer momento se optó por aplicar un enfoque incremental en lo que respecta a la inserción de los registros de etapa. No obstante, este enfoque se aplicó tan solo en la integración del primer registro de etapa para separar la fase de \textit{fetch} del resto del pipeline. Esto fue así puesto que, de haber seguido integrando registros de etapa uno a uno, verificando el funcionamiento del núcleo con dos, tres y cuatro registros, el proceso de desarrollo se hubiera dilatado en el tiempo más allá de lo deseado inicalmente. Esto hubiera sido así puesto que, para cada una de las integraciones de un registro de segmentación a partir de aquel que separa las fases de \textit{fetch} y decodificación, hubiera sido preciso diseñar una solución distinta al problema que generan las dependencias de datos y de control entre las instrucciones que atraviesan el pipeline.
+Desde el punto de vista de la implementación en Chisel, un registro de etapa como el mostrado en la Figura 5.5 se compone, en primer lugar, de un bundle en el que se definen las entradas y salidas de este. Estas se corresponderán con el conjunto de señales de control y datos que deban avanzar de una etapa a la siguiente.Posteriormente, cada entrada de datos/control se conectará a la entrada de un registro específico de esa señal y, la salida del registro, a su correspondiente salida en el bundle.
+
+\vspace{+0.25cm}
+\begin{figure}[h]
+\begin{lstlisting}[style=scalaStyle,columns=fullflexible]{}
+class FD extends Module {
+
+  val io = IO(new Bundle {
+    val f_instruction         = Input(UInt(Parameters.InstructionWidth))
+    val f_instruction_address = Input(UInt(Parameters.AddrWidth))
+
+    val d_instruction         = Output(UInt(Parameters.InstructionWidth))
+    val d_instruction_address = Output(UInt(Parameters.AddrWidth))
+  })
+
+  val instruction         = RegInit(0.U(Parameters.InstructionWidth))
+  val instruction_address = RegInit(0.U(Parameters.AddrWidth))
+
+  instruction         := io.f_instruction
+  instruction_address := io.f_instruction_address
+
+  io.d_instruction         := instruction
+  io.d_instruction_address := instruction_address
+}
+\end{lstlisting}
+\vspace{-0.4cm}
+\caption{Implementación básica del registro de etapa que separa las fases de \textit{fetch} y decodificación.}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Segmentando el núcleo en dos etapas %%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Segmentando el núcleo en dos etapas}
+
+El primer paso hacia la segmentación del núcleo en las cinco etapas marcadas como objetivo del trabajo consistió en segmentarlo primeramente en dos, aislando la fase de \textit{fetch} respecto de las unidades funcionales implicadas en el resto de etapas. 
+
+Esta división no conlleva la aparición de riesgos de datos puesto que tanto la escritura como la lectura de estos forman parte de la misma fase dentro del ciclo de procesamiento de las instrucciones. Sin embargo, esta segmentación sí da pie a que, durante la ejecución de un programa, puedan aparecer riesgos de control tal y como se muestra en el ejemplo presentado en la Figura 5.6.
+
+La ausencia de mecanismos que logren mitigar el riesgo de control provoca la lectura de la instrucción señalada en color rojo antes de que se haya evaluado siquiera la condición en la instrucción de salto, ejecutando así la instrucción de resta y depositando en el registro \texttt{x1} un valor incoherente con la lógica del programa.
+
+\vspace{+0.5cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{res/img/diagramas/cap05_2_problema2etapas/cap05_2_problema2etapas.png}
+  \vspace{+0.05cm}
+  \caption{Representación del flujo de ejecución de un programa sobre una arquitectura segmentada en dos etapas sin mecanismos para resolver riesgos de control.}
+\end{figure}
+
+La solución propuesta para resolver esta problemática consiste en una reimplementación de la fase de \textit{fetch} para hacer que la arquitectura introduzca una operación \texttt{nop} tras cada instrucción de salto en cuya segunda fase se determine que deba ser tomado.
+
+% TODO: ejecutar simple_subroutine.S, generar y visualizar traza, hacer captura y comentar según lo que puse en el código de InstructionFetch.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Segmentando el resto del núcleo %%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Segmentando el resto del núcleo}
+
+En un primer momento se optó por aplicar un enfoque incremental en lo que respecta a la inserción de los registros de etapa. No obstante, este enfoque se aplicó tan solo en la integración del primer registro de etapa para separar la fase de \textit{fetch} del resto del pipeline. Esto fue así puesto que, de haber seguido integrando registros de etapa uno a uno, verificando el funcionamiento del núcleo con dos, tres y cuatro registros, el proceso de desarrollo se hubiera dilatado en el tiempo más allá de lo deseado inicalmente ya que, para cada una de las integraciones de un registro de segmentación a partir de aquel que separa las fases de \textit{fetch} y decodificación, hubiera sido preciso diseñar una solución distinta al problema que generan las dependencias de datos y de control entre las instrucciones que atraviesan el pipeline.
 
 Es por ello por lo que se consideró que resultaría más eficiente integrar los registros de segmentación siguientes al de \textit{fetch}-decodificación a la vez, desarrollando una única solución al problema generado por las dependencias de datos y de control.
 
