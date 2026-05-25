@@ -59,9 +59,9 @@ A continuación se detallará el propósito de los puertos de entrada-salida del
 \end{itemize}
 
 \begin{figure}[h]
-  \centering
-  \begin{minipage}{0.9\linewidth}
-    \begin{lstlisting}[style=scalaStyle]{}
+\centering
+\begin{minipage}{0.9\linewidth}
+\begin{lstlisting}[style=scalaStyle]{}
 class RAMBundle extends Bundle {
   val address       = Input(UInt(Parameters.AddrWidth))
   val write_data    = Input(UInt(Parameters.DataWidth))
@@ -69,9 +69,9 @@ class RAMBundle extends Bundle {
   val write_strobe  = Input(Vec(Parameters.WordSize, Bool()))
   val read_data     = Output(UInt(Parameters.DataWidth))
 }
-    \end{lstlisting}
-    \caption{Implementación de la clase RAMBundle}
-  \end{minipage}
+\end{lstlisting}
+\caption{Implementación de la clase RAMBundle}
+\end{minipage}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% InstructionROM y ROMLoader %%%%%%%%%%%%%%%%%%%%%%%%%%

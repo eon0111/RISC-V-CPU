@@ -132,6 +132,97 @@ La ausencia de mecanismos que logren mitigar el riesgo de control provoca la lec
   \caption{Representación del flujo de ejecución de un programa sobre una arquitectura segmentada en dos etapas sin mecanismos para resolver riesgos de control.}
 \end{figure}
 
+Para verificar la existencia o no del riesgo de control tras la introducción en la arquitectura del primer registro de segmentación se desarrolló un sencillo programa en lenguaje ensamblador el cual incorpora instrucciones de salto (condicional, incondicional y llamada a función). Tanto el código como el pseudocódigo del programa se muestran en el Cuadro 5.1.
+
+\vspace{+0.5cm}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{|p{0.32\textwidth}|p{0.30\textwidth}|p{0.30\textwidth}|}
+\hline
+
+\textbf{Código máquina} &
+\textbf{Ensamblador} &
+\textbf{Pseudocódigo} \\
+\hline
+
+\begin{lstlisting}[style=RiscVStyle]
+00000000 <_start>:
+   0:   00000313
+   4:   00400393
+
+00000008 <loop_start>:
+   8:   0063ca63
+   c:   00030513
+  10:   010000ef
+  14:   00050313
+  18:   ff1ff06f
+
+0000001c <loop_end>:
+  1c:   0000006f
+
+00000020 <suma_uno>:
+  20:   00050293
+  24:   00128293
+  28:   00028513
+  2c:   00008067
+\end{lstlisting}
+
+&
+
+\begin{lstlisting}[style=RiscVStyle]
+
+li    t1,0
+li    t2,4
+
+
+blt   t2,t1,loop_end
+mv    a0,t1
+jal   suma_uno
+mv    t1,a0
+j     loop_start
+
+
+j     loop_end
+
+
+mv    t0,a0
+addi  t0,t0,1
+mv    a0,t0
+ret
+\end{lstlisting}
+
+&
+
+\begin{lstlisting}[style=RiscVStyle]
+
+t1 = 0
+t2 = 4
+
+
+mientras t1 < t2
+
+  t1 = suma_uno(t1)
+
+
+
+
+  
+
+función suma_uno(x)
+  retornar x + 1
+
+\end{lstlisting}
+
+\\
+\hline
+\end{tabular}
+
+\caption{Desensamblado, código ensamblador y pseudocódigo del programa empleado en la depuración de la arquitectura.}
+\end{table}
+
+
 La solución propuesta para resolver esta problemática consiste en una reimplementación de la fase de \textit{fetch} para hacer que la arquitectura introduzca una operación \texttt{nop} tras cada instrucción de salto en cuya segunda fase se determine que deba ser tomado.
 
 % TODO: ejecutar simple_subroutine.S, generar y visualizar traza, hacer captura y comentar según lo que puse en el código de InstructionFetch.
@@ -143,10 +234,3 @@ La solución propuesta para resolver esta problemática consiste en una reimplem
 En un primer momento se optó por aplicar un enfoque incremental en lo que respecta a la inserción de los registros de etapa. No obstante, este enfoque se aplicó tan solo en la integración del primer registro de etapa para separar la fase de \textit{fetch} del resto del pipeline. Esto fue así puesto que, de haber seguido integrando registros de etapa uno a uno, verificando el funcionamiento del núcleo con dos, tres y cuatro registros, el proceso de desarrollo se hubiera dilatado en el tiempo más allá de lo deseado inicalmente ya que, para cada una de las integraciones de un registro de segmentación a partir de aquel que separa las fases de \textit{fetch} y decodificación, hubiera sido preciso diseñar una solución distinta al problema que generan las dependencias de datos y de control entre las instrucciones que atraviesan el pipeline.
 
 Es por ello por lo que se consideró que resultaría más eficiente integrar los registros de segmentación siguientes al de \textit{fetch}-decodificación a la vez, desarrollando una única solución al problema generado por las dependencias de datos y de control.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%% Segmentando el resto del pipeline %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Segmentando el resto del pipeline}
-
-\textbf{TODO}

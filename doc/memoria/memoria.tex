@@ -13,6 +13,9 @@
 % Para las fórmulas %
 \usepackage{amsmath}
 
+% Tildes en figuras
+\usepackage[utf8]{inputenc}
+
 % Para la bibliografía
 \usepackage{csquotes}
 \usepackage[
@@ -89,9 +92,78 @@
   tabsize=3,
 }
 
+\definecolor{commentgreen}{rgb}{0,0.6,0}
+\definecolor{keywordblue}{rgb}{0,0,0.8}
+\definecolor{red} {rgb}{0.8,0,0}
+
+\lstdefinelanguage[RISC-V]{Assembler}{
+  alsoletter={.},
+  alsodigit={0x},
+  morekeywords=[1]{ % Core Instructions
+    lb, lh, lw, lbu, lhu, sb, sh, sw,
+    sll, slli, srl, srli, sra, srai,
+    add, addi, sub, lui, auipc,
+    xor, xori, or, ori, and, andi,
+    slt, slti, sltu, sltiu,
+    beq, bne, blt, bge, bltu, bgeu,
+    j, jr, jal, jalr, ret, ecall, ebreak
+  },
+  morekeywords=[2]{ % Floating point, privileged, etc.
+    flw, fsw, fadd.s, fsub.s, fmul.s, fdiv.s
+  },
+  morekeywords=[3]{ % Directives/Pseudo-instructions
+    .global, .text, .data, .word, .space, .asciz,
+    la, li, mv, nop, bgt, ble, bgtu, bleu
+  },
+  morestring=[b]", % Strings
+  morecomment=[l]{\#}, % Comments starting with #
+  morecomment=[l]{//}  % Comments starting with //
+}
+
+\lstdefinestyle{RiscVStyle}{
+  language=[RISC-V]Assembler,
+  basicstyle=\ttfamily\footnotesize,
+  commentstyle=\color{commentgreen}\itshape,
+  keywordstyle=[1]\color{blue}\bfseries,
+  keywordstyle=[2]\color{purple}\bfseries,
+  keywordstyle=[3]\color{red},
+  stringstyle=\color{orange},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=8pt,
+%  backgroundcolor=\color{black!5},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+%  frame=lines,
+  rulecolor=\color{black!20},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
 \usepackage[bottom]{footmisc} % Para poner las notas a pie de página abajo del todo
 
 \begin{document}
+
+\lstset{
+    inputencoding=utf8,
+    extendedchars=true,
+    literate=
+        {á}{{\'a}}1
+        {é}{{\'e}}1
+        {í}{{\'i}}1
+        {ó}{{\'o}}1
+        {ú}{{\'u}}1
+        {Á}{{\'A}}1
+        {É}{{\'E}}1
+        {Í}{{\'I}}1
+        {Ó}{{\'O}}1
+        {Ú}{{\'U}}1
+        {ñ}{{\~n}}1
+        {Ñ}{{\~N}}1
+}
 
 \pagestyle{fancy}
 \fancyhf{}
