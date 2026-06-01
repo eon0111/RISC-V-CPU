@@ -122,8 +122,6 @@ El primer paso hacia la segmentación del núcleo en las cinco etapas marcadas c
 
 Esta división no conlleva la aparición de riesgos de datos puesto que tanto la escritura como la lectura de estos forman parte de la misma fase dentro del ciclo de procesamiento de las instrucciones. Sin embargo, esta segmentación sí da pie a que, durante la ejecución de un programa, puedan aparecer riesgos de control tal y como se muestra en el ejemplo presentado en la Figura 5.6, donde la ausencia de mecanismos que logren mitigar el riesgo de control provoca la lectura de la instrucción señalada en color rojo antes de que se haya evaluado siquiera la condición en la instrucción de salto, ejecutando así la instrucción de resta y depositando en el registro \texttt{x1} un valor incoherente con la lógica del programa.
 
-Para verificar la existencia o no del riesgo de control tras la introducción en la arquitectura del primer registro de segmentación se desarrolló un sencillo programa en lenguaje ensamblador el cual incorpora instrucciones de salto (condicional, incondicional y llamada a función). Este programa (cuyo código se muestra en el Cuadro 5.1) fue compilado, cargado en memoria y ejecutado en el computador simulado por medio del test de Chisel mostrado en la Figura 5.7.
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{res/img/diagramas/cap05_2_problema2etapas/cap05_2_problema2etapas.png}
@@ -131,10 +129,21 @@ Para verificar la existencia o no del riesgo de control tras la introducción en
   \caption{Representación del flujo de ejecución de un programa sobre una arquitectura segmentada en dos etapas sin mecanismos para resolver riesgos de control.}
 \end{figure}
 
-\begin{figure}[h!]
+Para verificar la existencia o no del riesgo de control tras la introducción en la arquitectura del primer registro de segmentación se desarrolló un sencillo programa en lenguaje ensamblador el cual incorpora instrucciones de salto (condicional, incondicional y llamada a función). Este programa (cuyo código se muestra en el Cuadro 5.1) fue compilado, cargado en memoria y ejecutado en el computador simulado por medio del test de Chisel mostrado en la Figura 5.7.
+
+El proceso de compilación se llevó a cabo mediante un \textit{Makefile} que compila los ficheros de código fuente en lenguaje C y genera ejecutables en formato ELF. Posteriormente, dichos ejecutables se convierten a binario plano, que es el formato esperado por el cargador del computador. A continuación, ya sea manualmente o mediante un \textit{target} específico del \textit{Makefile}, el fichero binario generado se copia a la ruta \texttt{src/main/resources} del proyecto. De este modo, al construir el proyecto con \texttt{sbt}, los binarios presentes en dicho directorio se incluyen automáticamente en el \textit{classpath} tanto de la aplicación como de los tests.
+
+% TODO: quitar
+{\color{red}\textbf{TODO:} \textit{quizás podría meter un diagrama de flujo con las fases del proceso de compilación y carga de código.}}
+
+En cuanto al test implementado, este consta, en primer lugar, de un bucle de inicialización en el que se espera a que el cargador lea el contenido del binario y lo deposite en la memoria del computador. Posteriormente, se ejecuta un segundo bucle en el que se hace avanzar el reloj 50 ciclos. En cada iteración se realiza, mediante el método \texttt{poke}, una lectura de depuración sobre la memoria. De este modo se fuerza al simulador a no introducir optimizaciones en los bucles con las que se impediría observar el flujo de ejecución del programa a lo largo de eso 50 ciclos de reloj.
+
+El primero de los problemas que se observó al examinar la traza generada por el test fue la falta de sincronismo entre el valor de la dirección de la instrucción respecto de la propia instrucción presente en la misma etapa, tal y como aparece señalado en la Figura 5.8. La consecuencia que esto tiene sobre el flujo de ejecución de los programas es que las instrucciones de salto no pueden realizar correctamente el cómputo de la dirección efectiva del salto. Tal y como se observa en la traza de la Figura 5.8, al comienzo del ciclo marcado en la posición en que se encuentra el indicador vertical (43 ps) la instrucción \texttt{jal suma\_uno} (0x010000EF), cargada en la señal \texttt{instr@DEMW}, observa como operandos para el cálculo del destino del salto los valores 0x10 y 0x1014 que son, respectivamente, el valor del inmediato cargado en la señal \texttt{ex\_io\_immediate}, y el que debería ser el valor de la dirección de la instrucción de salto. No obstante, esta última señal corresponde al valor de la dirección de la instrucción inmediatamente posterior al salto.
+
+\begin{figure}[h]
 \begin{lstlisting}[style=scalaStyle,columns=fullflexible]{}
 class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
-  behavior.of("Single Cycle CPU")
+  behavior.of("Pipelined CPU")
   it should "run a simple program with a segmentation register placed in between fetch and decode phases" in {
     test(new TestTopModule("simple_subroutine.asmbin"))
       .withAnnotations(TestAnnotations.annos) { c =>
@@ -147,6 +156,9 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
         c.clock.step()
         c.io.mem_debug_read_address.poke((i * 4).U)
       }
+
+      c.io.regs_debug_read_address.poke(6.U)  // x6 => t1
+      c.io.regs_debug_read_data.expect(5.U)
     }
   }
 }
@@ -155,7 +167,7 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
 \caption{Código del test con el que se pone a prueba el funcionamiento de un programa sencillo sobre el núcleo segmentado en dos fases.}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[h!]
 \centering
 \renewcommand{\arraystretch}{1.2}
 
@@ -169,24 +181,24 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
 
 \begin{lstlisting}[style=RiscVStyle]
   00000000 <_start>:
-  0:   00000313
-  4:   00400393
+    0:  00000313
+    4:  00400393
 
   00000008 <loop_start>:
-  8:   0063ca63
-  c:   00030513
-  10:   010000ef
-  14:   00050313
-  18:   ff1ff06f
-  
+    8:  0063ca63
+    c:  00030513
+    10: 010000ef
+    14: 00050313
+    18: ff1ff06f
+
   0000001c <loop_end>:
-  1c:   0000006f
-  
-00000020 <suma_uno>:
-  20:   00050293
-  24:   00128293
-  28:   00028513
-  2c:   00008067
+    1c: 0000006f
+    
+  00000020 <suma_uno>:
+    20: 00050293
+    24: 00128293
+    28: 00028513
+    2c: 00008067
 \end{lstlisting}
 
 &
@@ -195,22 +207,22 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
   
   li    t1,0
   li    t2,4
-  
-  
+
+
   blt   t2,t1,loop_end
   mv    a0,t1
   jal   suma_uno
   mv    t1,a0
-j     loop_start
+  j     loop_start
 
 
-j     loop_end
+  j     loop_end
 
 
-mv    t0,a0
-addi  t0,t0,1
-mv    a0,t0
-ret
+  mv    t0,a0
+  addi  t0,t0,1
+  mv    a0,t0
+  ret
 \end{lstlisting}
 
 &
@@ -223,7 +235,7 @@ ret
   
   mientras t1 < t2
   
-  t1 = suma_uno(t1)
+    t1 = suma_uno(t1)
   
 
 
@@ -231,7 +243,7 @@ ret
   
   
   función suma_uno(x)
-  retornar x + 1
+    retornar x + 1
   
 \end{lstlisting}
 
@@ -242,33 +254,112 @@ ret
 \caption{Desensamblado, código ensamblador y pseudocódigo del programa empleado en la depuración de la arquitectura.}
 \end{table}
 
-El proceso de compilación se lleva a cabo mediante un \textit{Makefile} que compila los ficheros de código fuente en lenguaje C y genera ejecutables en formato ELF. Posteriormente, dichos ejecutables se convierten a binario plano, que es el formato esperado por el cargador del computador. A continuación, ya sea manualmente o mediante un \textit{target} específico del \textit{Makefile}, el fichero binario generado se copia a la ruta \texttt{src/main/resources} del proyecto. De este modo, al construir el proyecto con \texttt{sbt}, los binarios presentes en dicho directorio se incluyen automáticamente en el \textit{classpath} tanto de la aplicación como de los tests.
-
-% TODO: quitar
-{\color{red}\textbf{TODO:} \textit{quizás podría meter un diagrama de flujo con las fases del proceso de compilación y carga de código.}}
-
-En cuanto al test implementado, este consta, en primer lugar, de un bucle de inicialización en el que se espera a que el cargador lea el contenido del binario y lo deposite en la memoria del computador. Posteriormente, se ejecuta un segundo bucle en el que se hace avanzar el reloj 50 ciclos. En cada iteración se realiza, mediante el método \texttt{poke}, una lectura de depuración sobre la memoria. De este modo se fuerza al simulador a no introducir optimizaciones en los bucles con las que se impediría observar el flujo de ejecución del programa a lo largo de eso 50 ciclos de reloj. Este comportamiento se observó durante las primeras ejecuciones del test.
-
-El primero de los problemas que se observó al examinar la traza generada por el test fue la falta de sincronismo entre el valor de la dirección de la instrucción respecto de la propia instrucción presente en la misma etapa, tal y como aparece señalado en la Figura TODO:. La consecuencia que esto tiene sobre el flujo de ejecución de los programas es que las instrucciones de salto no pueden realizar correctamente el cómputo de la dirección efectiva del salto. Tal y como se observa en la traza de la Figura TODO:, al comienzo del ciclo marcado en la posición en que se encuentra el indicador vertical (43 ps) la instrucción \texttt{jal suma\_uno} (0x010000EF), cargada en la señal \texttt{instr@DEMW}, observa como operandos para el cálculo del destino del salto los valores 0x10 y 0x1014 que son, respectivamente, es el valor del inmediato cargado en la señal \texttt{ex\_io\_immediate}, el que debería ser el valor de la dirección de la instrucción de salto. No obstante, esta última señal está adoptando el valor de la dirección de la instrucción inmediatamente posterior al salto.
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{res/img/diagramas/cap05trazaGTKwaveNoCheck/cap05trazaGTKwaveNoCheck.png}
-  \vspace{+0.05cm}
   \caption{Sección de la traza obtenida tras la ejecución del test mostrado en la Figura 5.7}
 \end{figure}
 
+\vspace{+0.4cm}
 % TODO: añadir referencia a https://www.chisel-lang.org/docs/explanations/memories
-El diseño original emplea como memoria una instancia de la clase \textit{SyncReadMem}. Este tipo de memoria no permite realizar lecturas de manera asíncrona/combinacional, lo cual implica que cuando se solicita una lectura el dato leído no sale de la memoria hasta el siguiente flanco ascendente de reloj, lo cual imposibilita mantener la sincronía entre las instrucciones en cada fase y la dirección de la instrucción observada en esa misma fase.
+El diseño original emplea como memoria una instancia de la clase \textit{SyncReadMem}. Este tipo de memoria no permite realizar lecturas de manera asíncrona/combinacional, lo cual implica que, cuando se solicita una lectura, el dato leído no sale de la memoria hasta el siguiente flanco ascendente de reloj, impidiendo que se mantenga la sincronía entre las instrucciones en cada fase y la dirección de la instrucción observada en esa misma fase.
 
-Para solucionarlo se cambia, en la clase \textit{Memory}, el tipo de memoria a una de la clase \textit{Mem}, de forma que la lectura del dato se lleve a cabo en el instante mismo en que se solicita. De este modo, tal y como puede observarse en la traza presentada en la Figura TODO:, el valor de la dirección de la instrucción en cada fase se corresponde con la de la instrucción que se está procesando esa misma fase.
+Para solucionarlo se cambia, dentro de la clase \textit{Memory}, el tipo de memoria a una de la clase \textit{Mem}, de forma que la lectura del dato se lleve a cabo en el instante mismo en que se solicita. De este modo, tal y como puede observarse en la traza presentada en la Figura 5.9, el valor de la dirección de la instrucción en cada fase se corresponde con la de la instrucción que se está procesando esa misma fase, de tal modo que ahora el cálculo del \textit{target} en la instrucción de salto sea correcto (\texttt{suma\_uno@0x1020}).
 
+\vspace{+0.5cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{res/img/diagramas/cap05trazaGTKwaveNoCheck/cap05trazaGTKwaveNoCheckAfterSyncReadMemChangeToMem.png}
+  \caption{Misma sección de la traza pero con una instancia de la clase \texttt{Mem} como entidad de memoria en lugar de \texttt{SyncReadMem}.}
+\end{figure}
 
+A pesar de esta corrección, puede observarse que el flujo de ejecución del programa sigue siendo erróneo ya que, siguiendo a la instrucción de salto (tras la marca vertical), en la segunda fase logra introducirse y ejecutarse la instrucción inmediatamente posterior, la cual es un \texttt{mv} (0x0014: \texttt{mv t1, a0}). En el caso concreto de la primera iteración del bucle, la ejecución de esta instrucción es inócua ya que en ese punto los registros \texttt{t1} y \texttt{a0} albergan el mismo valor. No obstante a esto, la inserción de la instrucción siguiente al salto toma una relevancia significativa cuando se trata de otra instrucción de salto, tal y como ocurre tras el salto incondicional al final del bucle. La ejecución de este segundo salto, el cual forma parte del bucle de final de programa, provoca que este llegue a término tras la primera iteración del bucle (véase Figura 5.9).
 
-% TODO: organizar bien las figuras de esta sección
+\vspace{+0.5cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{res/img/diagramas/cap05_syncreadmem_to_mem_end_loop/cap05_syncreadmem_to_mem_end_loop.png}
+  \caption{Sección de la traza en la que se muestra la pronta ejecución del bucle final.}
+\end{figure}
 
-% TODO: ya veré dónde meto esto
-La solución propuesta para resolver esta problemática consiste en una reimplementación de la fase de \textit{fetch} para hacer que la arquitectura introduzca una operación \texttt{nop} tras cada instrucción de salto en cuya segunda fase se determine que deba ser tomado.
+La solución solución final para resolver esta problemática consiste en la introducción de un par de modificaciones en la fase de fetch para hacer que la arquitectura introduzca una operación \texttt{nop} tras cada instrucción de salto en cuya segunda fase se determine que este deba ser tomado.
+
+En primer lugar se modifica la 
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{|p{0.5\textwidth}|p{0.5\textwidth}|}
+\hline
+
+\textbf{Implementación original} &
+\textbf{Código adaptado} \\
+\hline
+
+\begin{lstlisting}[style=scalaStyleNoNumbering]
+class InstructionFetch extends Module {
+
+  val io = IO(new Bundle {
+    val jump_flag_id          = Input(Bool())
+    val jump_address_id       = Input(UInt(Parameters.AddrWidth))
+    val instruction_read_data = Input(UInt(Parameters.DataWidth))
+    val instruction_valid     = Input(Bool())
+
+    val instruction_address = Output(UInt(Parameters.AddrWidth))
+    val instruction         = Output(UInt(Parameters.InstructionWidth))
+  })
+
+  val pc = RegInit(ProgramCounter.EntryAddress)
+
+  when(io.instruction_valid) {
+    io.instruction := io.instruction_read_data
+    pc             := Mux(io.jump_flag_id, io.jump_address_id, pc + 4.U)
+  }.otherwise {
+    pc             := pc
+    io.instruction := 0x00000013.U
+  }
+
+  io.instruction_address := pc
+}
+\end{lstlisting}
+
+&
+
+\begin{lstlisting}[style=scalaStyleNoNumbering]
+class InstructionFetch extends Module {
+
+  val io = IO(new Bundle {
+    val jump_flag_id          = Input(Bool())
+    val jump_address_id       = Input(UInt(Parameters.AddrWidth))
+    val instruction_read_data = Input(UInt(Parameters.DataWidth))
+    val instruction_valid     = Input(Bool())
+
+    val next_pc             = Output(UInt(Parameters.AddrWidth))
+    val instruction         = Output(UInt(Parameters.InstructionWidth))
+  })
+
+  val pc = RegInit(ProgramCounter.EntryAddress)
+
+  when(io.instruction_valid && !io.jump_flag_id) {
+    io.instruction := io.instruction_read_data
+    pc  := Mux(io.jump_flag_id, io.jump_address_id, pc + 4.U)
+  }.otherwise {
+    pc             := Mux(io.jump_flag_id, io.jump_address_id, pc)
+    io.instruction := 0x00000013.U
+  }
+
+  io.next_pc := pc
+
+}
+\end{lstlisting}
+
+\\
+\hline
+\end{tabular}
+
+\caption{Comparación entre el código fuente original de la fase de fetch, y la adaptación para gestionar la introducción del \texttt{nop} tras los saltos que deban ser tomados.}
+\end{table}
 
 % TODO: ejecutar simple_subroutine.S, generar y visualizar traza, hacer captura y comentar según lo que puse en el código de InstructionFetch.
 
