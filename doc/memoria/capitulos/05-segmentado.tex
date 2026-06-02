@@ -282,22 +282,16 @@ A pesar de esta corrección, puede observarse que el flujo de ejecución del pro
   \caption{Sección de la traza en la que se muestra la pronta ejecución del bucle final.}
 \end{figure}
 
-La solución solución final para resolver esta problemática consiste en la introducción de un par de modificaciones en la fase de fetch para hacer que la arquitectura introduzca una operación \texttt{nop} tras cada instrucción de salto en cuya segunda fase se determine que este deba ser tomado.
+La solución solución final para resolver esta problemática consiste en la introducción de un par de modificaciones en la fase de fetch para hacer que la arquitectura introduzca una operación \texttt{nop} tras cada instrucción de salto en cuya segunda fase se determine que este deba ser tomado. Estas modificaciones se realizan sobre la lógica que hace avanzar el contador de programa.
 
-En primer lugar se modifica la 
+En la nueva implementación, tal y como se observa en los códigos presentados en el Cuadro 5.2, se introduce un \texttt{nop} en el pipeline siempre y cuando se cumplan las dos condiciones siguientes: en primer lugar, que el cargador no haya terminado su trabajo y, en segundo lugar, que en la segunda fase de una instrucción de salto se haya determinado que este deba ser tomado (originalmente solo se contemplaba la primera condición).
 
-\begin{table}[h!]
+\begin{table}[p]
 \centering
-\renewcommand{\arraystretch}{1.2}
 
-\begin{tabular}{|p{0.5\textwidth}|p{0.5\textwidth}|}
-\hline
+\textbf{Implementación original}
 
-\textbf{Implementación original} &
-\textbf{Código adaptado} \\
-\hline
-
-\begin{lstlisting}[style=scalaStyleNoNumbering]
+\begin{lstlisting}[style=scalaStyleNoNumbering,columns=fullflexible]
 class InstructionFetch extends Module {
 
   val io = IO(new Bundle {
@@ -313,8 +307,8 @@ class InstructionFetch extends Module {
   val pc = RegInit(ProgramCounter.EntryAddress)
 
   when(io.instruction_valid) {
-    io.instruction := io.instruction_read_data
     pc             := Mux(io.jump_flag_id, io.jump_address_id, pc + 4.U)
+    io.instruction := io.instruction_read_data
   }.otherwise {
     pc             := pc
     io.instruction := 0x00000013.U
@@ -324,41 +318,39 @@ class InstructionFetch extends Module {
 }
 \end{lstlisting}
 
-&
+\vspace{0.5cm}
 
-\begin{lstlisting}[style=scalaStyleNoNumbering]
+\textbf{Código adaptado}
+
+\begin{lstlisting}[style=scalaStyleNoNumbering,columns=fullflexible]
 class InstructionFetch extends Module {
-
   val io = IO(new Bundle {
     val jump_flag_id          = Input(Bool())
     val jump_address_id       = Input(UInt(Parameters.AddrWidth))
     val instruction_read_data = Input(UInt(Parameters.DataWidth))
     val instruction_valid     = Input(Bool())
 
-    val next_pc             = Output(UInt(Parameters.AddrWidth))
-    val instruction         = Output(UInt(Parameters.InstructionWidth))
+    val instruction_address   = Output(UInt(Parameters.AddrWidth))
+    val instruction           = Output(UInt(Parameters.InstructionWidth))
   })
 
   val pc = RegInit(ProgramCounter.EntryAddress)
 
   when(io.instruction_valid && !io.jump_flag_id) {
-    io.instruction := io.instruction_read_data
-    pc  := Mux(io.jump_flag_id, io.jump_address_id, pc + 4.U)
+    pc              := pc + 4.U
+    io.instruction  := io.instruction_read_data
   }.otherwise {
-    pc             := Mux(io.jump_flag_id, io.jump_address_id, pc)
-    io.instruction := 0x00000013.U
+    pc              := io.jump_address_id
+    io.instruction  := 0x00000013.U
   }
 
-  io.next_pc := pc
-
+  io.instruction_address := pc
 }
 \end{lstlisting}
 
-\\
-\hline
-\end{tabular}
+\caption{Comparación entre la implementación original y la implementación adaptada del módulo \texttt{InstructionFetch}.}
+\label{tab:instructionfetch-comparison}
 
-\caption{Comparación entre el código fuente original de la fase de fetch, y la adaptación para gestionar la introducción del \texttt{nop} tras los saltos que deban ser tomados.}
 \end{table}
 
 % TODO: ejecutar simple_subroutine.S, generar y visualizar traza, hacer captura y comentar según lo que puse en el código de InstructionFetch.
