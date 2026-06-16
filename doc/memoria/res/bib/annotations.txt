@@ -1,0 +1,17 @@
+Por defecto los tests de Chisel no generan trazas VCD, si no que este comportamiento se habilita por medio de las "Annotations" del test. Las "Annotations" (en adelante "anotaciones") son metadatos con los que se configuran distintos aspectos de un test como, por ejemplo, si este deberá despositar en el host un fichero de trazas VCD tras su ejecución.
+
+ca2023-lab3 > src > test > scala > riscv > TestAnnotations.scala
+
+import chiseltest.WriteVcdAnnotation
+
+object WriteVcdEnabler {
+  val annos: AnnotationSeq = if (sys.env.contains("WRITE_VCD")) {
+    Seq(WriteVcdAnnotation)
+  } else {
+    Seq()
+  }
+}
+
+object TestAnnotations {
+  val annos = VerilatorEnabler.annos ++ WriteVcdEnabler.annos ++ Seq(WriteVcdAnnotation)
+}

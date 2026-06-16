@@ -1,0 +1,52 @@
+\section{Segmentando el resto del núcleo}
+
+En un primer momento se optó por aplicar un enfoque incremental en lo que respecta a la inserción de los registros de etapa. No obstante, este enfoque se aplicó tan solo en la integración del primer registro de etapa para separar la fase de \textit{fetch} del resto del pipeline. Esto fue así puesto que, de haber seguido integrando registros de etapa uno a uno, verificando el funcionamiento del núcleo con dos, tres y cuatro registros, el proceso de desarrollo se hubiera dilatado en el tiempo más allá de lo deseado inicalmente ya que, para cada una de las integraciones de un registro de segmentación a partir de aquel que separa las fases de \textit{fetch} y decodificación, hubiera sido preciso diseñar una solución distinta al problema que generan las dependencias de datos y de control entre las instrucciones que atraviesan el pipeline.
+
+Es por ello por lo que se consideró que resultaría más eficiente integrar los registros de segmentación siguientes al de \textit{fetch}-decodificación a la vez, desarrollando una única solución al problema generado por las dependencias de datos y de control.
+
+Esta solución se ha materializado en el código de la clase \textit{HazardUnit}, la cual modela la lógica que gobierna el comportamiento de una unidad de amenazas. El cometido de esta pieza es observar el estado de la arquitectura a cada ciclo para identificar y resolver las dependencias de datos o de control que pudieran originarse durante la ejecución de los programas. A continuación se detalla el método empleado en la resolución de los riesgos de datos del tipo RAW y de control, así como las señales de la unidad de amenazas involucradas en el proceso de detección y mitigación del riesgo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Resolución de riesgos de datos (RAW) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Resolución de riesgos de datos (RAW)}
+
+En el caso de una arquitectura segmentada en cinco fases, un riesgo de datos del tipo RAW se da cuando en un programa existe una pareja de instrucciones consecutivas para las cuales se cumple que, la segunda de ellas, posee como registro origen en alguno de sus operandos el registro de destino de la primera, pudiendo encontrarse separadas una distancia de 1 o 2 ciclos. Esta casuística queda ilustrada por medio del ejemplo presentado en la Figura 5.13, donde la instrucción \texttt{subi} debe esperar al \textit{writeback} del \texttt{addi} para poder leer del registro \texttt{x10} un valor actualizado y consistente con la lógica del programa.
+
+% Figura 5.13: Ejemplo de una dependencia RAW en una arquitectura segmentada en cinco fases.
+\vspace{+0.2cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\linewidth]{res/img/diagramas/cap05-03/cap05-03-01-diagrama-dep-raw-ejemplo.png}
+  \caption{Ejemplo de una dependencia RAW en una arquitectura segmentada en cinco fases.}
+\end{figure}
+
+La solución (que no sea introducir \textit{nop}s) al problema que supone la ocurrencia de esta clase de escenarios pasa por la aplicación de una técnica denominada \textit{forwarding}. Esta técnica consiste en adelantar el resultado de una instrucción, ya sea aritmético-lógica o una lectura de memoria, directamente a la fase de ejecución de las instrucciones que deban emplear ese dato como operando. Esto queda ejemplificado, también, en el diagrama de la Figura 5.13 por medio de las flechas de color amarillo: la primera instrucción \texttt{subi} podría ejecutar sin problemas y sin perder ni un solo ciclo si, desde el \textit{writeback} del \texttt{addi} se le adelantara a su fase de ejecución el resultado a escribir en el registro \texttt{x10}, y de igual modo ocurriría con el segundo \texttt{subi}.
+
+A continuación, se indicarán las soluciones propuestas al problema de las dependencias de datos del tipo RAW, tanto en el caso de las instrucciones aritmético-lógicas como en el caso de la instrucción de lectura de memoria:
+
+%%%%%%%%%%%%%% Riesgos causados por la sucesión de instrucciones aritmético-lógicas %%%%%%%%%%%%%%%%
+\subsubsection{Riesgos causados por la sucesión de instrucciones aritmético-lógicas}
+
+Las señales de la unidad de amenazas implicadas en la detección y mitigación de esta clase de riesgos son:
+
+\begin{itemize}
+  \item \textbf{\textit{rs1\_ex}}: la dirección del registro empleado como primer operando de la instrucción, observado en la fase de ejecución.
+  \vspace{-0.1cm}
+  \item \textbf{\textit{rs2\_ex}}: la dirección del registro empleado como segundo operando de la instrucción, observado en la fase de ejecución.
+  \vspace{-0.1cm}
+  \item \textbf{\textit{rd\_mem}}: la dirección del registro destino, observado en la fase de acceso a memoria.
+  \vspace{-0.1cm}
+  \item \textbf{\textit{rd\_wb}}: la dirección del registro destino, observado en la fase de escritura de resultados.
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%% Riesgos en los que se encuentra involucrada la instrucción 'lw' %%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Dependencias en las que se encuentra involucrada la instrucción '\texttt{lw}'}
+
+TODO:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Resolución de riesgos de control %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Resolución de riesgos de control}
+
+TODO:
+

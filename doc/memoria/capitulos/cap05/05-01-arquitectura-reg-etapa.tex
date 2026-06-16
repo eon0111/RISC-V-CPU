@@ -1,0 +1,32 @@
+\section{Arquitectura de un registro de etapa}
+
+La función de un registro de etapa es almacenar de manera transitoria el conjunto de señales de control y datos emitidos al término de una etapa de modo que, en el siguiente ciclo de reloj, esas mismas señales puedan ser transferidas a la etapa inmediatamente posterior en el pipeline. De este modo se consigue desacoplar temporalmente la ejecución de las distintas etapas permitiendo que varias instrucciones ocupen el pipeline de manera concurrente.
+
+Desde el punto de vista de la implementación en Chisel, un registro de etapa como el mostrado en la Figura 5.5 se compone, en primer lugar, de un bundle en el que se definen las entradas y salidas de este. Estas se corresponderán con el conjunto de señales de control y datos que deban avanzar de una etapa a la siguiente.Posteriormente, cada entrada de datos/control se conectará a la entrada de un registro específico de esa señal y, la salida del registro, a su correspondiente salida en el bundle.
+
+\vspace{+0.25cm}
+\begin{figure}[h]
+\begin{lstlisting}[style=scalaStyle,columns=fullflexible]{}
+class FD extends Module {
+
+  val io = IO(new Bundle {
+    val f_instruction         = Input(UInt(Parameters.InstructionWidth))
+    val f_instruction_address = Input(UInt(Parameters.AddrWidth))
+
+    val d_instruction         = Output(UInt(Parameters.InstructionWidth))
+    val d_instruction_address = Output(UInt(Parameters.AddrWidth))
+  })
+
+  val instruction         = RegInit(0.U(Parameters.InstructionWidth))
+  val instruction_address = RegInit(0.U(Parameters.AddrWidth))
+
+  instruction         := io.f_instruction
+  instruction_address := io.f_instruction_address
+
+  io.d_instruction         := instruction
+  io.d_instruction_address := instruction_address
+}
+\end{lstlisting}
+\vspace{-0.4cm}
+\caption{Implementación inicial del registro de etapa que separa las fases de \textit{fetch} y decodificación.}
+\end{figure}

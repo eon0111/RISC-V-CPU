@@ -3,6 +3,8 @@
 \usepackage[spanish]{babel}
 \usepackage{graphicx} % Required for inserting images
 
+\setcounter{tocdepth}{3} % Para que meta las sub-sub-secciones en el índice
+
 \usepackage[
   left=80px,
   right=80px,
@@ -191,6 +193,41 @@
         {Ñ}{{\~N}}1
 }
 
+% Para colorear los diffs
+\definecolor{diffgreen}{RGB}{0,120,0}
+\definecolor{diffred}{RGB}{180,0,0}
+\definecolor{diffblue}{RGB}{0,0,180}
+
+\lstdefinelanguage{Diff}{
+  basicstyle=\ttfamily\small,
+  keepspaces=true,
+  columns=fullflexible,
+  breaklines=true,
+  morecomment=[f][\color{diffred}]{-},
+  morecomment=[f][\color{diffgreen}]{+},
+  morecomment=[f][\color{diffblue}]{@},
+}
+
+\lstdefinestyle{DiffStyleNoNumbering}{
+  frame=tb,
+  language=Diff,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+}
+
 \pagestyle{fancy}
 \fancyhf{}
 \fancyfoot{}
@@ -198,19 +235,19 @@
 \fancyfoot[R]{\thepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PORTADA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subfile{capitulos/00-portada.tex}
+\subfile{capitulos/cap00/00-portada.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 0.1. Agradecimientos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\subfile{capitulos/00-01-agradecimientos}
+\subfile{capitulos/cap00/00-01-agradecimientos}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 0.2. Resumen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\subfile{capitulos/00-02-resumen}
+\subfile{capitulos/cap00/00-02-resumen}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 0.3. Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\subfile{capitulos/00-03-abstract}
+\subfile{capitulos/cap00/00-03-abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ÍNDICE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -218,23 +255,23 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Introducción %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\subfile{capitulos/01-introduccion}
+\subfile{capitulos/cap01/01-introduccion}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. RISC-V %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\subfile{capitulos/02-risc-v}
+\subfile{capitulos/cap02/02-risc-v}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 3. Herramientas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\subfile{capitulos/03-herramientas}
+\subfile{capitulos/cap03/03-herramientas}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 4. Monociclo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\subfile{capitulos/04-singlecycle}
+\subfile{capitulos/cap04/04-singlecycle}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 5. Segmentado %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\subfile{capitulos/05-segmentado}
+\subfile{capitulos/cap05/05-00-segmentado}
 
 \printbibliography[title={Bibliografía}]
 
