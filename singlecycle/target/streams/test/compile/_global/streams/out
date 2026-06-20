@@ -1,0 +1,4 @@
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/RISC-V-CPU/ca2023-lab3/src/test/scala/riscv/TestAnnotations.scala:11:8: Importing from firrtl is deprecated as of Chisel's 3.6.0 release.[0m
+[0m[[0m[33mwarn[0m] [0m[0mimport firrtl.AnnotationSeq[0m
+[0m[[0m[33mwarn[0m] [0m[0m       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m

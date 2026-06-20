@@ -1,0 +1,40 @@
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/peripheral/InstructionROM.scala:16:8: Importing from firrtl is deprecated as of Chisel's 3.6.0 release.[0m
+[0m[[0m[33mwarn[0m] [0m[0mimport firrtl.annotations.MemorySynthInit[0m
+[0m[[0m[33mwarn[0m] [0m[0m       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/board/verilator/Top.scala:31:8: class ChiselStage in package stage is deprecated (since Chisel 3.6): this feature will not be supported as part of the migration to the MLIR-based FIRRTL Compiler (MFC). For more information about this migration, please see the Chisel ROADMAP.md. Please switch to circt.stage.ChiselStage.[0m
+[0m[[0m[33mwarn[0m] [0m[0m  (new ChiselStage)[0m
+[0m[[0m[33mwarn[0m] [0m[0m       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/ALU.scala:11:29: type ChiselEnum in package experimental is deprecated (since Chisel 3.5): This type has moved to chisel3[0m
+[0m[[0m[33mwarn[0m] [0m[0mobject ALUFunctions extends ChiselEnum {[0m
+[0m[[0m[33mwarn[0m] [0m[0m                            ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/ALUControl.scala:22:23: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m      io.alu_funct := MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                      ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/ALUControl.scala:38:23: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m      io.alu_funct := MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                      ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/Execute.scala:47:21: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m  val alu_rs1_src = MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                    ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/Execute.scala:57:21: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m  val alu_rs2_src = MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                    ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/Execute.scala:105:43: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m    (io.opcode === InstructionTypes.B) && MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                                          ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/InstructionDecode.scala:151:19: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m  val immediate = MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                  ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/MemoryAccess.scala:33:31: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m    io.wb_memory_read_data := MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/MemoryAccess.scala:37:33: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m        InstructionsTypeL.lb -> MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                                ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/MemoryAccess.scala:46:34: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m        InstructionsTypeL.lbu -> MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/scala/riscv/core/WriteBack.scala:21:25: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m  io.regs_write_data := MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                        ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m13 warnings found[0m

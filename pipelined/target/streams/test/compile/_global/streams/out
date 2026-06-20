@@ -1,0 +1,13 @@
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/test/scala/riscv/TestAnnotations.scala:11:8: Importing from firrtl is deprecated as of Chisel's 3.6.0 release.[0m
+[0m[[0m[33mwarn[0m] [0m[0mimport firrtl.AnnotationSeq[0m
+[0m[[0m[33mwarn[0m] [0m[0m       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/test/scala/riscv/TestTopModule.scala:18:8: Importing from firrtl is deprecated as of Chisel's 3.6.0 release.[0m
+[0m[[0m[33mwarn[0m] [0m[0mimport firrtl.FirrtlProtos.Firrtl.Statement[0m
+[0m[[0m[33mwarn[0m] [0m[0m       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/test/scala/riscv/pipelined/CPUTest.scala:21:8: Importing from firrtl is deprecated as of Chisel's 3.6.0 release.[0m
+[0m[[0m[33mwarn[0m] [0m[0mimport firrtl.FirrtlProtos.Firrtl.Statement[0m
+[0m[[0m[33mwarn[0m] [0m[0m       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/02-ca2024-lab3-pipelined/src/test/scala/riscv/singlecycle/CPUTest.scala:21:8: Importing from firrtl is deprecated as of Chisel's 3.6.0 release.[0m
+[0m[[0m[33mwarn[0m] [0m[0mimport firrtl.FirrtlProtos.Firrtl.Statement[0m
+[0m[[0m[33mwarn[0m] [0m[0m       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mfour warnings found[0m

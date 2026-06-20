@@ -1,0 +1,12 @@
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/simple.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/simple.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/mmio.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/mmio.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/sb.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/sb.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/simple_asm.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/simple_asm.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/hazards_with_hu.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/hazards_with_hu.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/hello.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/hello.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/auipc.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/auipc.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/fibonacci.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/fibonacci.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/quicksort.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/quicksort.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/hazards_with_nops.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/hazards_with_nops.asmbin)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/home/eon/tfm/02-ca2024-lab3-pipelined/src/main/resources/simple_subroutine.asmbin,/home/eon/tfm/02-ca2024-lab3-pipelined/target/scala-2.13/classes/simple_subroutine.asmbin)[0m

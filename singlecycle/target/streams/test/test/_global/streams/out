@@ -1,0 +1,32 @@
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(riscv.singlecycle.InstructionFetchTest, org.scalatest.tools.Framework$$anon$1@5e1cdd23, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(riscv.singlecycle.FibonacciTest, org.scalatest.tools.Framework$$anon$1@5e1cdd23, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(riscv.singlecycle.ByteAccessTest, org.scalatest.tools.Framework$$anon$1@5e1cdd23, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(riscv.singlecycle.ExecuteTest, org.scalatest.tools.Framework$$anon$1@5e1cdd23, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(riscv.singlecycle.RegisterFileTest, org.scalatest.tools.Framework$$anon$1@5e1cdd23, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(riscv.singlecycle.InstructionDecoderTest, org.scalatest.tools.Framework$$anon$1@5e1cdd23, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(riscv.singlecycle.QuicksortTest, org.scalatest.tools.Framework$$anon$1@5e1cdd23, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mInstructionFetchTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mFibonacciTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSingle Cycle CPU[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mInstructionFetch of Single Cycle CPU[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mQuicksortTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSingle Cycle CPU[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mInstructionDecoderTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mInstructionDecoder of Single Cycle CPU[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mExecuteTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mExecution of Single Cycle CPU[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mByteAccessTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSingle Cycle CPU[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mriscv.singlecycle.ByteAccessTest *** ABORTED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  java.lang.InterruptedException:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly(AbstractQueuedSynchronizer.java:1220)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at java.util.concurrent.locks.ReentrantLock.lockInterruptibly(ReentrantLock.java:335)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at java.util.concurrent.LinkedBlockingQueue.put(LinkedBlockingQueue.java:339)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.tools.Framework.org$scalatest$tools$Framework$$runSuite(Framework.scala:322)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.tools.Framework$ScalaTestTask.execute(Framework.scala:517)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at sbt.TestRunner.runTest$1(TestFramework.scala:153)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at sbt.TestRunner.run(TestFramework.scala:168)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at sbt.TestFramework$$anon$3$$anonfun$$lessinit$greater$1.$anonfun$apply$1(TestFramework.scala:336)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at sbt.TestFramework$.sbt$TestFramework$$withContextLoader(TestFramework.scala:296)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at sbt.TestFramework$$anon$3$$anonfun$$lessinit$greater$1.apply(TestFramework.scala:336)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m

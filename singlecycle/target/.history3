@@ -1,0 +1,20 @@
+1752422421048:exit
+1766774192016:testOnly riscv.singlecycle.FibonacciTest
+1766774221413:testOnly riscv.singlecycle.ByteAccessTest
+1766774236176:testOnly riscv.singlecycle.ExecuteTest
+1766774250648:testOnly riscv.singlecycle.QuicksortTest
+1766774410569:build
+1766774415268:compile
+1766774429815:testOnly riscv.singlecycle.QuicksortTest
+1766774448301:quit
+1766774449951:exit
+1766775756974:testOnly riscv.singlecycle.InstructionDecoderTest
+1766775816068:testOnly riscv.singlecycle.QuicksortTest
+1766775951440:compile
+1766775958127:exit
+1766775973058:testOnly riscv.singlecycle.QuicksortTest
+1766776009135:exit
+1766776017712:testOnly riscv.singlecycle.QuicksortTest
+1766776073547:exit
+1766776083269:testOnly riscv.singlecycle.QuicksortTest
+1766776104788:exit

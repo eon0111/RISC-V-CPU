@@ -1,0 +1,16 @@
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/03-fpga-wrapper/ca2023-lab3/src/main/scala/board/verilator/Top.scala:72:22: class ChiselStage in package stage is deprecated (since Chisel 3.6): this feature will not be supported as part of the migration to the MLIR-based FIRRTL Compiler (MFC). For more information about this migration, please see the Chisel ROADMAP.md. Please switch to circt.stage.ChiselStage.[0m
+[0m[[0m[33mwarn[0m] [0m[0m  (new chisel3.stage.ChiselStage).emitVerilog(new Top())[0m
+[0m[[0m[33mwarn[0m] [0m[0m                     ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/03-fpga-wrapper/ca2023-lab3/src/main/scala/riscv/core/InstructionDecode.scala:150:19: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m  val immediate = MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                  ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/03-fpga-wrapper/ca2023-lab3/src/main/scala/riscv/core/MemoryAccess.scala:39:31: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m    io.wb_memory_read_data := MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                              ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/03-fpga-wrapper/ca2023-lab3/src/main/scala/riscv/core/MemoryAccess.scala:43:33: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m        InstructionsTypeL.lb -> MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                                ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/eon/tfm/03-fpga-wrapper/ca2023-lab3/src/main/scala/riscv/core/MemoryAccess.scala:52:34: method apply in object MuxLookup is deprecated (since Chisel 3.6): Use MuxLookup(key, default)(mapping) instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m        InstructionsTypeL.lbu -> MuxLookup([0m
+[0m[[0m[33mwarn[0m] [0m[0m                                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m5 warnings found[0m

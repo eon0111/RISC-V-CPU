@@ -1,0 +1,8 @@
+#Successful Tests
+#Fri Dec 26 20:08:23 CET 2025
+riscv.singlecycle.InstructionDecoderTest=1766775806410
+riscv.singlecycle.FibonacciTest=1766774209695
+riscv.pipelined.HazardUnitTest=1752422527811
+riscv.singlecycle.ExecuteTest=1766774242210
+riscv.singlecycle.ByteAccessTest=1766774229581
+riscv.singlecycle.QuicksortTest=1766776102994

@@ -1,0 +1,9 @@
+1752422421048:exit
+1781631811457:build
+1781631814255:clean compile
+1781631815054:clean
+1781631818497:compile
+1781631996565:testOnly riscv.pipelined.SimpleTest
+1781632019998:testOnly riscv.singlecycle.SimpleTest
+1781632156435:testOnly riscv.singlecycle.AUIPCTest
+1781632634311:testOnly riscv.singlecycle.SimpleTest
