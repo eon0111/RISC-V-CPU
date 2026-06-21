@@ -26,27 +26,154 @@ A continuación, se indicarán las soluciones propuestas al problema de las depe
 %%%%%%%%%%%%%% Riesgos causados por la sucesión de instrucciones aritmético-lógicas %%%%%%%%%%%%%%%%
 \subsubsection{Riesgos causados por la sucesión de instrucciones aritmético-lógicas}
 
-Las señales de la unidad de amenazas implicadas en la detección y mitigación de esta clase de riesgos son:
+Las señales de la unidad de amenazas implicadas en la detección de esta clase de riesgos son:
 
 \begin{itemize}
   \item \textbf{\textit{rs1\_ex}}: la dirección del registro empleado como primer operando de la instrucción, observado en la fase de ejecución.
-  \vspace{-0.1cm}
+  \vspace{-0.2cm}
   \item \textbf{\textit{rs2\_ex}}: la dirección del registro empleado como segundo operando de la instrucción, observado en la fase de ejecución.
-  \vspace{-0.1cm}
+  \vspace{-0.2cm}
   \item \textbf{\textit{rd\_mem}}: la dirección del registro destino, observado en la fase de acceso a memoria.
-  \vspace{-0.1cm}
+  \vspace{-0.2cm}
+  \item \textbf{\textit{rd\_wb}}: la dirección del registro destino, observado en la fase de escritura de resultados.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{rd\_wb}}: la dirección del registro destino, observado en la fase de escritura de resultados.
+  \vspace{-0.2cm}
   \item \textbf{\textit{rd\_wb}}: la dirección del registro destino, observado en la fase de escritura de resultados.
 \end{itemize}
+
+La unidad de amenazas gobierna, además, las señales de selección de dos multiplexores emplazados, cada uno, en una de las entradas de la ALU:
+
+\begin{itemize}
+  \item \textbf{\textit{alu\_rs1\_src}}: controla la selección del primer operando de la ALU, que puede ser un dato leído a partir del banco de registros por parte de la instrucción en fase de ejecución, o un dato adelantado desde la fase de memoria o de \textit{writeback}.
+  \vspace{-0.2cm}
+  \item \textbf{\textit{alu\_rs2\_src}}: exactamente igual que la anterior, pero aplicada al segundo operando de la ALU.
+\end{itemize}
+
+La lógica que rige el proceso de detección de las dependencias por parte de la unidad de amenazas es tal y como se indica en la Figura 5.14, siendo el código aplicable tanto en el caso en que la dependencia se diese con el primer registro operando, como si esta se diese con el segundo.
+
+Más allá de lo auto-explicativo del pseudo-código, cabe reseñar el por qué de la condición en la que se evalúa si el registro origen es \texttt{x0} y es que, de darse una dependencia RAW en la que este registro se encontrase involucrado, no tendría sentido realizar un \textit{forwarding} de un registro cuyo valor es constantemente 0, por lo que se evita solventar esta falsa dependencia.
+
+% Figura 5.14: Codigo y pseudo-codigo de la logica empleada en la deteccion y mitigacion de riesgos de datos del tipo RAW en los que esta involucrado el primer registro origen de una instruccion.
+\vspace{+0.4cm}
+\begin{figure}[h!]
+\centering
+\renewcommand{\arraystretch}{1}
+
+\begin{tabular}{|p{0.3\textwidth}|p{0.62\textwidth}|}
+\hline
+
+\textbf{Código} &
+\textbf{Pseudo-código} \\
+\hline
+
+\begin{lstlisting}[style=scalaStyleNoNumberingNoBorder]
+io.alu_rs1_src := Mux(
+  ((io.rs1_ex === io.rd_mem) &
+    io.reg_wr_enable_mem) &
+    (io.rs1_ex =/= 0.U),
+  RsFwSel.ALUResultMemFw,
+  Mux(
+    ((io.rs1_ex === io.rd_wb) &
+    io.reg_wr_enable_wb) &
+    (io.rs1_ex =/= 0.U),
+    RsFwSel.ALUResultWbFw,
+    RsFwSel.RegFileData
+  )
+)
+\end{lstlisting}
+
+&
+
+\begin{lstlisting}[style=RiscVStyle]
+# Detección dependencia RAW entre Ex y Mem
+si primer reg. origen @ Ex = reg. destino @ Mem y
+   escritura regfile @ Mem habilitada y
+   primer reg. origen @ Ex != x0
+entonces
+
+  1er operando ALU = resultado adelantado desde Mem
+
+# Detección dependencia RAW entre Ex y Wb
+si no si primer reg. origen @ Ex = reg. destino @ Wb y
+   escritura regfile @ Wb habilitada y
+   primer reg. origen @ Ex != x0
+entonces
+
+  1er operando ALU = resultado adelantado desde Wb
+
+si no entonces
+
+  1er operando ALU = dato leído por la instrucción
+\end{lstlisting}
+
+\\
+\hline
+\end{tabular}
+
+\caption{Código y pseudo-código de la lógica empleada en la detección y mitigación de riesgos de datos del tipo RAW en los que se encuentra involucrado el primer registro origen de una instrucción.}
+\end{figure}
 
 
 
 %%%%%%%%%%%%%% Riesgos en los que se encuentra involucrada la instrucción 'lw' %%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Dependencias en las que se encuentra involucrada la instrucción '\texttt{lw}'}
 
-TODO:
+La presencia de la instrucción \texttt{lw} en una dependencia de datos del tipo RAW genera un caso especial que no puede resolverse por medio de la metodología seguida en el apartado anterior. Esto es debido a que el resultado de la instrucción \texttt{lw} no se genera hasta haber completado la lectura de un dato de memoria, lo cual se produce al término de la fase de memoria de la instrucción. En ese momento la instrucción dependiente imediatamente posterior al \texttt{lw} ya habrá completado su fase de ejecución, pero lo habrá hecho con un operando erróneo.
+
+La técnica con la que se resuelve la dependencia consiste en detener el procesamiento de las instrucciones en fases de \textit{fetch} y decodificación cada vez que esta sea detectada. Esto se consigue reteniendo los datos de los registros de segmentación que separan las fases de \textit{fetch}-decodificación, y decodificación-ejecución. Esta retención dura tan solo un ciclo, de tal modo que, cuando la instrucción dependiente que no es el \texttt{lw} pase a la fase de ejecución, la unidad de amenazas tratará la dependencia como si de cualquier otra dependencia de datos se tratase, adelantando desde el writeback del \textit{lw} el valor leído de la memoria, a la entrada de la ALU que corresponda. Se proporciona en la Figura 5.15 una representación de la resolución del riesgo de datos por medio de esta técnica.
+
+% Figura 5.15: Flujo de ejecucion de dos instrucciones implicadas en una dependencia de datos de tipo RAW, una de las cuales es la instruccion lw.
+\vspace{+0.4cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\linewidth]{res/img/diagramas/cap05-03/cap05-03-02-solucion-dep-raw-lw.png}
+  \caption{Flujo de ejecución de dos instrucciones implicadas en una dependencia de datos de tipo RAW, una de las cuales es la instrucción \texttt{lw}.}
+\end{figure}
+\vspace{+0.4cm}
+
+La solución implementada (Figura 5.16) ha consistido en hacer que la unidad de amenazas identifique, en primer lugar, si una instrucción en fase de ejecución va a provocar la escritura en el banco de registros de un dato leído de memoria. Esto se consigue observando el bit menos significativo de la señal \texttt{ex\_regs\_write\_src}, la cual controla la salida del multiplexor en la fase de \textit{writeback} con el que se ecoge el dato a escribir en el banco de registros. La salida de este multiplexor podrá ser un resultado calculado en la ALU, la dirección de retorno de un salto o el dato leído en una posición de memoria, siendo en este último caso, y por implementación, el valor del bit menos significativo de la señal igual a 1. Esta es condición suficiente y necesaria para asegurar que la instrucción en fase de ejecución es un \texttt{lw}. A continuación, en la segunda condición de la sentencia 'y', se realiza la detección de la dependencia de datos RAW con la instrucción inmediatamente posterior, de igual modo que se hacía en los casos comentados en el apartado anterior.
+
+El resultado de estas comprobaciones es la señal \texttt{lw\_stall}, que gobierna la parada del contador de programa y los registros de segmentación indicados anteriormente.
+
+% Figura 5.16: Computo de la señal lw_stall
+\vspace{+0.4cm}
+\begin{figure}[h!]
+\begin{lstlisting}[style=scalaStyle,columns=fullflexible]{}
+val lw_stall = io.ex_regs_write_src(0) &
+               ((io.rs1_d === io.rd_ex) | (io.rs2_d === io.rd_ex))
+
+io.pc_stall   := lw_stall
+io.srFD_stall := lw_stall
+io.srDE_flush := lw_stall
+\end{lstlisting}
+\vspace{-0.4cm}
+\caption{Cómputo de la señal \texttt{lw\_stall}.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Resolución de riesgos de control %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Resolución de riesgos de control}
 
-TODO:
+Una solución sencilla y eficaz al problema generado por los riesgos de control es limpiar el contenido de los registros de segmentación entre las etapas de fetch-decodificación y decodificación-ejecución cada vez que, en la fase de ejecución de una instrucción de salto, se determina que este deba ser tomado. De este modo, tal y como se observa en el ejemplo de la Figura 5.17, todas las instrucciones (máximo 2) que logren introducirse en el pipeline tras la instrucción de salto, no se procesarán completamente y su paso por la arquitectura habrá sido totalmente inocuo.
 
+% Figura 5.17: Diagrama ilustrativo del proceso de mitigación de los riesgos de control.
+\vspace{+0.4cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\linewidth]{res/img/diagramas/cap05-03/cap05-03-03-solucion-dep-control.png}
+  \caption{Diagrama ilustrativo del proceso de mitigación de los riesgos de control.}
+\end{figure}
+\vspace{+0.4cm}
+
+Esta solución se implementa por medio del fragmenteo de código de la unidad de amenazas mostrado en la Figura 5.18, donde se establece que el valor de la señal de borrado de los registros de segmentación indicados (señales \texttt{srDE\_flush} y \texttt{srFD\_flush}), será igual al valor del flag de salto observado en la fase de ejecución.
+
+% Figura 5.18: Configuración de la señal de borrado de los registros de segmentación que separan las fases de fetch-decodificación y decodificación-ejecución, conforme al valor del flag de salto en fase de ejecución.
+\vspace{+0.4cm}
+\begin{figure}[h!]
+\begin{lstlisting}[style=scalaStyle,columns=fullflexible]{}
+io.srDE_flush := lw_stall | io.ex_jump_flag
+io.srFD_flush := io.ex_jump_flag
+\end{lstlisting}
+\vspace{-0.4cm}
+\caption{Configuración de la señal de borrado de los registros de segmentación que separan las fases de fetch-decodificación y decodificación-ejecución, conforme al valor del flag de salto en fase de ejecución.}
+\end{figure}

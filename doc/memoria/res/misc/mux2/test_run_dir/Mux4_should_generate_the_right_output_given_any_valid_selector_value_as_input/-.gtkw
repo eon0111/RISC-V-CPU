@@ -1,0 +1,37 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Tue Jul 15 15:38:15 2025
+[*]
+[dumpfile] "/home/eon/tmp/mux4/test_run_dir/Mux4_should_generate_the_right_output_given_any_valid_selector_value_as_input/Mux4.vcd"
+[dumpfile_mtime] "Tue Jul 15 15:19:24 2025"
+[dumpfile_size] 1423
+[savefile] "/home/eon/tmp/mux4/test_run_dir/Mux4_should_generate_the_right_output_given_any_valid_selector_value_as_input/-.gtkw"
+[timestart] 0
+[size] 1366 673
+[pos] -1 -1
+*-2.144197 11 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[sst_width] 297
+[signals_width] 179
+[sst_expanded] 1
+[sst_vpaned_height] 183
+@28
+[color] 3
+TOP.Mux4.clock
+@22
+[color] 6
+TOP.Mux4.io_i1[31:0]
+[color] 6
+TOP.Mux4.io_i2[31:0]
+[color] 6
+TOP.Mux4.io_i3[31:0]
+[color] 6
+TOP.Mux4.io_i4[31:0]
+@28
+[color] 2
+TOP.Mux4.io_sel[1:0]
+@22
+[color] 4
+TOP.Mux4.io_o[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -141,7 +141,7 @@
   },
   morekeywords=[3]{ % Directives/Pseudo-instructions
     .global, .text, .data, .word, .space, .asciz,
-    la, li, mv, nop, bgt, ble, bgtu, bleu
+    li, mv, nop, bgt, ble, bgtu, bleu %, la
   },
   morestring=[b]", % Strings
   morecomment=[l]{\#}, % Comments starting with #
@@ -272,6 +272,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 5. Segmentado %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \subfile{capitulos/cap05/05-00-segmentado}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 6. FPGA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subfile{capitulos/cap06/06-00-despliegue-fpga}
 
 \printbibliography[title={Bibliografía}]
 

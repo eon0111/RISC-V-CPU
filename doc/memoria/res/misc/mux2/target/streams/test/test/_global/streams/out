@@ -1,0 +1,11 @@
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(mux4.Mux4TestWithRegs, org.scalatest.tools.Framework$$anon$1@506d98ea, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mMux4TestWithRegs:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mMux4[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should generate the right output given any valid selector value as input[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 7 seconds, 881 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 1, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	mux4.Mux4TestWithRegs[0m

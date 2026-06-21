@@ -1,0 +1,68 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Introducción}{6}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivación}{6}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Objetivos}{6}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Planificación y metodología seguidos}{7}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Formación previa}{7}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Construcción del computador monociclo}{7}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Construcción del procesador segmentado}{7}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Despliegue del diseño final sobre un FPGA}{8}{subsection.1.3.4}%
+\contentsline {chapter}{\numberline {2}RISC-V}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Historia de RISC-V}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Especificaciones}{10}{section.2.2}%
+\contentsline {section}{\numberline {2.3}El conjunto de instrucciones base RV32I}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Formatos derivados}{11}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Formato B}{11}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Formato J}{11}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.5}Extensiones}{12}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Extensión `M'}{12}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Extensión `Zicsr'}{12}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Extensión `F'}{12}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}Extensión `Zifencei'}{12}{subsection.2.5.4}%
+\contentsline {chapter}{\numberline {3}Herramientas y tecnologías}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Chisel}{13}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Desarrollo en Chisel}{13}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Pruebas en Chisel}{14}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}SBT}{15}{section.3.2}%
+\contentsline {section}{\numberline {3.3}RISC-V GNU Toolchain}{15}{section.3.3}%
+\contentsline {section}{\numberline {3.4}GTKWave}{15}{section.3.4}%
+\contentsline {section}{\numberline {3.5}FPGA Arty A7-100T y AMD Vivado Design Suite}{16}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Git}{17}{section.3.6}%
+\contentsline {chapter}{\numberline {4}El procesador monociclo}{18}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Descripción de la arquitectura de partida}{18}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}TopModule}{18}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Memory}{19}{subsection.4.1.2}%
+\contentsline {subsubsection}{Señales de entrada}{19}{subsubsection*.12}%
+\contentsline {subsubsection}{Señales de salida}{19}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {4.1.3}InstructionROM y ROMLoader}{20}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}CPU}{20}{subsection.4.1.4}%
+\contentsline {subsubsection}{Puertos de entrada}{21}{subsubsection*.16}%
+\contentsline {subsubsection}{Puertos de salida}{21}{subsubsection*.17}%
+\contentsline {subsection}{\numberline {4.1.5}InstructionFetch}{21}{subsection.4.1.5}%
+\contentsline {subsubsection}{Señales de entrada}{22}{subsubsection*.18}%
+\contentsline {subsubsection}{Señales de salida}{22}{subsubsection*.19}%
+\contentsline {subsection}{\numberline {4.1.6}InstructionDecode}{22}{subsection.4.1.6}%
+\contentsline {subsubsection}{Señales de entrada}{22}{subsubsection*.21}%
+\contentsline {subsubsection}{Señales de salida}{23}{subsubsection*.22}%
+\contentsline {subsection}{\numberline {4.1.7}InstructionExecute}{23}{subsection.4.1.7}%
+\contentsline {subsubsection}{Señales de entrada}{24}{subsubsection*.24}%
+\contentsline {subsubsection}{Señales de salida}{24}{subsubsection*.25}%
+\contentsline {subsection}{\numberline {4.1.8}MemoryAccess}{24}{subsection.4.1.8}%
+\contentsline {subsubsection}{Señales de entrada}{24}{subsubsection*.26}%
+\contentsline {subsubsection}{Señales de salida}{25}{subsubsection*.27}%
+\contentsline {subsection}{\numberline {4.1.9}WriteBack}{25}{subsection.4.1.9}%
+\contentsline {subsubsection}{Señales de entrada}{25}{subsubsection*.28}%
+\contentsline {subsubsection}{Señales de salida}{25}{subsubsection*.29}%
+\contentsline {chapter}{\numberline {5}El procesador segmentado}{26}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Arquitectura de un registro de etapa}{28}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Segmentando el núcleo en dos etapas}{29}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Segmentando el resto del núcleo}{33}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Resolución de riesgos de datos (RAW)}{33}{subsection.5.3.1}%
+\contentsline {subsubsection}{Riesgos causados por la sucesión de instrucciones aritmético-lógicas}{34}{subsubsection*.43}%
+\contentsline {subsubsection}{Dependencias en las que se encuentra involucrada la instrucción '\texttt {lw}'}{35}{subsubsection*.45}%
+\contentsline {subsection}{\numberline {5.3.2}Resolución de riesgos de control}{36}{subsection.5.3.2}%
+\contentsline {chapter}{\numberline {6}Despliegue del diseño segmentado sobre FPGA}{37}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Proceso de despliegue. Ejemplo}{37}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Obtención del HDL de bajo nivel}{37}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Configuración del fichero de \textit {constraints}}{37}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Modificaciones realizadas en el diseño de la CPU}{38}{section.6.2}%

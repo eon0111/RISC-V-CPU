@@ -1,0 +1,29 @@
+\chapter{Despliegue del diseño segmentado sobre FPGA}
+
+La última fase del proyecto consiste en la adaptación del diseño realizado para poder ser cargado en el chip FPGA de la placa de desarrollo Arty A7 100T. Además, se pretence realizar una prueba de concepto en la que se envíe un código de ejemplo en formato binario por medio de la interfaz serie disponible en la placa. Esto último requerirá incluir una serie de modificaciones en el diseño de la CPU de tal modo que la tarea de realizar la inicialización de la memoria ya no recaiga en el cargador, si no en un nuevo módulo que dote al computador de capacidad para comunicar, usando el protocolo UART, con un host externo del cual recibirá el código de prueba. Esta comunicación se iniciará en el host remoto por medio de la utilidad \textit{TeraTerm}.
+
+Se muestra en la Figura 6.1 el diragrama de la arquitectura global del computador, actualizado para sustituir la rom de instrucciones y el cargador (\textit{InstructionROM} y \textit{ROMLoader} respectivamente), por un nuevo módulo \texttt{UART}.
+
+% Figura 6.1: Diagrama de bloques con los módulos de los que se compone el computador.
+\vspace{+0.4cm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\linewidth]{res/img/diagramas/cap06/01-arquitectura-global-con-uart/arquitectura-global-con-uart.png}
+  \caption{Diagrama de bloques con los módulos de los que se compone el computador.}
+\end{figure}
+
+\section{Proceso de despliegue. Ejemplo}
+
+\subsection{Obtención del HDL de bajo nivel}
+
+TODO:
+
+\subsection{Configuración del fichero de \textit{constraints}}
+
+TODO:
+
+
+
+\section{Modificaciones realizadas en el diseño de la CPU}
+
+TODO:

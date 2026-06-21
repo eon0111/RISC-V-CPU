@@ -50,5 +50,4 @@
 6. FPGA &rarr; UART, Wrapper, Vivado, generación del HDL, fichero de constraints
     - FPGA Xilinx Arty A7 - 100 &rarr; imagen
 
-7. (Si da tiempo) Analisis rendimiento (Comparativa)
-8. Conclusiones y trabajo futuro
+7. Conclusiones y trabajo futuro
