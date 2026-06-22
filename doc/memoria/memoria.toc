@@ -64,5 +64,6 @@
 \contentsline {chapter}{\numberline {6}Despliegue del diseño segmentado sobre FPGA}{37}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Proceso de despliegue. Ejemplo}{37}{section.6.1}%
 \contentsline {subsection}{\numberline {6.1.1}Obtención del HDL de bajo nivel}{37}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Configuración del fichero de \textit {constraints}}{37}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Modificaciones realizadas en el diseño de la CPU}{38}{section.6.2}%
+\contentsline {subsection}{\numberline {6.1.2}Configuración del fichero de \textit {constraints}}{38}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Modificaciones realizadas en el diseño de la CPU}{39}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Conclusiones y trabajo futuro}{40}{chapter.7}%

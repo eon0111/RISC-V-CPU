@@ -228,6 +228,57 @@
   tabsize=3,
 }
 
+\lstdefinelanguage{Verilog}{
+  keywords={module,endmodule,input,output,wire,reg,assign,always,begin,end,if,else},
+  keywordstyle=\color{blue}\bfseries,
+  comment=[l]{//},
+  commentstyle=\color{green!50!black},
+  morecomment=[s]{/*}{*/},
+  stringstyle=\color{red},
+  sensitive=true
+}
+
+\lstset{
+  language=Verilog,
+  basicstyle=\ttfamily\small,
+  numbers=none,
+  numberstyle=\tiny,
+  breaklines=true
+}
+
+\lstdefinelanguage{XDC}{
+  morekeywords={
+    set_property,get_ports,get_pins,get_cells,get_nets,
+    create_clock,create_generated_clock,
+    set_input_delay,set_output_delay,
+    set_false_path,set_multicycle_path,
+    PACKAGE_PIN,IOSTANDARD,LOC
+  },
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+}
+
+\lstdefinestyle{XDCStyle}{
+  frame=tb,
+  language=XDC,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+}
+
 \pagestyle{fancy}
 \fancyhf{}
 \fancyfoot{}
@@ -276,6 +327,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 6. FPGA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \subfile{capitulos/cap06/06-00-despliegue-fpga}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 7. Conclusiones %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subfile{capitulos/cap07/07-00-conclusiones.tex}
 
 \printbibliography[title={Bibliografía}]
 

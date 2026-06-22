@@ -8,19 +8,100 @@ Se muestra en la Figura 6.1 el diragrama de la arquitectura global del computado
 \vspace{+0.4cm}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.6\linewidth]{res/img/diagramas/cap06/01-arquitectura-global-con-uart/arquitectura-global-con-uart.png}
+  \includegraphics[width=0.7\linewidth]{res/img/diagramas/cap06/01-arquitectura-global-con-uart/arquitectura-global-con-uart.png}
   \caption{Diagrama de bloques con los módulos de los que se compone el computador.}
 \end{figure}
+
+El código que modela la CPU completa en el módulo \textit{Top} se presenta en la Figura TODO:. Este módulo cuenta con las siguientes señales de entrada/salida:
+
+
 
 \section{Proceso de despliegue. Ejemplo}
 
 \subsection{Obtención del HDL de bajo nivel}
 
-TODO:
+Para generar código Verilog a partir de un desarrollo en Chisel \cite{chisel-to-verilog} es necesario añadir la declaración de objeto mostrada en las líneas 18 a 20 de la Figura 6.2. En esa figura se muestra un pequeño ejemplo de implementación en Chisel de un multiplexor de dos entradas (\textit{Mux2}) y, seguido a esta, se declara un objeto \textit{Mux2} que extiende la clase \textit{App}.
+
+Por defecto, un fichero de código desarrollado en Chisel no cuenta con un método principal que pueda ejecutarse, si no que simplemente consta de un conjunto de clases que definen el comportamiento interno de distintos componentes hardware. La instanciación de ese objeto \textit{Mux2} extendiendo la clase \textit{App} dota al código compilado de un punto de entrada en el que se ejecuta el método \texttt{emitVerilog}, cuyo resultado será el equivalente en sintaxis Verilog de la clase instanciada en el parámetro del método.
+
+% Figura 6.2: Izda.: implementación de un multiplexor de dos entradas en Chisel y obtención de su equivalente en sintaxis Verilog. Dcha.: descripción del módulo en Verilog.
+\vspace{+0.5cm}
+\begin{figure}[h!]
+\centering
+\renewcommand{\arraystretch}{1}
+
+\begin{tabular}{|p{0.42\textwidth}|p{0.52\textwidth}|}
+\hline
+
+\textbf{Chisel} &
+\textbf{Verilog} \\
+\hline
+
+\begin{lstlisting}[style=scalaStyleNoNumberingNoBorder]
+class Mux2 extends Module {
+  val io = IO(new Bundle{
+    val i1  = Input(Bool())
+    val i2  = Input(Bool())
+    val sel = Input(Bool())
+
+    val o = Output(Bool())
+  })
+
+  io.o := MuxLookup(io.sel, 0.B)(
+    Seq(
+      0.U -> io.i1,
+      1.U -> io.i2
+    )
+  )
+}
+
+object Mux2 extends App {
+  (new chisel3.stage.ChiselStage)
+    .emitVerilog(new Mux2())
+}
+\end{lstlisting}
+
+&
+
+\begin{lstlisting}[language=Verilog]
+module Mux2(
+  input   clock,
+  input   reset,
+  input   io_i1,
+  input   io_i2,
+  input   io_sel,
+  output  io_o
+);
+  assign io_o = io_sel ? io_i2 : io_i1;
+endmodule
+\end{lstlisting}
+
+\\
+\hline
+\end{tabular}
+
+\caption{Izda.: implementación de un multiplexor de dos entradas en Chisel y obtención de su equivalente en sintaxis Verilog. Dcha.: descripción del módulo en Verilog.}
+\end{figure}
+
+
 
 \subsection{Configuración del fichero de \textit{constraints}}
 
-TODO:
+Ya con la implementación en Verilog se puede pasar a crear un proyecto en Vivado con el que realizar, de manera automatizada, las tranformaciones y procedimientos necesarios para generar el \textit{bitstream}\footnote{El bitstream describe cómo debe configurarse el tejido programable de la FPGA, incluyendo la configuración de LUTs, registros, bloques de memoria, redes de interconexión y recursos de entrada/salida} que se cargará en la placa. Para mapear la entrada/salida del módulo sobre el hardware disponible en la placa es necesario crear un fichero de \textit{constraints} en el que se indique, por cada puerto de entrada/salida en el módulo, el componente hardware al que se conectará.
+
+Se muestran en la Figura TODO: los mapeos realizados para probar el diseño del multiplexor de dos entradas, asignando las dos entradas de datos y la señal de selección a tres interruptores deslizantes y, la salida del multiplexor, a uno de los LEDs disponibles.
+
+% Figura 6.3: Constraints configurados para probar el multiplexor de dos entradas en la placa.
+\begin{figure}[h!]
+\begin{lstlisting}[style=XDCStyle,columns=fullflexible]{}
+set_property -dict { PACKAGE_PIN A10   IOSTANDARD LVCMOS33 } [get_ports { io_i1  }];
+set_property -dict { PACKAGE_PIN C10   IOSTANDARD LVCMOS33 } [get_ports { io_i2  }];
+set_property -dict { PACKAGE_PIN A8    IOSTANDARD LVCMOS33 } [get_ports { io_sel }];
+set_property -dict { PACKAGE_PIN H5    IOSTANDARD LVCMOS33 } [get_ports { io_o   }];
+\end{lstlisting}
+\vspace{-0.4cm}
+\caption{\textit{Constraints} configurados para probar el multiplexor de dos entradas en la placa.}
+\end{figure}
 
 
 

@@ -1,0 +1,13 @@
+\chapter{Conclusiones y trabajo futuro}
+
+El objetivo primero del proyecto era la implementación, en el lenguaje de descripción de hardware Chisel, de un núcleo RISC-V segmentado capaz de procesar el conjunto no privilegiado de instrucciones base definido en la especificación RV32I del estándar.
+
+Este trabajo tuvo como punto de partida un diseño monociclo incompleto, el cual se terminó de desarrollar como parte de un proceso de aprendizaje inicial. Esta fase de aprendizaje implicó, en primer lugar, la asimilación de los conceptos fundamentales inherentes al desarrollo en lenguaje Chisel. Además, se realizó un notorio ejercicio de indagación para comprender el funcionamiento interno del núcleo, las características internas y el conexionado de los módulos que lo integran, así como la metodología seguida en el proceso de pruebas tanto de componentes individuales, como de la arquitectura global.
+
+Tras esta fase inicial, comenzó el proceso de elaboración de la arquitectura segmentada, el cual ha tenido como resultado dos implementaciones distintas: una segmentada en dos fases (\textit{fetch}-resto), y la implementación final en cinco fases; siendo ambas el resultado de una metología de pruebas basada en la ejecución de tests que cargasen en la memoria de la CPU códigos con los que generar los escenarios de especial interés que el núcleo debería resolver por medio de los mecanismos hardware implementados.
+
+El empleo de GTKWave para el análisis de las trazas VCD generadas por los tests fue determinante en el proceso de depuración y validación del núcleo. La visualización detallada del comportamiento de la arquitectura en cada ciclo permitió detectar dependencias entre instrucciones, comprender su origen y verificar el correcto funcionamiento de los mecanismos implementados para su resolución, todo ello de una manera ágil y visual.
+
+Chisel ha demostrado ser el HDL intuitivo y eficaz que sus desarrolladores idearon. Su integración con el ecosistema de Scala y el empleo de conceptos propios de la programación orientada a objetos facilitan la construcción de componentes reutilizables y la organización modular del diseño, características que han permitido, sin duda, abordar la complejidad creciente de la arquitectura.
+
+Como trabajo futuro podría plantearse la implementación de las instrucciones de manejo del CSR contempladas en la extensión Zicsr, lo cual sentaría las bases para la ejecución de un sistema operativo embebido como pudiera ser FreeRTOS.

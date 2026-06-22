@@ -273,3 +273,56 @@ selectMenuItem((HResource) null, "xc7a100t_0"); // ap (xc7a100t_0)
 dismissDialog("Refresh Device"); // bk (Refresh Device Progress)
 // [GUI Memory]: 185 MB (+22932kb) [13:55:00]
 // HMemoryUtils.trashcanNow. Engine heap size: 1,117 MB. GUI used memory: 69 MB. Current time: 6/21/26, 11:42:20 AM CEST
+// WARNING: HEventQueue.dispatchEvent() is taking  1388578 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 1415 ms. Increasing delay to 4245 ms.
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 3465 ms. Increasing delay to 6000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  9601 ms.
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// HMemoryUtils.trashcanNow. Engine heap size: 1,117 MB. GUI used memory: 67 MB. Current time: 6/21/26, 12:15:05 PM CEST
+// WARNING: HEventQueue.dispatchEvent() is taking  1354 ms.
+// TclEventType: HW_TARGET_NEEDS_CLOSE
+// TclEventType: HW_TARGET_CLOSE
+// TclEventType: HW_SYSMON_DELETE
+// TclEventType: HW_TARGET_UPDATE
+// TclEventType: DEBUG_PROBE_DELETE
+// TclEventType: HW_SERVER_UPDATE
+// Tcl Message: ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210319B26A9CA 
+// TclEventType: HW_SERVER_UPDATE
+// WARNING: updateGUI() is taking  1151 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1202 ms.
+// Elapsed time: 3698 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK", "Close Hardware Target"); // f (PAResourceAtoD.CmdMsgDialog_OK)
+dismissDialog("Close Hardware Target"); // j.a (dialog2)
+// WARNING: HEventQueue.dispatchEvent() is taking  29059311 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 1,117 MB. GUI used memory: 68 MB. Current time: 6/21/26, 8:45:35 PM CEST
+// WARNING: HEventQueue.dispatchEvent() is taking  1042 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1025 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 1,117 MB. GUI used memory: 51 MB. Current time: 6/21/26, 9:15:29 PM CEST
+// Elapsed time: 33540 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager]", 0, true); // g (PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, Flow Navigator Tree) - Node
+// Run Command: PAResourceCommand.PACommandNames_GOTO_PROJECT_MANAGER
+// WARNING: HEventQueue.dispatchEvent() is taking  1333 ms.
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints]", 2); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+// PAPropertyPanels.initPanels (Arty-A7-100-Master-constraints.xdc) elapsed time: 0.3s
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, Arty-A7-100-Master-constraints.xdc]", 4, false); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, Arty-A7-100-Master-constraints.xdc]", 4, false, false, false, false, false, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Double Click
+selectCodeEditor("Arty-A7-100-Master-constraints.xdc", 1, 175); // ae (Arty-A7-100-Master-constraints.xdc)
+typeControlKey((HResource) null, "Arty-A7-100-Master-constraints.xdc", 'c'); // ae (Arty-A7-100-Master-constraints.xdc)
+// WARNING: HEventQueue.dispatchEvent() is taking  42984207 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  2084 ms.
+// WARNING: HSwingWorker (Monitor File Timestamp Swing Worker) is taking 2485 ms to process. Increasing delay to 2000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1133 ms.
+// WARNING: HSwingWorker (Monitor File Timestamp Swing Worker) is taking 2479 ms to process. Increasing delay to 2000 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 1,117 MB. GUI used memory: 55 MB. Current time: 6/22/26, 9:32:41 AM CEST
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 2488 ms. Increasing delay to 7464 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  10114 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  23312 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 16561 ms. Increasing delay to 49683 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  24538 ms.
+// WARNING: HSwingWorker (Monitor File Timestamp Swing Worker) is taking 2376 ms to process. Increasing delay to 3000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1623 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  5258 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1637 ms.
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 88625 ms. Increasing delay to 7000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  2888 ms.
