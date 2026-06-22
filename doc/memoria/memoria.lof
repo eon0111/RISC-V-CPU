@@ -1,0 +1,40 @@
+\babel@toc {spanish}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Esquema con el formato que deben seguir las instrucciones del tipo B}}{13}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Esquema con el formato que deben seguir las instrucciones del tipo J}}{13}{figure.caption.7}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Código y diagrama del multiplexor de 4 entradas en Chisel}}{16}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Implementación de un test para el multiplexor de 4 entradas}}{17}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Visualización de la traza generada tras la simulación del test}}{18}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Placa de desarrollo Arty A7-100T}}{19}{figure.caption.11}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Diagrama de bloques de la arquitectura global del computador}}{20}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Implementación de la clase RAMBundle}}{22}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Implementación de la clase RAMBundle}}{23}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Conexionado del contador de programa a la salida del multiplexor que determina su valor a cada ciclo en función de los saltos que se producen en el flujo de ejecución de los programas cargados en el computador}}{24}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Generación de las señales de habilitación de lectura/escritura en memoria}}{25}{figure.caption.24}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Ejecución de un programa en un computador con diseño monociclo (a) y segmentado (b)}}{28}{figure.caption.31}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Ejemplos de riesgos de datos. (a) RAW (\textit {Read After Write}): lectura tras escritura. (b) WAW (\textit {Write After Write}): escritura tras escritura. (c) WAR (\textit {Write After Read}): escritura tras lectura}}{29}{figure.caption.32}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Flujo de ejecución de dos instrucciones implicadas en una dependencia RAW. Se señala en color verde el instante a partir del cual la segunda instrucción podrá leer el dato actualizado en el registro \texttt {x1} (ciclo 5).}}{29}{figure.caption.33}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Representación del flujo de ejecución de un programa sobre una arquitectura segmentada sin mecanismos para resolver riesgos de control.}}{29}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Implementación inicial del registro de etapa que separa las fases de \textit {fetch} y decodificación.}}{30}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Representación del flujo de ejecución de un programa sobre una arquitectura segmentada en dos etapas sin mecanismos para resolver riesgos de control.}}{31}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Desensamblado, código ensamblador y pseudocódigo del programa empleado en la depuración de la arquitectura.}}{32}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Código del test con el que se pone a prueba el funcionamiento de un programa sencillo sobre el núcleo segmentado en dos fases.}}{32}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Sección de la traza obtenida tras la ejecución del test mostrado en la Figura 5.7}}{33}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Misma sección de la traza pero con una instancia de la clase \texttt {Mem} como entidad de memoria en lugar de \texttt {SyncReadMem}.}}{33}{figure.caption.40}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Sección de la traza en la que se muestra la pronta ejecución del bucle final.}}{34}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Comparación entre la implementación original del módulo \texttt {InstructionFetch} y su adaptación para resolver riesgos de control.}}{34}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Ejemplo de una dependencia RAW en una arquitectura segmentada en cinco fases.}}{35}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Código y pseudo-código de la lógica empleada en la detección y mitigación de riesgos de datos del tipo RAW en los que se encuentra involucrado el primer registro origen de una instrucción.}}{36}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Flujo de ejecución de dos instrucciones implicadas en una dependencia de datos de tipo RAW, una de las cuales es la instrucción \texttt {lw}.}}{37}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Cómputo de la señal \texttt {lw\_stall}.}}{37}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Diagrama ilustrativo del proceso de mitigación de los riesgos de control.}}{38}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Configuración de la señal de borrado de los registros de segmentación que separan las fases de fetch-decodificación y decodificación-ejecución, conforme al valor del flag de salto en fase de ejecución.}}{38}{figure.caption.50}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Diagrama de bloques con los módulos de los que se compone el computador.}}{39}{figure.caption.51}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Izda.: implementación de un multiplexor de dos entradas en Chisel y obtención de su equivalente en sintaxis Verilog. Dcha.: descripción del módulo en Verilog.}}{40}{figure.caption.52}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces \textit {Constraints} configurados para probar el multiplexor de dos entradas en la placa.}}{41}{figure.caption.53}%
+\addvspace {10\p@ }
