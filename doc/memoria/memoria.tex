@@ -64,6 +64,25 @@
   breakatwhitespace=true,
   tabsize=3,
 }
+\lstdefinestyle{scalaStyleSmaller}{
+  frame=tb,
+  language=scala,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle={\fontsize{9}{10}\ttfamily\selectfont},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+}
 \lstdefinestyle{scalaStyleNoNumbering}{
   frame=tb,
   language=scala,
@@ -157,18 +176,34 @@
   keywordstyle=[3]\color{red},
   stringstyle=\color{orange},
   numbers=none,
-  numberstyle=\tiny\color{gray},
-  stepnumber=1,
-  numbersep=8pt,
-%  backgroundcolor=\color{black!5},
   showspaces=false,
   showstringspaces=false,
   showtabs=false,
-%  frame=lines,
-  rulecolor=\color{black!20},
   breaklines=true,
   breakatwhitespace=true,
-  tabsize=4
+  tabsize=4,
+  aboveskip=0pt,
+  belowskip=0pt,
+  lineskip=-1pt
+}
+\lstdefinestyle{RiscVStyleSmaller}{
+  language=[RISC-V]Assembler,
+  basicstyle={\fontsize{8.5}{10}\ttfamily\selectfont},
+  commentstyle=\color{commentgreen}\itshape,
+  keywordstyle=[1]\color{blue}\bfseries,
+  keywordstyle=[2]\color{purple}\bfseries,
+  keywordstyle=[3]\color{red},
+  stringstyle=\color{orange},
+  numbers=none,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  aboveskip=0pt,
+  belowskip=0pt,
+  lineskip=-1pt
 }
 
 \usepackage[bottom]{footmisc} % Para poner las notas a pie de página abajo del todo

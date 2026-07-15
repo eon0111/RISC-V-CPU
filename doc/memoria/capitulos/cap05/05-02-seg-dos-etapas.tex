@@ -4,37 +4,21 @@ El primer paso hacia la segmentación del núcleo en las cinco etapas marcadas c
 
 Esta división no conlleva la aparición de riesgos de datos puesto que tanto la escritura como la lectura de estos forman parte de la misma fase dentro del ciclo de procesamiento de las instrucciones. Sin embargo, esta segmentación sí da pie a que, durante la ejecución de un programa, puedan aparecer riesgos de control tal y como se muestra en el ejemplo presentado en la Figura 5.6, donde la ausencia de mecanismos que logren mitigar el riesgo de control provoca la lectura de la instrucción señalada en color rojo antes de que se haya evaluado siquiera la condición en la instrucción de salto, ejecutando así la instrucción de resta y depositando en el registro \texttt{x1} un valor incoherente con la lógica del programa.
 
+% Figura 5.6: Representacion del flujo de ejecucion de un programa sobre una arquitectura segmentada en dos etapas sin mecanismos para resolver riesgos de control.
+\vspace{+0.2cm}
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\linewidth]{res/img/diagramas/cap05_2_problema2etapas/cap05_2_problema2etapas.png}
   \vspace{+0.05cm}
   \caption{Representación del flujo de ejecución de un programa sobre una arquitectura segmentada en dos etapas sin mecanismos para resolver riesgos de control.}
 \end{figure}
+\vspace{+0.2cm}
 
-Para verificar la existencia o no del riesgo de control tras la introducción en la arquitectura del primer registro de segmentación, se desarrolló un sencillo programa en lenguaje ensamblador el cual incorpora instrucciones de salto condicional, salto incondicional y una llamada a función. Este programa (cuyo código se muestra en la Figura 5.7) fue compilado, cargado en memoria y ejecutado en el computador simulado por medio del test de Chisel mostrado en la Figura 5.8. El test consta, en primer lugar, de un bucle de inicialización en el que se espera a que el cargador lea el contenido del binario y lo deposite en la memoria del computador. Posteriormente, se ejecuta un segundo bucle en el que se hace avanzar el reloj 100 ciclos, a priori, suficientes como para recoger la ejecución completa del programa en la traza VCD resultante de la ejecución del test.
+Para verificar la existencia o no del riesgo de control tras la introducción en la arquitectura del primer registro de segmentación, se desarrolló un sencillo programa en lenguaje ensamblador el cual incorpora instrucciones de salto condicional, salto incondicional y una llamada a función. Este programa (cuyo código se muestra en la Figura 5.7) fue compilado para RISC-V, cargado en memoria y ejecutado en el computador simulado por medio del test de Chisel mostrado en la Figura 5.8. El test consta, en primer lugar, de un bucle de inicialización en el que se espera a que el cargador lea el contenido del binario y lo deposite en la memoria del computador. Posteriormente, se ejecuta un segundo bucle en el que se hace avanzar el reloj 100 ciclos, a priori, suficientes como para recoger la ejecución completa del programa en la traza VCD resultante de la ejecución del test.
 
-El primero de los problemas que se observó al examinar la traza generada por el test fue la falta de sincronismo entre el valor del contador de programa observado en una etapa determinada, y la instrucción observada en esa misma etapa, tal y como aparece señalado en color rojo en la Figura 5.9. En esa sección de la traza se muestran los cambios en el valor de las siguientes señales:
-
-\begin{itemize}
-  \item{\textbf{instr\_addr@fetch}: la dirección de la instrucción presente en la fase de fetch.}
-  \vspace{-0.2cm}
-  \item{\textbf{instr\_addr@DEMW}: la dirección de la instrucción en la fase siguiente al fetch.}
-  \vspace{-0.2cm}
-  \item{\textbf{instr@fetch}: la instrucción leída en la última fase de fetch.}
-  \vspace{-0.2cm}
-  \item{\textbf{instr@DEMW}: la instrucción leída en el anterior fetch.}
-  \vspace{-0.2cm}
-  \item{\textbf{fetch\_io\_jump\_flag}: la señal que indica si la evaluación de una condición es positiva y debe leerse por tanto en el siguiente ciclo, no la instrucción siguiente al contador de programa actual, si no el \textit{target} del salto. Tanto el target como esta señal se originan en la fase siguiente al fetch, como parte de la fase de ejecución (módulo \textit{Execute}).}
-  \vspace{-0.2cm}
-  \item{\textbf{ex\_io\_immediate}: el offset empleado en el cálculo de la dirección efectiva de salto, también como parte de la fase de ejecución.}
-  \vspace{-0.2cm}
-  \item{\textbf{ex\_io\_instr\_addr}: la dirección base del salto.}
-  \vspace{-0.2cm}
-  \item{\textbf{fetch\_io\_jump\_addr}: la dirección efectiva del salto. Esta señal llega al módulo \textit{InstructionFetch} desde \textbf{Execute}.}
-\end{itemize}
-
-% NOTE: Figura 5.7: Desensamblado, código ensamblador y pseudocódigo del programa empleado en la depuración de la arquitectura
-\begin{figure}[h!]
+% NOTE: Figura 5.7: Desensamblado, código ensamblador y pseudocódigo de un programa sencillo
+\vspace{+0.4cm}
+\begin{figure}[H]
 \centering
 \renewcommand{\arraystretch}{1}
 
@@ -50,17 +34,14 @@ El primero de los problemas que se observó al examinar la traza generada por el
   00000000 <_start>:
     0:  00000313
     4:  00400393
-
   00000008 <loop_start>:
     8:  0063ca63
     c:  00030513
     10: 010000ef
     14: 00050313
     18: ff1ff06f
-
   0000001c <loop_end>:
     1c: 0000006f
-    
   00000020 <suma_uno>:
     20: 00050293
     24: 00128293
@@ -75,16 +56,13 @@ El primero de los problemas que se observó al examinar la traza generada por el
   li    t1,0
   li    t2,4
 
-
   blt   t2,t1,loop_end
   mv    a0,t1
   jal   suma_uno
   mv    t1,a0
   j     loop_start
 
-
   j     loop_end
-
 
   mv    t0,a0
   addi  t0,t0,1
@@ -99,11 +77,9 @@ El primero de los problemas que se observó al examinar la traza generada por el
   t1 = 0
   t2 = 4
   
-  
   mientras t1 < t2
   
     t1 = suma_uno(t1)
-  
 
 
 
@@ -117,11 +93,9 @@ El primero de los problemas que se observó al examinar la traza generada por el
 \\
 \hline
 \end{tabular}
-
-\caption{Desensamblado, código ensamblador y pseudocódigo del programa empleado en la depuración de la arquitectura.}
+\vspace{-0.2cm}
+\caption{Desensamblado, código ensamblador y pseudocódigo de un programa sencillo.}
 \end{figure}
-
-\vspace{1cm}
 
 % Figura 5.8: Código del test con el que se pone a prueba el funcionamiento de un programa sencillo sobre el núcleo segmentado en dos fases
 \begin{figure}[h!]
@@ -147,13 +121,37 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
   }
 }
 \end{lstlisting}
-\vspace{-0.4cm}
+\vspace{-0.5cm}
 \caption{Código del test con el que se pone a prueba el funcionamiento de un programa sencillo sobre el núcleo segmentado en dos fases.}
 \end{figure}
 
-\vspace{+0.2cm}
+\vspace{+0.1cm}
 
-La consecuencia que esta falta de sincronismo tiene sobre el flujo de ejecución de los programas es que las instrucciones de salto no pueden realizar correctamente el cómputo de la dirección efectiva de este, al contar en la fase de ejecución con el contador de programa de la instrucción siguiente al salto, y no la del propio salto. Tal y como se observa en la traza de la Figura 5.9, al comienzo del ciclo marcado en la posición en que se encuentra el indicador vertical (43 ps), la instrucción \texttt{jal suma\_uno} (\texttt{0x010000EF @ 0x1010\footnote{El punto de entrada de los programas se encuentra en la dirección \texttt{0x1000}. La dirección de la instrucción es el valor del punto de entrada sumado al offset mostrado en la primera columna de la Figura 5.7}}, ver señal \texttt{instr@DEMW}), observa los siguientes operandos en el cálculo del destino del salto:
+El primero de los problemas que se observó al examinar la traza generada por el test fue la "falta de sincronismo" entre el valor del contador de programa observado en una etapa determinada, y la instrucción observada en esa misma etapa. Esto es, que dada una instrucción observada en una fase determinada del pipeline, el valor del contador de programa que se observa en esa misma fase no se corresponde con el de la instrucción, si no con el de la instrucción que la precede en el programa.
+
+En la Figura 5.9 se muestra una sección de la traza obtenida tras la ejecución del test de la Figura 5.8. En el punto de la ejecución que se señala en color rojo se observa un ejemplo de este comportamiento y, para mayor comprensión de la traza, se indica a continuación la función de las señales mostradas:
+
+\begin{itemize}
+  \item{\textbf{instr\_addr@fetch}: la dirección de la instrucción presente en la fase de fetch.}
+  \vspace{-0.2cm}
+  \item{\textbf{instr\_addr@DEMW}: la dirección de la instrucción en la fase siguiente al fetch.}
+  \vspace{-0.2cm}
+  \item{\textbf{instr@fetch}: la instrucción leída en la última fase de fetch.}
+  \vspace{-0.2cm}
+  \item{\textbf{instr@DEMW}: la instrucción leída en el anterior fetch.}
+  \vspace{-0.2cm}
+  \item{\textbf{fetch\_io\_jump\_flag}: la señal que indica si la evaluación de una condición de salto es positiva. El valor de esta señal determina si en el siguiente ciclo se hace \textit{fetch} de la instrucción en el siguiente contador de programa o del \textit{target} de un salto.  Tanto esta señal como el \textit{target} se obtienen en la fase de ejecución.}
+  \vspace{-0.2cm}
+  \item{\textbf{ex\_io\_immediate}: el offset empleado en el cálculo de la dirección efectiva de salto.}
+  \vspace{-0.2cm}
+  \item{\textbf{ex\_io\_instr\_addr}: la dirección base del salto.}
+  \vspace{-0.2cm}
+  \item{\textbf{fetch\_io\_jump\_addr}: la dirección efectiva del salto. Esta señal llega al módulo \textit{InstructionFetch} desde \textit{Execute}.}
+\end{itemize}
+
+Este comportamiento supone un gran inconveniente a la hora de realizar el cálculo de la dirección de destino de las instrucciones de salto. Cuando un salto pasa a la fase de ejecución, se calcula el destino tomando como operandos en la ALU una dirección base, y un desplazamiento a partir de esa dirección. Si la dirección base no se corresponde con la del salto TODO:
+
+Tal y como se observa en la traza de la Figura 5.9, al comienzo del ciclo marcado en la posición en que se encuentra el indicador vertical (43 ps), la instrucción \texttt{jal suma\_uno} (\texttt{0x010000EF @ 0x1010\footnote{El punto de entrada de los programas se encuentra en la dirección \texttt{0x1000}. La dirección de la instrucción es el valor del punto de entrada sumado al offset mostrado en la primera columna de la Figura 5.7}}, ver señal \texttt{instr@DEMW}), observa los siguientes operandos en el cálculo del destino del salto:
 
 \begin{itemize}
   \item{\textbf{ex\_io\_immediate}: \texttt{0x10}}

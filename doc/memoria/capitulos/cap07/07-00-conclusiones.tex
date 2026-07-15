@@ -10,4 +10,6 @@ El empleo de GTKWave para el análisis de las trazas VCD generadas por los tests
 
 Por otro lado, Chisel ha demostrado ser el HDL intuitivo y eficaz que sus desarrolladores idearon. Su integración con el ecosistema de Scala y el empleo de conceptos propios de la programación orientada a objetos facilitan la organización modular del diseño, característica que ha permitido, sin duda, abordar la complejidad creciente de la arquitectura.
 
-Como trabajo futuro podría plantearse la implementación de las instrucciones de manejo del CSR contempladas en la extensión Zicsr, lo cual sentaría las bases para la ejecución de un sistema operativo embebido como pudiera ser FreeRTOS.
+Como trabajo futuro podría plantearse, en primer lugar, la implementación del conjunto de extensiones contempladas en la extensión G (IMAFD, Zicsr y Zifencei), lo cual sentaría las bases para la ejecución de un sistema operativo embebido completo como, por ejemplo, FreeRTOS. Además, existen tests arquitecturales y funcionales de RISC-V con los que podría evaluarse el cumplimiento del estándar.
+
+Por último, propondría evaluar el empleo de un flujo de diseño completamente abierto basado en el proyecto F4PGA\footnote{\url{https://f4pga.readthedocs.io/en/latest/getting-started.html}}, que aúna un conjunto de herramientas \textit{open source} para la síntesis, \textit{place and route} y generación del bitstream. De este modo podría construirse un flujo de desarrollo basado íntegramente en tecnologías abiertas (Chisel + RISC-V + F4PGA).
