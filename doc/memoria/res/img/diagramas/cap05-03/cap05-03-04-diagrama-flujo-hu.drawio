@@ -1,0 +1,63 @@
+<mxfile host="Electron">
+  <diagram name="Página-1" id="J_j7zPQ5l7mcHpxXUWh4">
+    <mxGraphModel dx="712" dy="441" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-1" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;verticalAlign=top;" value="Inicio&lt;div&gt;(rs1 en EX)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="107" x="180" y="135" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-3" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;verticalAlign=middle;spacingTop=6;" value="¿Coincide con rd de MEM?" vertex="1">
+          <mxGeometry height="80" width="144" x="342" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-7" edge="1" parent="1" source="K4V2n4A4XsiUzJ0VCWPK-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;" target="K4V2n4A4XsiUzJ0VCWPK-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-8" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" value="Forward desde MEM" vertex="1">
+          <mxGeometry height="50" width="110" x="540" y="135" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-9" edge="1" parent="1" source="K4V2n4A4XsiUzJ0VCWPK-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="K4V2n4A4XsiUzJ0VCWPK-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-10" connectable="0" parent="K4V2n4A4XsiUzJ0VCWPK-9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;nbsp;Si&amp;nbsp;" vertex="1">
+          <mxGeometry relative="1" x="-0.2018" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-12" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;verticalAlign=middle;spacingTop=6;" value="¿Coincide con rd de&lt;div&gt;WB?&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="144" x="342" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-13" edge="1" parent="1" source="K4V2n4A4XsiUzJ0VCWPK-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="K4V2n4A4XsiUzJ0VCWPK-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-15" connectable="0" parent="K4V2n4A4XsiUzJ0VCWPK-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="No" vertex="1">
+          <mxGeometry relative="1" x="-0.219" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-16" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" value="Forward desde WB" vertex="1">
+          <mxGeometry height="50" width="110" x="540" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-17" edge="1" parent="1" source="K4V2n4A4XsiUzJ0VCWPK-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="K4V2n4A4XsiUzJ0VCWPK-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-18" connectable="0" parent="K4V2n4A4XsiUzJ0VCWPK-17" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;nbsp;Si&amp;nbsp;" vertex="1">
+          <mxGeometry relative="1" x="-0.1852" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-19" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" value="No hay dependencia" vertex="1">
+          <mxGeometry height="51" width="110" x="540" y="329" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-20" edge="1" parent="1" source="K4V2n4A4XsiUzJ0VCWPK-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;edgeStyle=orthogonalEdgeStyle;" target="K4V2n4A4XsiUzJ0VCWPK-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K4V2n4A4XsiUzJ0VCWPK-21" connectable="0" parent="K4V2n4A4XsiUzJ0VCWPK-20" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="No" vertex="1">
+          <mxGeometry relative="1" x="-0.05" y="-1" as="geometry">
+            <mxPoint x="53" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

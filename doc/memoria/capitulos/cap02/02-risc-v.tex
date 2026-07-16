@@ -2,9 +2,9 @@
 
 RISC son las siglas de `Reduced Instruction Set Computer', es decir, un computador con un conjunto de instrucciones reducido. Una de las primeras menciones de este concepto la encontramos en la década de 1970. En aquel entonces, en IBM, tenían la necesidad de desarrollar un computador sencillo, pero capaz de ejecutar 12 millones de instrucciones por segundo, de modo que pudiera ser integrado en un sistema de enrutamiento de llamadas telefónicas \cite{cocke1990evolution}.
 
-En ese periodo muchas arquitecturas comerciales seguían el paradigma CISC (Complex Instruction Set Computer), caracterizado por conjuntos de instrucciones amplios y relativamente complejos. Con frecuencia, esas instrucciones deben ser interpretadas a nivel arquitectural y traducidas a un microcódigo con el que se ejecutaban las operaciones necesarias para obtener los resultados esperados. No obstante, este enfoque requería  contar, en primer lugar, con un intérprete de bajo nivel que tradujera las instrucciones en sus correspondientes microcódigos, además de una memoria dedicada en la que alojarlos.
+En ese periodo muchas arquitecturas comerciales seguían el paradigma CISC (Complex Instruction Set Computer), caracterizado por conjuntos de instrucciones amplios y relativamente complejos. Con frecuencia, esas instrucciones deben ser interpretadas a nivel arquitectural y traducidas a un microcódigo con el que se ejecutaban las operaciones necesarias para obtener los resultados esperados. No obstante, este enfoque requiere contar, en primer lugar, con un intérprete de bajo nivel que traduzca las instrucciones en sus correspondientes microcódigos, además de una memoria dedicada en la que alojarlos.
 
-Las arquitecturas RISC surgen como respuesta a la tendencia de los conjuntos de instrucciones a ganar complejidad con el tiempo, a pesar de que algunos estudios \cite{tanenbaum1978implications} apuntaban que la mayoría de los programas desarrollados por aquel entonces tan solo empleaban un subconjunto de las instrucciones disponibles. En estos estudios se proponía la creación de arquitecturas más sencillas, baratas de producir y eficientes, las cuales, aún siéndolo, fueran capaces de ejecutar programas complejos de igual modo que lo hacían las arquitecturas CISC.
+Las arquitecturas RISC surgen como respuesta a la tendencia de los conjuntos de instrucciones a ganar complejidad con el tiempo, a pesar de que algunos estudios \cite{tanenbaum1978implications} apuntaban que la mayoría de los programas desarrollados por aquel entonces tan solo empleaban un subconjunto de las instrucciones disponibles. En estos estudios se proponía la creación de arquitecturas más sencillas, baratas de producir y eficientes, las cuales, aún siendo sencillas, fueran capaces de ejecutar programas complejos de igual modo que lo hacían las arquitecturas CISC.
 
 Con el tiempo, numerosos principios asociados al diseño RISC han sido adoptados de manera generalizada en las arquitecturas de procesadores modernos. De hecho, incluso aquellas tradicionalmente clasificadas como CISC emplean internamente representaciones simplificadas de sus instrucciones, lo que facilita su ejecución en pipelines profundos y en arquitecturas con ejecución fuera de orden. En consecuencia, la distinción clásica entre RISC y CISC ha tendido a difuminarse.
 
@@ -13,14 +13,14 @@ En los últimos años, el interés por arquitecturas basadas en estos principios
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HISTORIA DE RISC-V %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Historia de RISC-V}
 
-El manual de la primera versión del ISA abierto RISC-V fue publicado en el año 2011. Por aquel entonces, los investigadores de la Universidad de California en Berkeley, Krste Asanović, Yunsup Lee y Andrew Waterman, bajo la dirección de David A. Patterson, integraban el equipo \textit{ParLab}, trabajando en un proyecto de investigación sobre computación paralela, financiado por Intel y Microsoft, y del cual surgieron como derivados del trabajo de investigación tanto el ISA RISC-V, como el lenguaje de construcción de hardware (HDL) Chisel \cite{riscvhistory}.
+El manual de la primera versión del ISA abierto RISC-V fue publicado en el año 2011\cite{waterman2011risc}. Por aquel entonces, los investigadores de la Universidad de California, Berkeley, Krste Asanović, Yunsup Lee y Andrew Waterman, bajo la dirección de David A. Patterson, integraban el equipo \textit{ParLab}, trabajando en un proyecto de investigación sobre computación paralela, financiado por Intel y Microsoft, y del cual surgieron como derivados del trabajo de investigación tanto el ISA RISC-V, como el lenguaje de construcción de hardware (HDL) Chisel \cite{riscvhistory}.
 
 Más tarde, en el año 2015, se creó la RISC-V Foundation con el objetivo de organizar los esfuerzos de la comunidad global de desarrolladores de software y hardware, por impulsar la adopción del estándar, mantenerlo y hacerlo evolucionar de una manera organizada y eficaz. Además, en este mismo año, los integrantes del \textit{ParLab} (a excepción de Patterson) fundarían SiFive, una compañía dedicada al diseño y venta (que no fabricación) de procesadores basados en RISC-V.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ESPECIFICACIONES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Especificaciones}
 
-La especificación la componen dos ISAs, uno estándar y otro privilegiado, siendo el primero aquel sobre el que se ha puesto el foco a la hora de proponer y desarrollar este trabajo. La especificación del ISA privilegiado recoge las instrucciones y modos de ejecución necesarios para ejecutar sistemas operativos y operar con periféricos \cite{riscv-unpriv-isa-20250508-priv-isa-brief}, mientras que la especificación del ISA no privilegiado recoge las instrucciones necesarias para la construcción de arquitecturas RISC-V básicas pero completamente funcionales.
+La especificación se organiza principalmente en dos volúmenes: la especificación de la ISA no privilegiada y la especificación de la arquitectura privilegiada, siendo la primera aquella sobre la cual se ha puesto el foco a la hora de proponer y desarrollar este trabajo. La especificación del ISA privilegiado recoge las instrucciones y modos de ejecución necesarios para ejecutar sistemas operativos y operar con periféricos \cite{riscv-unpriv-isa-20250508-priv-isa-brief}, mientras que la especificación del ISA no privilegiado recoge las instrucciones necesarias para la construcción de arquitecturas RISC-V básicas pero completamente funcionales.
 
 El ISA no privilegiado lo componen, a su vez, cuatro especificaciones básicas junto con sus respectivas extensiones. Esas especificaciones básicas deben estar presentes en toda implementación que quiera hacerse del ISA, es decir, que una implementación debería integrar una de las cuatro especificaciones base, junto con tantas extensiones como se requiera. Las especificaciones base recogen el conjunto de instrucciones básico que todo núcleo RISC-V debería ser capaz de ejecutar  \cite{riscv-unpriv-isa-20250508-unpriv-isa-brief}, y son las siguientes:
 
@@ -30,7 +30,7 @@ El ISA no privilegiado lo componen, a su vez, cuatro especificaciones básicas j
   \item \textbf{RV\{32,64\}E}: subconjuntos de RV32I y RV64I con la mitad de registros. Elaborados para propiciar la construcción de microcontroladores de tamaño reducido.
 \end{itemize}
 
-Las instrucciones de las especificaciones base posibilitan la ejecución de operaciones aritmético-lógicas (suma, resta, operaciones lógicas, \textit{lui}\footnote{\textit{load upper immediate}: carga en un registro un entero de 32 bits construido con los 20 bits más significativos de la instrucción (inmediato), a los cuales se aplica un shift lógico de 12 bits hacia la izda.} y \textit{auipc}\footnote{\textit{add upper immediate (to) program counter}: construye un inmediato de 32 bits exactamente igual que \textit{lui}, lo suma al valor del contador de programa y lo guarda en un registro}), saltos condicionales y no condicionales, así como operaciones de lectura y escritura en memoria \cite{riscv-unpriv-isa-20250508-unpriv-isa-arit-instr}. En el ISA base se definen, además, las operaciones de ordenación de memoria necesarias para garantizar la consistencia en sistemas con múltiples hilos de ejecución paralelos o (\textit{harts}) \cite{riscv-unpriv-isa-20250508-unpriv-isa-mem-order}.
+Las instrucciones de las especificaciones base posibilitan la ejecución de operaciones aritmético-lógicas (suma, resta, operaciones lógicas, \textit{lui}\footnote{\textit{load upper immediate}: carga en un registro un entero de 32 bits construido con los 20 bits más significativos de la instrucción (inmediato), a los cuales se aplica un shift lógico de 12 bits hacia la izda.} y \textit{auipc}\footnote{\textit{add upper immediate (to) program counter}: construye un inmediato de 32 bits exactamente igual que \textit{lui}, lo suma al valor del contador de programa y lo guarda en un registro}), saltos condicionales y no condicionales, así como operaciones de lectura y escritura en memoria \cite{riscv-unpriv-isa-20250508-unpriv-isa-arit-instr}. En el ISA base se definen, además, las operaciones de ordenación de memoria necesarias para garantizar la consistencia en sistemas con múltiples hilos de ejecución paralelos o (\textit{harts\footnote{\textit{hardware thread}: una unidad de ejecución hardware capaz de ejecutar de forma independiente un flujo de instrucciones. En RISC-V, cada hart dispone de su propio contador de programa y de su estado arquitectónico.}}) \cite{riscv-unpriv-isa-20250508-unpriv-isa-mem-order}.
 
 Asimismo, se definen las instrucciones `ECALL'  y `EBREAK' cuya utilidad es, respectivamente, realizar llamadas al sistema y pausar la ejecución de un \textit{hart} para inspeccionar el estado del banco de registros y la memoria (útil en labores de depuración) \cite{riscv-unpriv-isa-20250508-unpriv-isa-ecall-ebreak}.
 
@@ -62,10 +62,11 @@ El formato B es una variación del S y se emplea en la codificación de las inst
 
 En las instrucciones de escritura en memoria, la dirección efectiva de acceso se forma concatenando las dos secciones del inmediato (la más significativa y la menos significativa) dentro de la instrucción, extendiendo el signo del resultado a 32 bits, y sumándolo al contenido del registro \textit{rs1}. Por otro lado, en la decodificación de las instrucciones de salto condicional, el offset respecto del contador de programa se construye de una manera menos intuitiva, tal y como puede verse en la Figura 2.1.
 
-\vspace{+0.3cm}
+\vspace{+0.1cm}
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.85 \linewidth]{res/img/formato-b.png}
+  \vspace{-0.2cm}
   \caption{Esquema con el formato que deben seguir las instrucciones del tipo B}
 \end{figure}
 
@@ -75,10 +76,11 @@ El offset siempre va a ser un múltiplo de 2, por lo que el último dígito bina
 
 El formato J debe emplearse en la codificación de las instrucciones de salto incondicional. Se trata de una variación del tipo U, que sigue la lógica del formato B en cuanto a la construcción del inmediato, tal y como puede observarse en la Figura 2.2 el offset se encuentra codificado en múltiplos de 2 por lo que el último bit va a ser siempre 0, con lo que puede codificarse dentro de la instrucción los 19 bits más significativos inmediatamente posteriores a ese último dígito binario.
 
-\vspace{+0.3cm}
+\vspace{+0.1cm}
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.85 \linewidth]{res/img/formato-j.png}
+  \vspace{-0.2cm}
   \caption{Esquema con el formato que deben seguir las instrucciones del tipo J}
 \end{figure}
 
