@@ -27,7 +27,7 @@ Para obtener código Verilog a partir de un desarrollo implementado en Chisel \c
 A partir de este fichero Verilog, Vivado llevará a cabo las etapas de síntesis, implementación y generación del \textit{bitstream}\footnote{El bitstream describe cómo debe configurarse el tejido programable de la FPGA, incluyendo la configuración de LUTs, registros, bloques de memoria, redes de interconexión y recursos de entrada/salida.} que posteriormente se programará en el chip FPGA de la placa de desarrollo.
 
 % Figura 6.2: Implementación de la CPU completa, con la definición del punto de entrada a la función que genera el circuito en lenguaje Verilog.
-\vspace{+0.6cm}
+\vspace{+1cm}
 \begin{figure}[h!]
 \begin{lstlisting}[style=scalaStyle]
 class Top extends Module {
@@ -68,7 +68,6 @@ object Top extends App {
   (new chisel3.stage.ChiselStage).emitVerilog(new Top())
 }
 \end{lstlisting}
-\vspace{-0.2cm}
 \caption{Implementación de la CPU completa, con la definición del punto de entrada a la función que genera el circuito en lenguaje Verilog.}
 \end{figure}
 
@@ -93,7 +92,7 @@ Para asociar la entrada/salida del módulo al hardware disponible en la placa es
 Se muestran en la Figura 6.3 las asignaciones realizadas para probar el diseño final.
 
 % Figura 6.3: Constraints configurados para probar el multiplexor de dos entradas en la placa.
-\vspace{+0.2cm}
+\vspace{+0.4cm}
 \begin{figure}[h!]
 \begin{lstlisting}[style=XDCStyle,columns=fullflexible]{}
 # Se mapea la señal de control de inicio del programa sobre uno de los interruptores deslizantes
@@ -115,7 +114,7 @@ set_property -dict { PACKAGE_PIN C2  IOSTANDARD LVCMOS33 } [get_ports { reset }]
 # Definición de la señal de reloj que empleará Vivado en el análisis
 create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports { clock }];
 \end{lstlisting}
-\vspace{-0.4cm}
+\vspace{-0.1cm}
 \caption{\textit{Constraints} configurados para probar el diseño final en la placa.}
 \end{figure}
 
@@ -182,7 +181,7 @@ class Top extends Module {
   ...
 }
 \end{lstlisting}
-\vspace{-0.4cm}
+\vspace{-0.1cm}
 \caption{Implementación de los módulos \texttt{SlowTick} y \texttt{BUFGCE}, y modificaciones realizadas en el módulo \texttt{Top}.}
 \end{figure}
 

@@ -29,6 +29,9 @@
 % Tildes en figuras
 \usepackage[utf8]{inputenc}
 
+% Para incrustar la portada
+\usepackage{pdfpages}
+
 % Para la bibliografía
 \usepackage{csquotes}
 \usepackage[
@@ -52,8 +55,8 @@
 \lstdefinestyle{scalaStyle}{
   frame=tb,
   language=scala,
-  aboveskip=3mm,
-  belowskip=3mm,
+  aboveskip=0pt,
+  belowskip=0pt,
   showstringspaces=false,
   columns=flexible,
   keepspaces=true,
@@ -71,8 +74,8 @@
 \lstdefinestyle{scalaStyleSmaller}{
   frame=tb,
   language=scala,
-  aboveskip=3mm,
-  belowskip=3mm,
+  aboveskip=0pt,
+  belowskip=0pt,
   showstringspaces=false,
   columns=flexible,
   keepspaces=true,
@@ -90,8 +93,8 @@
 \lstdefinestyle{scalaStyleNoNumbering}{
   frame=tb,
   language=scala,
-  aboveskip=3mm,
-  belowskip=3mm,
+  aboveskip=0pt,
+  belowskip=0pt,
   showstringspaces=false,
   columns=flexible,
   keepspaces=true,
@@ -108,8 +111,8 @@
 }
 \lstdefinestyle{scalaStyleNoNumberingNoBorder}{
   language=scala,
-  aboveskip=3mm,
-  belowskip=3mm,
+  aboveskip=0pt,
+  belowskip=0pt,
   showstringspaces=false,
   columns=flexible,
   keepspaces=true,
@@ -143,8 +146,8 @@
 \lstdefinestyle{bashStyle}{
   frame=tb,
   language=bash,
-  aboveskip=3mm,
-  belowskip=3mm,
+  aboveskip=0pt,
+  belowskip=0pt,
   showstringspaces=false,
   columns=flexible,
   keepspaces=true,
@@ -267,8 +270,8 @@
 \lstdefinestyle{DiffStyleNoNumbering}{
   frame=tb,
   language=Diff,
-  aboveskip=3mm,
-  belowskip=3mm,
+  aboveskip=0pt,
+  belowskip=0pt,
   showstringspaces=false,
   columns=flexible,
   keepspaces=true,
@@ -318,8 +321,8 @@
 \lstdefinestyle{XDCStyle}{
   frame=tb,
   language=XDC,
-  aboveskip=3mm,
-  belowskip=3mm,
+  aboveskip=0pt,
+  belowskip=0pt,
   showstringspaces=false,
   columns=flexible,
   keepspaces=true,
@@ -342,11 +345,16 @@
 \fancyfoot[R]{\thepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PORTADA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subfile{capitulos/cap00/00-portada.tex}
+%\subfile{capitulos/cap00/00-portada.tex}
+\includepdf{res/portada.pdf}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 0.1. Agradecimientos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \subfile{capitulos/cap00/00-01-agradecimientos}
+\newpage
+\null
+\thispagestyle{empty}
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 0.2. Resumen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage

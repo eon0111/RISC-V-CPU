@@ -121,7 +121,7 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
   }
 }
 \end{lstlisting}
-\vspace{-0.5cm}
+\vspace{-0.1cm}
 \caption{Código del test con el que se pone a prueba el funcionamiento de un programa sencillo sobre el núcleo segmentado en dos fases.}
 \end{figure}
 
@@ -203,7 +203,7 @@ La solución final para resolver esta problemática consiste en la introducción
 En la nueva implementación, tal y como se observa en el \texttt{diff} presentado en la Figura 5.12, se introduce un \texttt{nop} en el pipeline siempre y cuando se cumplan las dos condiciones siguientes: en primer lugar, que el cargador no haya terminado su trabajo y, en segundo lugar, que en la segunda fase de una instrucción de salto se haya determinado que este deba ser tomado (originalmente solo se contemplaba la primera condición).
 
 % Figura 5.12: Comparación entre la implementación original del módulo \texttt{InstructionFetch} y su adaptación para resolver riesgos de control
-\vspace{+0.2cm}
+\vspace{+0.5cm}
 \begin{figure}[h]
 \begin{lstlisting}[style=DiffStyleNoNumbering,columns=fullflexible]
    val pc = RegInit(ProgramCounter.EntryAddress)
@@ -222,6 +222,6 @@ En la nueva implementación, tal y como se observa en el \texttt{diff} presentad
 
    io.instruction_address := pc
 \end{lstlisting}
-\vspace{-0.4cm}
+\vspace{-0.1cm}
 \caption{Comparación entre la implementación original del módulo \texttt{InstructionFetch} y su adaptación para resolver riesgos de control.}
 \end{figure}

@@ -137,13 +137,13 @@ io.pc_stall   := lw_stall
 io.srFD_stall := lw_stall
 io.srDE_flush := lw_stall
 \end{lstlisting}
-\vspace{-0.4cm}
+\vspace{-0.1cm}
 \caption{Cómputo de la señal \texttt{lw\_stall}.}
 \end{figure}
 
 Las señales \texttt{pc\_stall}, \texttt{srFD\_stall} y \texttt{srDE\_flush} controlan, respectivamente, la parada del contador de programa, la detención del registro de segmentación de \textit{fetch}-decodificación, y la limpieza del registro de segmentación de decodificación-ejecución.
 
-Al instanciar el registro de segmentación en el módulo \texttt{CPU}, se indica que la señal de \textit{reset} del registro será la señal \texttt{srDE\_flush} generada por la \textit{hazard unit}, tal y como se observa en el código mostrado en la Figura TODO:
+Al instanciar el registro de segmentación en el módulo \texttt{CPU}, se indica que la señal de \textit{reset} del registro será la señal \texttt{srDE\_flush} generada por la \textit{hazard unit}, tal y como se observa en el código mostrado en la Figura 5.17.
 
 % Figura 5.17: Instanciación, en el módulo CPU, del registro de segmentación que separa las fases de decodificación y ejecución.
 \vspace{+0.4cm}
@@ -151,7 +151,7 @@ Al instanciar el registro de segmentación en el módulo \texttt{CPU}, se indica
 \begin{lstlisting}[style=scalaStyle,columns=fullflexible]{}
 val srDE = withReset(hazard_unit.io.srDE_flush){Module(new DE)}
 \end{lstlisting}
-\vspace{-0.4cm}
+\vspace{-0.1cm}
 \caption{Instanciación, en el módulo \texttt{CPU}, del registro de segmentación que separa las fases de decodificación y ejecución.}
 \end{figure}
 
@@ -175,16 +175,16 @@ when(io.instruction_valid & !io.pc_stall) {
 io.current_pc := pc
 io.next_pc    := pc_plus_four
 \end{lstlisting}
-\vspace{-0.4cm}
+\vspace{-0.1cm}
 \caption{Adaptación del código del módulo InstructionFetch.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Resolución de riesgos de control %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Resolución de riesgos de control}
 
-Una solución sencilla y eficaz al problema generado por los riesgos de control es limpiar el contenido de los registros de segmentación entre las etapas de fetch-decodificación y decodificación-ejecución cada vez que, en la fase de ejecución de una instrucción de salto, se determine que este deba ser tomado. De este modo, tal y como se observa en el ejemplo de la Figura 5.17, todas las instrucciones (máximo 2) que logren introducirse en el pipeline tras la instrucción de salto, no se procesarán completamente y su paso por la arquitectura habrá sido totalmente inocuo.
+Una solución sencilla y eficaz al problema generado por los riesgos de control es limpiar el contenido de los registros de segmentación entre las etapas de fetch-decodificación y decodificación-ejecución cada vez que, en la fase de ejecución de una instrucción de salto, se determine que este deba ser tomado. De este modo, tal y como se observa en el ejemplo de la Figura 5.19, todas las instrucciones (máximo 2) que logren introducirse en el pipeline tras la instrucción de salto, no se procesarán completamente y su paso por la arquitectura habrá sido totalmente inocuo.
 
-% Figura 5.17: Diagrama ilustrativo del proceso de mitigación de los riesgos de control.
+% Figura 5.19: Diagrama ilustrativo del proceso de mitigación de los riesgos de control.
 \vspace{+0.4cm}
 \begin{figure}[h]
   \centering
@@ -193,7 +193,7 @@ Una solución sencilla y eficaz al problema generado por los riesgos de control 
 \end{figure}
 \vspace{+0.4cm}
 
-Esta solución se implementa por medio del fragmenteo de código de la \textit{hazard unit} mostrado en la Figura 5.18, donde se establece que el valor de la señal de borrado de los registros de segmentación indicados (señales \texttt{srDE\_flush} y \texttt{srFD\_flush}\footnote{La instanciación del registro de segmentación de \textit{fetch}-decodificación en el módulo \texttt{CPU} se lleva a cabo de igual modo que en el caso del registro \texttt{srDE}, indicando que el \textit{reset} del registro será la señal \texttt{srFD\_flush} generada en la \textit{hazard unit}}), será igual al valor del flag de salto observado en la fase de ejecución.
+Esta solución se implementa por medio del fragmenteo de código de la \textit{hazard unit} mostrado en la Figura 5.20, donde se establece que el valor de la señal de borrado de los registros de segmentación indicados (señales \texttt{srDE\_flush} y \texttt{srFD\_flush}\footnote{La instanciación del registro de segmentación de \textit{fetch}-decodificación en el módulo \texttt{CPU} se lleva a cabo de igual modo que en el caso del registro \texttt{srDE}, indicando que el \textit{reset} del registro será la señal \texttt{srFD\_flush} generada en la \textit{hazard unit}}), será igual al valor del flag de salto observado en la fase de ejecución.
 
 % Figura 5.18: Configuración de la señal de borrado de los registros de segmentación que separan las fases de fetch-decodificación y decodificación-ejecución, conforme al valor del flag de salto en fase de ejecución.
 \vspace{+0.4cm}
@@ -202,6 +202,6 @@ Esta solución se implementa por medio del fragmenteo de código de la \textit{h
 io.srDE_flush := lw_stall | io.ex_jump_flag
 io.srFD_flush := io.ex_jump_flag
 \end{lstlisting}
-\vspace{-0.4cm}
+\vspace{-0.1cm}
 \caption{Configuración de la señal de borrado de los registros de segmentación que separan las fases de fetch-decodificación y decodificación-ejecución, conforme al valor del flag de salto en fase de ejecución.}
 \end{figure}
