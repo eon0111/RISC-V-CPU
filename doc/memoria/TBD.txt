@@ -1,0 +1,11 @@
+- Existen tests arquitecturales y funcionales oficiales de RISC-V (Pablo me pasa repos). No los aplicamos pero los mencionamos.
+
+- Cap FPGA:
+	> Comentar comparación de área entre ambas implementaciones del core (meter numeritos que quedan bien).
+	> Comentar tema de tiempos (los que calcula Vivado).
+	> Hablar sobre el proceso de despliegue en FPGA.
+
+
+riscv64-unknown-elf-as -march=rv32i -mabi=ilp32 -o load_6_on_x7.o load_6_on_x7.S
+riscv64-unknown-elf-ld -m elf32lriscv -Ttext=0x0 -o load_6_on_x7.elf load_6_on_x7.o
+riscv64-unknown-elf-objcopy -O binary load_6_on_x7.elf load_6_on_x7.bin

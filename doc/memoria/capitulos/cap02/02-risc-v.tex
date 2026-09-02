@@ -20,7 +20,7 @@ Más tarde, en el año 2015, se creó la RISC-V Foundation con el objetivo de or
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ESPECIFICACIONES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Especificaciones}
 
-La especificación se organiza principalmente en dos volúmenes: la especificación de la ISA no privilegiada y la especificación de la arquitectura privilegiada, siendo la primera aquella sobre la cual se ha puesto el foco a la hora de proponer y desarrollar este trabajo. La especificación del ISA privilegiado recoge las instrucciones y modos de ejecución necesarios para ejecutar sistemas operativos y operar con periféricos \cite{riscv-unpriv-isa-20250508-priv-isa-brief}, mientras que la especificación del ISA no privilegiado recoge las instrucciones necesarias para la construcción de arquitecturas RISC-V básicas pero completamente funcionales.
+La especificación se organiza principalmente en dos volúmenes: la especificación del conjunto de instrucciones no privilegiado y la especificación del conjunto privilegiado, siendo el primero aquel sobre el cual se ha puesto el foco a la hora de proponer y desarrollar este trabajo. La especificación del ISA privilegiado recoge las instrucciones y modos de ejecución necesarios para ejecutar sistemas operativos y operar con periféricos \cite{riscv-unpriv-isa-20250508-priv-isa-brief}, mientras que la especificación del ISA no privilegiado recoge las instrucciones necesarias para la construcción de arquitecturas RISC-V básicas pero completamente funcionales.
 
 El ISA no privilegiado lo componen, a su vez, cuatro especificaciones básicas junto con sus respectivas extensiones. Esas especificaciones básicas deben estar presentes en toda implementación que quiera hacerse del ISA, es decir, que una implementación debería integrar una de las cuatro especificaciones base, junto con tantas extensiones como se requiera. Las especificaciones base recogen el conjunto de instrucciones básico que todo núcleo RISC-V debería ser capaz de ejecutar  \cite{riscv-unpriv-isa-20250508-unpriv-isa-brief}, y son las siguientes:
 
@@ -30,7 +30,7 @@ El ISA no privilegiado lo componen, a su vez, cuatro especificaciones básicas j
   \item \textbf{RV\{32,64\}E}: subconjuntos de RV32I y RV64I con la mitad de registros. Elaborados para propiciar la construcción de microcontroladores de tamaño reducido.
 \end{itemize}
 
-Las instrucciones de las especificaciones base posibilitan la ejecución de operaciones aritmético-lógicas (suma, resta, operaciones lógicas, \textit{lui}\footnote{\textit{load upper immediate}: carga en un registro un entero de 32 bits construido con los 20 bits más significativos de la instrucción (inmediato), a los cuales se aplica un shift lógico de 12 bits hacia la izda.} y \textit{auipc}\footnote{\textit{add upper immediate (to) program counter}: construye un inmediato de 32 bits exactamente igual que \textit{lui}, lo suma al valor del contador de programa y lo guarda en un registro}), saltos condicionales y no condicionales, así como operaciones de lectura y escritura en memoria \cite{riscv-unpriv-isa-20250508-unpriv-isa-arit-instr}. En el ISA base se definen, además, las operaciones de ordenación de memoria necesarias para garantizar la consistencia en sistemas con múltiples hilos de ejecución paralelos o (\textit{harts\footnote{\textit{hardware thread}: una unidad de ejecución hardware capaz de ejecutar de forma independiente un flujo de instrucciones. En RISC-V, cada hart dispone de su propio contador de programa y de su estado arquitectónico.}}) \cite{riscv-unpriv-isa-20250508-unpriv-isa-mem-order}.
+Las instrucciones de las especificaciones base posibilitan la ejecución de operaciones aritmético-lógicas (suma, resta, operaciones lógicas, \textit{lui}\footnote{\textit{load upper immediate}: carga en un registro un entero de 32 bits construido con los 20 bits más significativos de la instrucción (inmediato), a los cuales se aplica un shift lógico de 12 bits hacia la izda.} y \textit{auipc}\footnote{\textit{add upper immediate (to) program counter}: construye un inmediato de 32 bits exactamente igual que \textit{lui}, lo suma al valor del contador de programa y lo guarda en un registro}), saltos condicionales y no condicionales, así como operaciones de lectura y escritura en memoria \cite{riscv-unpriv-isa-20250508-unpriv-isa-arit-instr}. En el ISA base se definen, además, las operaciones de ordenación de memoria necesarias para garantizar la consistencia en sistemas con múltiples hilos de ejecución paralelos o \textit{harts\footnote{\textit{hardware thread}: una unidad de ejecución hardware capaz de ejecutar de forma independiente un flujo de instrucciones. En RISC-V, cada hart dispone de su propio contador de programa y de su estado arquitectónico.}} \cite{riscv-unpriv-isa-20250508-unpriv-isa-mem-order}.
 
 Asimismo, se definen las instrucciones `ECALL'  y `EBREAK' cuya utilidad es, respectivamente, realizar llamadas al sistema y pausar la ejecución de un \textit{hart} para inspeccionar el estado del banco de registros y la memoria (útil en labores de depuración) \cite{riscv-unpriv-isa-20250508-unpriv-isa-ecall-ebreak}.
 
@@ -58,9 +58,11 @@ En lo que respecta al formato de las instrucciones, existen cuatro formatos base
 
 \subsection{Formato B}
 
-El formato B es una variación del S y se emplea en la codificación de las instrucciones de salto condicional. La diferencia entre este formato y el formato S reside en la manera de interpretar los campos con que se construye el inmediato.
+El formato B se emplea en la codificación de las instrucciones de salto condicional. Sobre este formato merece especial atención la forma en que se construye e interpreta el inmediato.
 
-En las instrucciones de escritura en memoria, la dirección efectiva de acceso se forma concatenando las dos secciones del inmediato (la más significativa y la menos significativa) dentro de la instrucción, extendiendo el signo del resultado a 32 bits, y sumándolo al contenido del registro \textit{rs1}. Por otro lado, en la decodificación de las instrucciones de salto condicional, el offset respecto del contador de programa se construye de una manera menos intuitiva, tal y como puede verse en la Figura 2.1.
+Este valor representa, en bytes, la distancia que separa a la instrucción de salto de una instrucción objetivo en memoria. Este offset siempre va a ser un múltiplo de 2, por lo que el último dígito binario del inmediato puede asumirse siempre nulo. Con esto, el inmediato en las instrucciones de salto condicional podría codificar los 12 bits más significativos que preceden a ese último dígito binario, quedando un offset de 13 bits que, posteriormente, habría que extender a 32 bits para sumarlo al contador de programa.
+
+A continuación, en la Figura 2.1, se presenta un diagrama con la disposición de los campos TODO:
 
 \vspace{+0.1cm}
 \begin{figure}[h]
@@ -69,8 +71,6 @@ En las instrucciones de escritura en memoria, la dirección efectiva de acceso s
   \vspace{-0.2cm}
   \caption{Esquema con el formato que deben seguir las instrucciones del tipo B}
 \end{figure}
-
-El offset siempre va a ser un múltiplo de 2, por lo que el último dígito binario del inmediato puede asumirse siempre nulo. Con esto, el inmediato en las instrucciones de salto condicional podría codificar los 12 bits más significativos sigiuentes a ese primer dígito binario, quedando un offset de 13 bits que, posteriormente, habría que extender a 32 bits para sumarlo al contador de programa. En aras de favorecer la reutilización de la lógica de decodificación del inmediato del formato S, se decidió construir el formato B de forma que hubiera tanta superposición como fuera posible con el S, facilitando de este modo la decodificación. En resumidas cuentas, se sacrificó ligeramente la legibilidad del inmediato dentro del formato, favoreciendo la eficiencia en la implementación.
 
 \subsection{Formato J}
 
