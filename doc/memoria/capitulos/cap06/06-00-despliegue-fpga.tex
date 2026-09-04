@@ -190,14 +190,14 @@ class Top extends Module {
 
 La integración del \texttt{BUFGCE} tenía el único propósito de hacer que la verificación de resultados de una prueba de concepto (carga y ejecución de un código sencillo), fuera algo realizable, pudiendo observar una actualización del contador de programa cada 0.5 segundos. No obstante, de cara a realizar un análisis de la arquitectura en condiciones normales de operación, se ha suprimido el \texttt{BUFGCE}, quedando en las \textit{constraints}, tan solo, la asignación del reloj al pin correspondiente en la placa, y la definición del reloj \texttt{sys\_clk\_pin}.
 
-A continuación se comentarán los resultados obtenidos por la herramienta Vivado tras la síntesis e implementación del diseño monociclo original y el diseño segmentado.
+A continuación se comentarán los resultados obtenidos en la herramienta Vivado tras la síntesis e implementación del diseño monociclo original y el diseño segmentado.
 
 \subsection{Análisis de la utilización}
 
-En la Figura 6.5 se muestra una tabla en la que se comparan los valores de utilización obtenidos con el comando \texttt{report\_utilization -hierarchical} en la consola \texttt{Tcl} de Vivado. En primer lugar, se observa un decremento del 7\% en el número de LUTs\footnote{\textit{Look-Up Table}: el bloque básico de lógica combinacional de una FPGA. Estos bloques implementan por sí solos cualquier función lógica de un número determinado de entradas.} ocupados por el núcleo (dato de la instancia 'cpu' en la columna 'Logic LUTs').
+En la Figura 6.5 se muestra una tabla en la que se comparan los valores de utilización obtenidos con el comando \texttt{report\_utilization -hierarchical} en la consola \texttt{Tcl} de Vivado. En primer lugar, se observa un decremento del 7\% en el número de LUTs\footnote{\textit{Look-Up Table}: el bloque básico de lógica combinacional de una FPGA. Estos bloques implementan por sí solos cualquier función lógica de un número determinado de entradas.} ocupados por el núcleo (dato de la instancia `cpu' en la columna `Logic LUTs').
 La incorporación de la \textit{hazard unit} al pipeline, al ser esta una pieza de lógica combinacional tan sencilla, no ha supuesto un incremento en el área del núcleo. No obstante a esto, la memoria ocupa aproximadamente el 80\% de la implementación (en términos de LUTs totales), por lo que, aún siendo algo singular, un decremento del 7\% en el área del núcleo podría entrar dentro de lo esperado. Podría atribuirse, quizás, a las optimizaciones introducidas en el proceso de síntesis.
 
-Un resultado esperado es el incremento del 30\% observado en el número de Flip-Flops (columna 'FF'), como consecuencia directa de la introducción de los registros de segmentación.
+Un resultado esperado es el incremento del 30\% observado en el número de Flip-Flops (columna `FF'), como consecuencia directa de la introducción de los registros de segmentación.
 
 % Figura 6.5: Comparativa de los resultados de utilización obtenidos.
 \vspace{+0.1cm}
@@ -273,7 +273,7 @@ donde $T_{\text{crit}}$ es el tiempo que tarda una señal en recorrer el camino 
 
 Al ejecutar el comando \texttt{report\_timing -max\_paths 5} se obtiene un informe más detallado con los datos presentado en la Figura 6.6. Se observa el slack obtenido para cada implementación, el requisito temporal a cumplir (periodo del reloj en el apartado \textit{Requirement}), el tiempo del camino crítico (dato del apartado \textit{Data Path Delay}), y el número de niveles lógicos atravesados en ese camino crítico (\textit{Logic Levels}).
 
-% Figura 6.6: Selección de algunos de los valores obtenidos tras análisis temporal.
+% Figura 6.6: Selección de algunos de los valores obtenidos tras el análisis temporal.
 \vspace{+0.1cm}
 \begin{figure}[H]
 \centering
@@ -303,7 +303,7 @@ Slack (MET) :         0.058ns  (required time - arrival time)
 \\
 \hline
 \end{tabular}
-\caption{Selección de algunos de los valores obtenidos tras análisis temporal.}
+\caption{Selección de algunos de los valores obtenidos tras el análisis temporal.}
 \end{figure}
 
 En resumen, gracias a la segmentación se ha conseguido reducir el tiempo del camino crítico en, aproximadamente, 20 ns, lo cual se traduce en una frecuencia de trabajo 3 veces superior o, lo que es lo mismo, se ha logrado un speedup de x3, alejado del x5 ideal, pero igualmente significativo.
