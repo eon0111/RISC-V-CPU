@@ -1,8 +1,8 @@
 \chapter{El procesador segmentado}
 
-La segmentación (\textit{pipelining}) es una técnica por medio de la cual la arquitectura de un computador se divide en múltiples etapas, cada una de las cuales, se corresponde con una de las fases experimentadas por una instrucción desde que es leída de memoria hasta que sus resultados son escritos en el banco de registros. Este enfoque permite que distintas instrucciones ocupen distintas etapas de manera concurrente, explotando así el paralelismo a nivel de instrucción, y requiere introducir en la arquitectura registros de etapa con los que almacenar de manera temporal el contexto de una instrucción al final de cada etapa, es decir, el conjunto de datos y señales de control asociados a la instrucción, los cuales serán transferidos a la etapa inmediatamente posterior en el siguiente ciclo de reloj.
+La segmentación (\textit{pipelining}) es una técnica por medio de la cual la arquitectura de un computador se divide en múltiples etapas cada una de las cuales, se corresponde con una de las fases experimentadas por una instrucción desde que es leída de memoria hasta que sus resultados son escritos en el banco de registros. Este enfoque permite que distintas instrucciones ocupen distintas etapas de manera concurrente, explotando así el paralelismo a nivel de instrucción. Para lograrlo, deben introducirse en la arquitectura registros de etapa con los que almacenar de manera temporal el contexto de una instrucción al final de cada etapa, es decir, el conjunto de datos y señales de control asociados a la instrucción, los cuales serán transferidos a la etapa inmediatamente posterior en el siguiente ciclo de reloj.
 
-Puede verse en la Figura 5.1 un diagrama en el que se compara el flujo de ejecución de un computador monociclo frente al de uno segmentado.
+Puede verse en la Figura 5.1 un diagrama en el que se compara el flujo de ejecución de un computador monociclo frente al de uno segmentado. Se trata de un caso ideal en el que el camino crítico de cada una de las cinco etapas en que se ha segmentado la arquitectura toma exactamente el mismo tiempo, y este es $1/5$ del periodo de reloj del computador monociclo.
 
 % Figura 5.1: Ejecución de un programa en un computador con diseño monociclo (a) y segmentado (b)
 \vspace{+0.5cm}
@@ -18,7 +18,7 @@ Esta técnica conlleva una mayor complejidad arquitectónica y el surgimiento de
 
 \subsubsection{Dependencias de datos}
 
-En la Figura 5.2 aparecen identificados los distintos tipos de dependencias de datos que pueden darse durante la ejecución de un programa. La dependencia RAW (a) se da cuando uno de los operandos de una instrucción es un registro (\texttt{x1}, señalado en color rojo) cuyo valor deberá ser previamente modificado por otra instrucción separada de la primera 3 ciclos o menos (ver Figura 5.3). Esto es así ya que la primera instrucción, la que lee el dato, deberá poder observar ese dato actualizado de modo que pueda elaborar un resultado consistente con el orden del programa. Es decir que, en un principio, la segunda instrucción no debería poder leer sus operandos (en su \textit{decode}) hasta la escritura (\textit{writeback}) del resultado calculado por la primera. Se ejemplifica esta situación por medio del diagrama presentado en la Figura 5.3.
+En la Figura 5.2 aparecen identificados los distintos tipos de dependencias de datos que pueden darse durante la ejecución de un programa. La dependencia RAW (a) se da cuando uno de los operandos de una instrucción es un registro (\texttt{x1}, señalado en color rojo) cuyo valor deberá ser previamente modificado por otra instrucción separada de la primera 2 ciclos o menos (ver Figura 5.3). Esto es así ya que la primera instrucción, la que lee el dato, deberá poder observar ese dato actualizado de modo que pueda elaborar un resultado consistente con el orden del programa. Es decir que, en un principio, la segunda instrucción no debería poder leer sus operandos (en su \textit{decode}) hasta la escritura (\textit{writeback}) del resultado calculado por la primera. Se ejemplifica esta situación por medio del diagrama presentado en la Figura 5.3.
 
 % Figura 5.2: Ejemplos de riesgos de datos. (a) RAW (\textit{Read After Write}): lectura tras escritura. (b) WAW (\textit{Write After Write}): escritura tras escritura. (c) WAR (\textit{Write After Read}): escritura tras lectura.
 \vspace{+0.2cm}
@@ -76,17 +76,20 @@ Los otros dos tipos de dependencias presentados en la Figura 5.2, señalados con
 
 \subsubsection{Dependencias de control}
 
-En la Figura 5.4 se presenta un ejemplo de riesgo de control. En ese ejemplo, el resultado de la instrucción de resta (\texttt{subi}) se escribe (writeback señalado en color verde) en el banco de registros ántes incluso de evaluar la condición en la instrucción de salto, dejando el valor del registro \texttt{t0} en un estado inconsistente. Además, dado que el destino del salto de la instrucción \texttt{j loop} no se calculará hasta su ejecución, habrá dos ciclos en los que se introducirán las dos instrucciones inmediatamente posteriores (señaladas en color morado), una de las cuales reinicia el valor de la variable \texttt{a} haciendo que el bucle no tenga final. El resultado de la instrucción \texttt{subi} en la primera iteración se sobreescribe con el del segundo \texttt{addi}.
+En la Figura 5.4 se presenta un ejemplo de riesgo de control. En este ejemplo, la instrucción de resta \texttt{subi} entra en el pipeline antes incluso de que se haya evaluado la condición en la instrucción de salto \texttt{beq}, logrando completar su ejecución y dejando el valor del registro \texttt{t0} en un estado inconsistente. Además, dado que el destino del salto de la instrucción \texttt{j loop} no se calculará hasta su ejecución, habrá dos ciclos en los que se introducirán las dos instrucciones inmediatamente posteriores (señaladas en color morado), una de las cuales reinicia el valor de la variable \texttt{a} (\texttt{t0}) haciendo que el bucle no tenga final. El resultado de la instrucción \texttt{subi} en la primera iteración se sobreescribe con el del segundo \texttt{addi}.
+
+\vspace{+0.3cm}
+
+A pesar de las limitaciones comentadas, se debe destacar que la segmentación de instrucciones permite obtener un speedup teórico próximo al número de etapas en que se haya decidido segmentar la arquitectura, teniendo siempre en cuenta que aspectos como la presencia y resolución de los riesgos mencionados, la latencia en los accesos a memoria o el tiempo desigual entre los caminos críticos de las diferentes etapas, impedirán alcanzar ese rendimiento máximo ideal.
 
 % Figura 5.4: Representación del flujo de ejecución de un programa sobre una arquitectura segmentada sin mecanismos para resolver riesgos de control.
+\vspace{+0.4cm}
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.85\linewidth]{res/img/diagramas/cap05riesgoControl/cap05riesgoControl.png}
   \vspace{+0.05cm}
   \caption{Representación del flujo de ejecución de un programa sobre una arquitectura segmentada sin mecanismos para resolver riesgos de control.}
 \end{figure}
-
-A pesar de las limitaciones comentadas, se debe destacar que la segmentación de instrucciones permite obtener un speedup teórico próximo al número de etapas en que se haya decidido segmentar la arquitectura, teniendo siempre en cuenta que aspectos como la presencia y resolución de los riesgos mencionados, la latencia en los accesos a memoria o el tiempo desigual entre los caminos críticos de las diferentes etapas, impedirán alcanzar ese rendimiento máximo ideal.
 
 
 

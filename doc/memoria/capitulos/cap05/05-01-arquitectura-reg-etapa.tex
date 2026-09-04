@@ -4,7 +4,7 @@ La función de un registro de etapa es almacenar de manera transitoria el conjun
 
 Desde el punto de vista de la implementación en Chisel, un registro de etapa como el mostrado en la Figura 5.5 se compone, en primer lugar, de un bundle en el que se definen las entradas y salidas de este. Estas se corresponderán con el conjunto de señales de control y datos que deban avanzar de una etapa a la siguiente.Posteriormente, cada entrada de datos/control se conectará a la entrada de un registro específico de esa señal y, la salida del registro, a su correspondiente salida en el bundle.
 
-\vspace{+0.3cm}
+\vspace{+0.6cm}
 \begin{figure}[h!!]
 \begin{lstlisting}[style=scalaStyle,columns=fullflexible]{}
 class FD extends Module {

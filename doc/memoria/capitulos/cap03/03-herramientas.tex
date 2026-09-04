@@ -4,7 +4,7 @@
 
 \section{Chisel}
 
-Chisel es un lenguaje de descripción de hardware de alto nivel gestado en el año 2012 en el seno del Departamento de Ingeniería Eléctrica y Ciencias de la Computación (abrev. EECS) de la Universidad de California, Berkeley, y surgió como parte de un proyecto de investigación cuyo objetivo final era la implementación de una interfaz de lenguaje con la que elevar el nivel de abstracción ofrecido por HDL's convencionales como son VHDL o Verilog, ofreciendo la posibilidad de traducir los desarrollos elaborados, en entidades descritas en estos mismos lenguajes de bajo nivel, con objeto de correr procesos de síntesis o emulación que permitiesen evaluar su funcionamiento \cite{chiselEECS}.
+Chisel es un lenguaje de descripción de hardware de alto nivel gestado en el año 2012 en el seno del Departamento de Ingeniería Eléctrica y Ciencias de la Computación (abrev. EECS) de la Universidad de California, Berkeley. Este lenguaje surgió como parte de un proyecto de investigación cuyo objetivo final era la implementación de una interfaz de lenguaje que proporcionase un nivel de abstracción superior al ofrecido por HDL's convencionales como son VHDL o Verilog. Además, se desarrollaría un conjunto de herramientas software con las que traducir los diseños elaborados en Chisel, en sus equivalentes VHDL o Verilog. De este modo, podrían ejecutarse los procesos de síntesis o emulación con los que evaluar el funcionamiento de los módulos desarrollados \cite{chiselEECS}.
 
 El hecho de que se trate de un HDL de alto nivel tiene un impacto directo y positivo sobre la celeridad en los procesos de desarrollo y prueba del hardware, permitiendo elaborar y probar diseños de una manera ágil sin perder las características de eficiencia y robustez que proporcionan lenguajes de más bajo nivel.
 
@@ -12,9 +12,13 @@ Es un lenguaje de propósito específico construido sobre Scala, un lenguaje de 
 
 \subsection{Desarrollo en Chisel}
 
-La unidad fundamental de diseño de hardware en Chisel son los módulos, que encapsulan la disposición interna y el comportamiento de un circuito lógico. Esta disposición interna pueden componerla otros módulos, cables internos o cables de entrada/salida, cuyos valores serán empleados en la evaluación de las expresiones lógicas que definan el comportamiento del módulo, y que pueden describirse por medio de operadores aritmético-lógicos convencionales, o bien, por medio de los tipos de datos y componentes definidos en las librerías de Chisel, tales como multiplexores, decodificadores o incluso memorias.
+La unidad fundamental de diseño de hardware en Chisel son los módulos, que encapsulan la disposición interna y el comportamiento de un circuito lógico. Un módulo puede componerse a partir de la instanciación de otros módulos, cables internos o cables de entrada/salida, siendo empleados estos últimos en la evaluación de las expresiones lógicas que definirán el comportamiento del módulo. Este comportamiento puede describirse por medio de operadores aritmético-lógicos convencionales, o bien, por medio de los tipos de datos y componentes definidos en las librerías de Chisel, tales como multiplexores, decodificadores o incluso memorias.
 
-A continuación, en la Figura 3.1, se proporciona un código sencillo con el que se describe un multiplexor de 4 entradas de 32 bits cada una. Nótese que los módulos se definen como clases que extienden la clase \textit{Module}, lo cual obliga a contar con, al menos, una interfaz encapsulada en el método \textit{IO}, por medio del cual se definirá esa interfaz como un elemento de entrada/salida. En el caso del código mostrado en la Figura 3.1 las interfaces de entrada/salida se encuentran definidas en las líneas 7 a 14 como parte de una instancia de la clase \textit{Bundle}, que es un constructo que permite en Chisel crear nuevos tipos de datos al estilo de los \textit{struct} en el lenguaje C.
+A continuación, en la Figura 3.1, se proporciona un código sencillo con el que se describe un multiplexor de 4 entradas de 32 bits cada una.
+
+Nótese que los módulos se definen como clases que extienden la clase \textit{Module}, la cual dota a los módulos de una plantilla con los atributos y métodos esenciales para su construcción, siendo \textit{IO} uno de esos métodos. Este método se emplea en la construcción de la interfaz de entrada-salida de los módulos, y el modo de definir esta interfaz es tal y como se aprecia en las líneas 6 a 14 del ejemplo en la Figura 3.1: el método \textit{IO} recibe como parámetro una instancia de la clase \textit{Bundle}, dentro de la cual se definen los puertos de entrada y salida del componente.
+
+Sobre la clase \textit{Bundle}, el propósito de esta es posibilitar la creación de nuevos tipos de datos al estilo de los \textit{struct} en lenguaje C.
 
 \vspace{+0.3cm}
 \begin{figure}[H]
@@ -61,11 +65,13 @@ class Mux4 extends Module {
 
 \subsection{Pruebas en Chisel}
 
-Como se comentaba al comienzo de esta sección sobre Chisel, una de sus características más reseñables es la agilidad con la que puede probarse el comportamiento de los módulos, y ello es gracias a los tests, los cuales son definiciones de clases que implementan uno de los \textit{traits} de Chisel en los que se definen a su vez los procedimientos que permiten evaluar el funcionamiento de los módulos. Estos \textit{traits} son interfaces que definen una serie funciones básicas con las que comprobar y alterar el estado de las señales dentro de los módulos.
+Como se comentaba al comienzo de esta sección sobre Chisel, una de sus características más reseñables es la agilidad con la que puede probarse el comportamiento de los módulos, y ello es gracias a los tests.
+
+Un test de Chisel es una clase que permite simular el comportamiento de un módulo y verificar su funcionamiento mediante la aplicación de estímulos y la comprobación de las respuestas generadas por la lógica del módulo.
 
 Se ha decidido utilizar \textit{ChiselScalatestTester} como interfaz de pruebas en lugar de la más reciente \textit{ChiselSim}. Dado que no se aprecian diferencias relevantes a nivel de implementación entre ambas interfaces, la elección se ha fundamentado en la equivalencia funcional entre ellas y en la necesidad de reutilizar el conjunto de tests ya desarrollados, evitando así esfuerzos de adaptación innecesarios.
 
-Las interfaces de prueba de Chisel definen cuatro funciones básicas con las que evaluar el comportamiento de un módulo: \textit{peek}, \textit{poke},  \textit{expect} y \textit{step}. Estas funciones se invocan sobre las diferentes señales de las cuales se componga el módulo y permiten realizar las siguientes acciones:
+Las interfaces de prueba de Chisel definen cinco funciones básicas con las que evaluar el comportamiento de un módulo: \textit{peek}, \textit{poke}, \textit{expect}, \textit{step} y \textit{stepUntil}. Estas funciones se invocan sobre las diferentes señales de las cuales se componga el módulo y permiten realizar las siguientes acciones:
 
 \vspace{-0.1cm}
 \begin{itemize}
@@ -76,6 +82,8 @@ Las interfaces de prueba de Chisel definen cuatro funciones básicas con las que
   \item \textbf{\textit{expect}}: evaluación de un valor determinado en la señal, esto es, probar si el valor de la señal en el instante de invocación de la función es el esperado.
   \vspace{-0.3cm}
   \item \textbf{\textit{step}}: se invoca sobre una señal de reloj y permite avanzarlo un ciclo.
+  \vspace{-0.3cm}
+  \item \textbf{\textit{stepUntil}}: avanza el reloj hasta que se cumpla una condición en alguna otra señal.
 \end{itemize}
 \vspace{-0.1cm}
 
@@ -133,7 +141,7 @@ La depuración de componentes arquitecturales individuales tales como la ALU o e
 
 Aún siendo esta una tarea ciertamente abordable, se optó por explorar alternativas que permitiesen depurar el estado de la arquitectura de una manera más rápida y visual, y se consideró que la herramienta GTKWave cumpliría perfectamente con este propósito.
 
-GTKWave es una herramienta de análisis empleada en la depuración de trazas generadas en los procesos de simulación de modelos elaborados con Verilog o VHDL. Estas trazas, generadas con la ejecución de los tests de Chisel, se almacenan en ficheros con un formato definido originalmente en el estándard IEEE 1364-1995\cite{IEEE1364} y constituyen una descripción de todos los cambios experimentados por las señales de los módulos durante la ejecución de las simulaciones.
+GTKWave es una herramienta de análisis empleada en la depuración de trazas generadas en los procesos de simulación de modelos elaborados con Verilog o VHDL. Estas trazas VCD, generadas con la ejecución de los tests de Chisel, se almacenan en ficheros con un formato definido originalmente en el estándard IEEE 1364-1995\cite{IEEE1364} y constituyen una descripción de todos los cambios experimentados por las señales de los módulos durante la ejecución de las simulaciones.
 
 La herramienta permite explorar esos cambios de una manera visual por medio de una interfaz gráfica en la que puede explorarse el histórico de cambios de la totalidad de las señales que conformen cada módulo, tal y como se muestra en la Figura 3.3, donde se presenta una captura de pantalla de la interfaz gráfica de GTKWave, mostrando una visualización de la traza generada tras la ejecución del test mostrado en la Figura 3.2.
 
@@ -160,12 +168,9 @@ La placa alberga el FPGA AMD (anteriormente Xilinx) Artix7, con 101440 celdas l�
 
 \vspace{-0.4cm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Logisim Evolution %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Logisim Evolution}
-% 
-% Se trata de un software CAD de código abierto utilizado para el diseño y simulación de circuitos lógicos, y fue la herramienta empleada para la creación de los diagramas de la arquitectura que se mostrarán en capítulos posteriores de esta memoria.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Git %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Git}
 
 Git fue concebido originalmente por Linus Torvalds como una alternativa de código abierto a BitKeeper, el software de control de versiones propietario empleado en el desarrollo del kernel de Linux entre los años 2002 y 2005\cite{githistory}, y es actualmente el software de control de versiones más utilizado por los desarrolladores, según los datos reflejados en el \textit{Stack Overflow Annual Developer Survey} del año 2022\cite{stackoverflow}
+
+El repositorio de este proyecto se encuentra disponible de manera pública en la siguiente dirección web: \url{https://github.com/eon0111/RISC-V-CPU}.

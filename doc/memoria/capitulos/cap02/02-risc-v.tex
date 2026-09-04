@@ -60,9 +60,11 @@ En lo que respecta al formato de las instrucciones, existen cuatro formatos base
 
 El formato B se emplea en la codificación de las instrucciones de salto condicional. Sobre este formato merece especial atención la forma en que se construye e interpreta el inmediato.
 
-Este valor representa, en bytes, la distancia que separa a la instrucción de salto de una instrucción objetivo en memoria. Este offset siempre va a ser un múltiplo de 2, por lo que el último dígito binario del inmediato puede asumirse siempre nulo. Con esto, el inmediato en las instrucciones de salto condicional podría codificar los 12 bits más significativos que preceden a ese último dígito binario, quedando un offset de 13 bits que, posteriormente, habría que extender a 32 bits para sumarlo al contador de programa.
+Este valor representa, en bytes, la distancia que separa a la instrucción de salto de una instrucción objetivo en memoria. Este offset siempre va a ser un múltiplo de 2, por lo que el último dígito binario del inmediato puede asumirse siempre nulo. Teniendo esto en cuenta, el inmediato en las instrucciones de salto condicional codifica los 12 bits más significativos que preceden a ese último dígito binario.
 
-A continuación, en la Figura 2.1, se presenta un diagrama con la disposición de los campos TODO:
+Para formar el offset, se añadiría un bit nulo en la posición menos significativa del inmediato, y este se extendería hasta 32 bits de tal modo que pueda ser sumado al contador de programa para formar la dirección efectiva del salto.
+
+A continuación, en la Figura 2.1, se presenta un diagrama con la estructura de una instrucción de salto condicional.
 
 \vspace{+0.1cm}
 \begin{figure}[h]

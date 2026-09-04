@@ -127,7 +127,7 @@ class SegRegFDTest extends AnyFlatSpec with ChiselScalatestTester {
 
 \vspace{+0.1cm}
 
-El primero de los problemas que se observó al examinar la traza generada por el test fue la "falta de sincronismo" entre el valor del contador de programa observado en una etapa determinada, y la instrucción observada en esa misma etapa. Esto es, que dada una instrucción observada en una fase determinada del pipeline, el valor del contador de programa que se observa en esa misma fase no se corresponde con el de la instrucción, si no con el de la instrucción que la precede en el programa.
+El primero de los problemas que se observó al examinar la traza generada por el test fue la `falta de sincronismo` entre el valor del contador de programa observado en una etapa determinada (el \textit{pc} se propaga por el pipeline), y la instrucción observada en esa misma etapa. Esto es, que dada una instrucción observada en una fase determinada del pipeline, el valor del contador de programa que se observa en esa misma fase no se corresponde con el de la instrucción, si no con el de la instrucción que le precede en el programa.
 
 En la Figura 5.9 se muestra una sección de la traza obtenida tras la ejecución del test de la Figura 5.8. En el punto de la ejecución que se señala en color rojo se observa un ejemplo de este comportamiento y, para mayor comprensión de la traza, se indica a continuación la función de las señales mostradas:
 
@@ -161,12 +161,12 @@ Tal y como se observa en la traza de la Figura 5.9, al comienzo del ciclo marcad
 
 Puede observarse que la dirección base del salto no es la correspondiente a la instrucción \texttt{jal}, si no la de la instrucción \texttt{mv} que la sucede en el programa, provocando que el salto no sea al comienzo de la subrutina \texttt{suma\_uno}, si no a la segunda instrucción dentro de esta.
 
-\vspace{+0.2cm}
+\vspace{+0.4cm}
 
 % NOTE: Figura 5.9: Seccion de la traza obtenida tras la ejecucion del test mostrado en la Figura 5.7
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.67\linewidth]{res/img/diagramas/cap05trazaGTKwaveNoCheck/cap05trazaGTKwaveNoCheck.png}
+  \includegraphics[width=0.8\linewidth]{res/img/diagramas/cap05trazaGTKwaveNoCheck/cap05trazaGTKwaveNoCheck.png}
   \caption{Sección de la traza obtenida tras la ejecución del test mostrado en la Figura 5.7}
 \end{figure}
 
@@ -181,7 +181,7 @@ Para solucionar esta problemática se cambia, dentro de la clase \textit{Memory}
 \vspace{+0.2cm}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.65\linewidth]{res/img/diagramas/cap05trazaGTKwaveNoCheck/cap05trazaGTKwaveNoCheckAfterSyncReadMemChangeToMem.png}
+  \includegraphics[width=0.75\linewidth]{res/img/diagramas/cap05trazaGTKwaveNoCheck/cap05trazaGTKwaveNoCheckAfterSyncReadMemChangeToMem.png}
   \caption{Misma sección de la traza pero con una instancia de la clase \texttt{Mem} como entidad de memoria en lugar de \texttt{SyncReadMem}.}
 \end{figure}
 
@@ -198,7 +198,7 @@ A pesar de esta corrección, puede observarse que el flujo de ejecución del pro
 \end{figure}
 \vspace{+0.1cm}
 
-La solución final para resolver esta problemática consiste en la introducción de un par de modificaciones en la fase de fetch para hacer que la arquitectura introduzca una operación \texttt{nop} tras cada instrucción de salto en cuya segunda fase se determine que este deba ser tomado. Estas modificaciones se realizan sobre la lógica que hace avanzar el contador de programa.
+La solución final para resolver esta problemática consiste en la introducción de un par de modificaciones en la fase de fetch para hacer que la arquitectura introduzca una operación \texttt{nop} (0x00000013) tras cada instrucción de salto en cuya segunda fase se determine que este deba ser tomado. Estas modificaciones se realizan sobre la lógica que hace avanzar el contador de programa.
 
 En la nueva implementación, tal y como se observa en el \texttt{diff} presentado en la Figura 5.12, se introduce un \texttt{nop} en el pipeline siempre y cuando se cumplan las dos condiciones siguientes: en primer lugar, que el cargador no haya terminado su trabajo y, en segundo lugar, que en la segunda fase de una instrucción de salto se haya determinado que este deba ser tomado (originalmente solo se contemplaba la primera condición).
 

@@ -15,7 +15,7 @@ Se proporciona a continuación, en la Figura 4.1, un diagrama con el que se espe
 \end{figure}
 
 \vspace{+0.6cm}
-A continuación se indicarán los módulos que conforman el diseño de partida junto con una descripción tanto de la funcionalidad que modelan, como de las señales de entrada y salida que reciben y generan respectivamente. Además, cabe indicar que los ficheros de código fuente donde se encuentra definido cada módulo siguen la siguiente nomenclatura: \textit{«NombreModulo».scala}.
+A continuación se indicarán los módulos que conforman el diseño de partida junto con una descripción tanto de la funcionalidad que modelan, como de las señales de entrada y salida que reciben y generan respectivamente.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TopModule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{TopModule}
@@ -31,7 +31,7 @@ Tal y como se indicaba al comienzo de este capítulo sobre la arquitectura inter
 
 Sobre el código del módulo \textit{Memory}, en él se define la clase \textit{Memory} con la que se construyen tanto la memoria unificada del computador, como la interfaz a la que se conecta el módulo \textit{CPU} para habilitar la comunicación entre la memoria y los módulos que compomen el núcleo, más concretamente, \textit{InstructionFetch} y \textit{MemoryAccess}, que emplean los puertos definidos en la interfaz de la memoria para leer de manera independiente, y en paralelo, los datos e instrucciones que en ella se encuentran alojados.
 
-A continuación se detallará el propósito de los puertos de entrada-salida del módulo. No obstante, dentro de la entrada-salida se define también un \textit{bundle} como una instancia de la clase \textit{RAMBundle}, definida dentro del mismo fichero donde se especifica la clase \textit{Memory}. Al instanciar esta clase se crea un \textit{Bundle} de Chisel, es decir, una agrupación de señales de entrada-salida, en este caso, relacionadas con la interacción con la memoria.
+A continuación se detallará el propósito de los puertos de entrada-salida del módulo. No obstante, dentro de la entrada-salida se define también un \textit{bundle} como una instancia de la clase \textit{RAMBundle}, definida dentro del mismo fichero donde se especifica la clase \textit{Memory}. Al instanciar esta clase se crea un \textit{Bundle} de Chisel, es decir, una agrupación de señales de entrada-salida, en este caso, relacionadas con la interacción con la memoria (\texttt{address}, \texttt{write\_data}, \texttt{write\_enable} y \texttt{write\_strobe}).
 
 \subsubsection{Señales de entrada}
 
@@ -53,9 +53,9 @@ A continuación se detallará el propósito de los puertos de entrada-salida del
 \begin{itemize}
   \item \textbf{\textit{instruction}}: la instrucción leída en la dirección \textit{instruction\_address}.
   \vspace{-0.2cm}
-  \item \textbf{\textit{debug\_read\_data}}: el dato leído en la dirección \textit{debug\_read\_address}.
+  \item \textbf{\textit{debug\_read\_data}}: la palabra leída en la dirección \textit{debug\_read\_address}.
   \vspace{-0.2cm}
-  \item \textbf{\textit{read\_data@bundle}}: el dato leído en la dirección \textit{address@bundle} con la máscara indicada en el \textit{strobe}.
+  \item \textbf{\textit{read\_data@bundle}}: la palabra leída en la dirección \textit{address@bundle}.
 \end{itemize}
 
 \vspace{+0.1cm}
@@ -87,7 +87,7 @@ Por último, el módulo \textit{ROMLloader} cuenta con una señal de salida con 
 
 En la Figura 4.3 se proporciona el fragmento del código de la clase \textit{TOPModule} con el que se construye la lógica que define el comportamiento descrito en este último párrafo. Puede verse que el acoplamiento entre los \textit{bundles} del cargador y la memoria, o entre esta y el núcleo, se realiza por medio del operador ´$<>$´, con el que se realiza el conexionado de señales con el mismo nombre.
 
-\vspace{+0.3cm}
+\vspace{+0.8cm}
 \begin{figure}[h!!]
 \centering
 \begin{minipage}{0.9\linewidth}
@@ -165,7 +165,7 @@ En el primer caso el contador de programa permanecerá inmutable hasta el moment
 
 Originalmente el código de este módulo se encontraba incompleto, puesto que carecía de la implementación de la lógica que establece el siguiente valor del contador de programa, es decir, el destino de un salto o la dirección de la siguiente instrucción en el programa. Esta lógica, mostrada en el código de la Figura 4.4, consiste en un multiplexor cuyo selector se conecta a la señal \textit{jump\_flag\_id}, y cuyas dos entradas son, por un lado, el destino de un salto recibido por el puerto \textit{jump\_address\_id} y, por otro lado, el valor del contador de programa más cuatro unidades (recordemos que se trata de una arquitectura de 32 bits).
 
-\vspace{+0.3cm}
+\vspace{+0.8cm}
 \begin{figure}[h]
 \centering
 \begin{minipage}{0.9\linewidth}
@@ -175,6 +175,7 @@ pc := Mux(io.jump_flag_id, io.jump_address_id, pc + 4.U)
 \caption{Conexionado del contador de programa a la salida del multiplexor que determina su valor a cada ciclo en función de los saltos que se producen en el flujo de ejecución de los programas cargados en el computador}
 \end{minipage}
 \end{figure}
+\vspace{+0.2cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% InstructionDecode %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{InstructionDecode}
@@ -194,17 +195,17 @@ Se trata quizás del módulo con mayor complejidad de entre todos de los que se 
 \begin{itemize}
   \item \textbf{\textit{regs\_reg\{1,2\}\_read\_address}}: las direcciones de los registros cuyos valores se emplearán en el cómputo de los resultados de instrucciones aritmético-lógicas, o en la determinación del cumplimiento de la condición de salto en las instrucciones de salto condicional.
   \vspace{-0.2cm}
-  \item \textbf{\textit{ex\_immediate}}: inmediato son signo, extendido a 32 bits.
+  \item \textbf{\textit{ex\_immediate}}: inmediato con signo, extendido a 32 bits.
   \item \textbf{\textit{ex\_aluop\{1,2\}\_source}}: señales de control mediante las cuales se selecciona la procedencia de los operandos de la ALU.
   \item \textbf{\textit{memory\_\{read,write\}\_enable}}: señales de control mediante las cuales se habilita la lectura o escritura en la memoria.
-  \item \textbf{\textit{wb\_reg\_write\_source}}: señal de control con la que se selecciona el origen del dato a escribir en el banco de registros en la fase de \textit{writeback}.
+  \item \textbf{\textit{wb\_reg\_write\_source}}: señal de control con la que se selecciona el origen del dato a escribir en el banco de registros en la fase de \textit{writeback} (resultado de la ALU, dato leído de memoria o siguiente contador de programa).
   \item \textbf{\textit{reg\_write\_enable}}: señal de control mediante la cual se habilita la escritura en el banco de registros.
   \item \textbf{\textit{reg\_write\_address}}: la dirección del registro en el que debe escribirse un resultado en la fase de \textit{writeback}.
 \end{itemize}
 
 Dentro de este módulo tan solo fue preciso implementar la lógica correspondiente a la habilitación de la lectura o escritura en memoria, así como de la selección del origen del resultado a escribir en la fase de \textit{writeback}, tal y como puede verse en el código expuesto en la Figura 4.5. Esta lógica se materializa por medio de un par de multiplexores: el primero de ellos gobierna la habilitación de la lectura en memoria y, el segundo, la escritura en memoria.
 
-\vspace{+0.2cm}
+\vspace{+0.4cm}
 \begin{figure}[h]
 \begin{lstlisting}[style=scalaStyle]{}
 io.memory_read_enable := Mux(
@@ -221,6 +222,7 @@ io.memory_write_enable := Mux(
 \vspace{-0.2cm}
 \caption{Generación de las señales de habilitación de lectura/escritura en memoria}
 \end{figure}
+\vspace{-0.2cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% InstructionExecute %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{InstructionExecute}
@@ -278,7 +280,7 @@ La memoria es direccionable a byte y, a partir de los dos\footnote{$\log_2\left(
 
 \begin{itemize}
   \item Cuando se trata de \textbf{lecturas} de bytes individuales, con o sin extensión de signo, el índice se emplea para extraer la sección de 8 bits correspondiente de la palabra leída por medio del bundle. En el caso de las lecturas de media palabra, cuando el valor del índice es igual a 0 se lee la mitad menos significativa y, en cualquier otro caso, la más significativa.
-  \item En las operaciones de \textbf{escritura} el índice se emplea en la construcción del \textit{strobe} o máscara indicado en el bundle por medio del puerto \textit{write\_strobe}. En las escritura de bytes individuales se configura la máscara con un 1 en la posición del índice y el resto a 0 y, en las operaciones de escritura de media palabra, cuando el valor del índice es igual a 0 los dos bits menos significativos de la máscara se configuran con el valor 1; en cualquier otro caso se configurarían con valor 1 los dos bits más significativos.
+  \item En las operaciones de \textbf{escritura} el índice se emplea en la construcción del \textit{strobe} o máscara indicado en el bundle por medio del puerto \textit{write\_strobe} (ver Sección 4.1.2).
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WriteBack %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,6 +1,6 @@
 \chapter{Despliegue de las implementaciones sobre FPGA}
 
-La fase final del proyecto consiste en la adaptación de las implementaciones con las que se ha trabajado, de tal modo que estas pueden ser cargadas en el chip FPGA de la placa de desarrollo Arty A7 100T. Además, se pretence realizar una prueba de concepto en la que se envíe un código de ejemplo en formato binario por medio de la interfaz serie disponible en la placa. El código será posteriormente cargado en la memoria del computador para ser ejecutado sobre las . Esto requerirá incluir una serie de modificaciones en el diseño de la CPU de tal modo que la tarea de realizar la inicialización de la memoria ya no recaiga en el cargador, si no en un nuevo módulo que dote al computador de capacidad para comunicar, usando el protocolo UART, con un host externo del cual recibirá el código de prueba. Esta comunicación se iniciará en el host remoto por medio de la utilidad \textit{TeraTerm}.
+La fase final del proyecto consiste en la adaptación de las implementaciones con las que se ha trabajado, de tal modo que estas pueden ser cargadas en el chip FPGA de la placa de desarrollo Arty A7 100T. Además, se pretende realizar una prueba de concepto en la que se envíe un código de ejemplo en formato binario por medio de la interfaz serie disponible en la placa. El código será posteriormente cargado en la memoria del computador para ser posteriormente ejecutado. Esto requerirá incluir una serie de modificaciones en el diseño de la CPU de tal modo que la tarea de realizar la inicialización de la memoria ya no recaiga en el cargador, si no en un nuevo módulo que dote al computador de capacidad para comunicar, usando el protocolo UART, con un host externo del cual recibirá el código de prueba. Esta comunicación se iniciará en el host remoto por medio de la utilidad \textit{TeraTerm}.
 
 Se muestra en la Figura 6.1 el diragrama de la arquitectura global del computador, actualizado para sustituir la memoria ROM de instrucciones y el cargador (\textit{InstructionROM} y \textit{ROMLoader} respectivamente), por un nuevo módulo \texttt{UART}.
 
@@ -22,7 +22,7 @@ Se muestra en la Figura 6.1 el diragrama de la arquitectura global del computado
 
 Por defecto, un fichero de código desarrollado en Chisel no cuenta con un método principal que pueda ejecutarse. Esto es así puesto que la finalidad del código es solamente describir, por medio de constructos propios del lenguaje Scala, el comportamiento interno de componentes hardware. No obstante a esto, el flujo de despliegue de un circuito digital sobre hardware real usando el software Vivado, exige que el punto de entrada de dicho flujo sea código Verilog/VHDL.
 
-Para obtener código Verilog a partir de un desarrollo implementado en Chisel \cite{chisel-to-verilog} es necesario añadir la declaración de objeto mostrada en las líneas 35 a 37 de la Figura 6.2. La instanciación de ese objeto \textit{Top} extendiendo la clase \textit{App} dota al código compilado de un punto de entrada en el que se ejecuta el método \texttt{emitVerilog}, cuyo resultado será el equivalente en sintaxis Verilog de la clase instanciada en el parámetro del método.
+Para obtener código Verilog a partir de un desarrollo implementado en Chisel \cite{chisel-to-verilog} es necesario añadir la declaración de objeto mostrada en las líneas 35 a 37 de la Figura 6.2. La instanciación de ese objeto \textit{Top} extendiendo la clase \textit{App} dota al código compilado de un punto de entrada en el que se ejecuta el método \texttt{emitVerilog}, cuyo resultado será una traducción, en sintaxis Verilog, del código Chisel con que se define el módulo \texttt{Top}.
 
 A partir de este fichero Verilog, Vivado llevará a cabo las etapas de síntesis, implementación y generación del \textit{bitstream}\footnote{El bitstream describe cómo debe configurarse el tejido programable de la FPGA, incluyendo la configuración de LUTs, registros, bloques de memoria, redes de interconexión y recursos de entrada/salida.} que posteriormente se programará en el chip FPGA de la placa de desarrollo.
 
@@ -72,7 +72,7 @@ object Top extends App {
 \end{figure}
 
 \vspace{+0.1cm}
-El computador cuenta con las siguientes señales de entrada y salida:
+El computador cuenta con las siguientes señales de entrada y salida, las cuales han sido añadidas para trabajar con la FPGA:
 
 \begin{itemize}
   \item \textbf{\textit{instruction\_valid} (entrada)}: La señal con la que se establece si el computador debe permanecer a la espera de recibir el programa o si, por el contrario, debe dar comienzo a su ejecución.
@@ -118,7 +118,7 @@ create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports { c
 \caption{\textit{Constraints} configurados para probar el diseño final en la placa.}
 \end{figure}
 
-El reloj de la placa de desarrollo funciona, por defecto, a una frecuencia de 100 MHz. A esa frecuencia de trabajo resulta muy complicado observar las actualizaciones del contador de programa que se reflejan en el array de LEDs, por lo que se ha implementado un mecanismo de generación de la señal de reloj mediante habilitación.
+El reloj de la placa de desarrollo funciona, por defecto, a una frecuencia de 100 MHz. A esa frecuencia de trabajo resulta muy complicado observar las actualizaciones del contador de programa que se reflejan en el array de LEDs, por lo que se ha implementado un divisor de frecuencia con el que ralentizar la ejecución de los programas en la CPU.
 
 El código que implementa el mecanismo se muestra en la Figura 6.4 y su funcionamiento es como sigue:
 
@@ -188,7 +188,7 @@ class Top extends Module {
 %%%%%%%%%%%%%%% Análisis de los resultados temporales y de área obtenidos en Vivado %%%%%%%%%%%%%%%%
 \section{Análisis de los resultados temporales y de área obtenidos en Vivado}
 
-La integración del \texttt{BUFGCE} tenía el único propósito de hacer que la verificación de resultados de una prueba de concepto (carga y ejecución de un código sencillo), fuera algo realizable, pudiendo observar una actualización del contador de programa cada 0.5 segundos. No obstante a esto, y de cara a realizar un análisis de la arquitectura en condiciones normales de operación, se ha suprimido el \texttt{BUFGCE}, quedando en las \textit{constraints}, tan solo, la asignación del reloj al pin correspondiente en la placa, y la definición del reloj \texttt{sys\_clk\_pin}.
+La integración del \texttt{BUFGCE} tenía el único propósito de hacer que la verificación de resultados de una prueba de concepto (carga y ejecución de un código sencillo), fuera algo realizable, pudiendo observar una actualización del contador de programa cada 0.5 segundos. No obstante, de cara a realizar un análisis de la arquitectura en condiciones normales de operación, se ha suprimido el \texttt{BUFGCE}, quedando en las \textit{constraints}, tan solo, la asignación del reloj al pin correspondiente en la placa, y la definición del reloj \texttt{sys\_clk\_pin}.
 
 A continuación se comentarán los resultados obtenidos por la herramienta Vivado tras la síntesis e implementación del diseño monociclo original y el diseño segmentado.
 
@@ -247,7 +247,7 @@ Un resultado esperado es el incremento del 30\% observado en el número de Flip-
 
 \subsection{Análisis temporal}
 
-En el resumen del análisis temporal obtenido con el comando \texttt{report\_timing\_summary} se indican los siguientes valores para el WNS (\textit{Wors Negative Slack}) de cada diseño:
+En el resumen del análisis temporal obtenido con el comando \texttt{report\_timing\_summary} se indican los siguientes valores para el WNS (\textit{Worst Negative Slack}) de cada diseño:
 
 \begin{itemize}
   \item \textbf{Monociclo:} WNS (ns) = -19.983
@@ -271,7 +271,7 @@ F_{\text{max}}=
 
 donde $T_{\text{crit}}$ es el tiempo que tarda una señal en recorrer el camino crítico, y $T_{\text{reloj}}$ es el periodo de la señal de reloj ($1/f_{\text{reloj}}$). Por otro lado, al haber obtenido un slack positivo para el diseño segmentado, este podrá funcionar a los 100 MHz que marca el reloj de la placa.
 
-Al ejecutar el comando \texttt{report\_timing -max\_paths 5} se obtiene un informe más detallado con los datos presentado en la Figura 6.6. Se observa el slack obtenido para cada implementación, el requisito temporal a cumplir (periodo del reloj en el apdo. \textit{Requirement}), el tiempo del camino crítico (dato del apdo. \textit{Data Path Delay}), y el número de niveles lógicos atravesados en ese camino crítico (\textit{Logic Levels}).
+Al ejecutar el comando \texttt{report\_timing -max\_paths 5} se obtiene un informe más detallado con los datos presentado en la Figura 6.6. Se observa el slack obtenido para cada implementación, el requisito temporal a cumplir (periodo del reloj en el apartado \textit{Requirement}), el tiempo del camino crítico (dato del apartado \textit{Data Path Delay}), y el número de niveles lógicos atravesados en ese camino crítico (\textit{Logic Levels}).
 
 % Figura 6.6: Selección de algunos de los valores obtenidos tras análisis temporal.
 \vspace{+0.1cm}
